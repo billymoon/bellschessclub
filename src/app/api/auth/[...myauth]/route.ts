@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import pkceChallenge from "pkce-challenge";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import { createUser, getUser } from "@/modules/sanity";
+import { getUser } from "@/modules/sanity";
 
 const client_id = "lichess-auth";
 
@@ -114,7 +114,7 @@ export const GET = async (
   const {
     myauth: [action],
   } = await params;
-  const { pathname, searchParams } = new URL(url);
+  const { searchParams } = new URL(url);
   const queryParams = Object.fromEntries(Array.from(searchParams.entries()));
 
   const { origin } = new URL(

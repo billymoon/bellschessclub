@@ -7,8 +7,8 @@ export const EditPage = ({ member }) => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
+    // watch,
+    // formState: { errors },
   } = useForm({
     defaultValues: {
       lichessUsername: member.lichessUsername || "",

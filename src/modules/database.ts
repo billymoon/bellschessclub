@@ -4,7 +4,8 @@ const promisedDatabase: Promise<Worker> = new Promise(async (resolve) => {
   // don't try to run service worker server side
   if (typeof window === "undefined") return;
   // TODO: why don't we need to run initBackend?
-  const { initBackend } = await import(
+  // const { initBackend } = 
+  await import(
     "@aphro/absurd-sql/dist/indexeddb-main-thread"
   );
   const databaseWorker = new Worker(

@@ -5,7 +5,7 @@ const dbPromise = (async () => {
   const initSqlJs = await import("@aphro/sql.js").then(
     (importedModule) => importedModule.default,
   );
-  const SQL = await initSqlJs({ locateFile: (file) => "/sql-wasm.wasm" });
+  const SQL = await initSqlJs({ locateFile: () => "/sql-wasm.wasm" });
   const sqlFS = new SQLiteFS(SQL.FS, new IndexedDBBackend());
   SQL.register_for_idb(sqlFS);
 
@@ -14,7 +14,7 @@ const dbPromise = (async () => {
 
   const path = "/sql/db.sqlite";
   if (typeof SharedArrayBuffer === "undefined") {
-    let stream = SQL.FS.open(path, "a+");
+    const stream = SQL.FS.open(path, "a+");
     await stream.node.contents.readIfFallback();
     SQL.FS.close(stream);
   }

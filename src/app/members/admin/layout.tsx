@@ -1,6 +1,5 @@
 "use server";
-import { getUser, getUsers } from "@/modules/sanity";
-import { getUsernameFromCookie } from "@/modules/cookies";
+import { getUsers } from "@/modules/sanity";
 import { AdminStoreProvider } from "@/stores/admin-store-provider";
 
 export default async function AdminsLayout({
@@ -8,7 +7,6 @@ export default async function AdminsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const username = await getUsernameFromCookie();
   const members = await getUsers(false);
 
   return (

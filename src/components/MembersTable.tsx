@@ -9,7 +9,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MemberState } from "@/stores/member-store";
-import { getUserInfoFromCookie } from "@/modules/cookies";
 
 export function MembersTable({
   members,

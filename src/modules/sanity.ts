@@ -21,7 +21,7 @@ export const deleteDocument = async (_id) => await client.delete(_id);
 export const getMemberByPnum = async (pnum) =>
   await client.fetch(`*[_type == "member" && pnum == "${pnum}"][0]`);
 export const updateDocumentById = async (_id, data) => {
-  const { isAdmin, ...rest } = await getUserInfoFromCookie();
+  const { isAdmin } = await getUserInfoFromCookie();
   if (isAdmin) {
     console.log({ _id, data });
     await client.patch(_id).set(data).commit();

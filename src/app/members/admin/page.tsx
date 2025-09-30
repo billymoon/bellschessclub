@@ -1,15 +1,12 @@
 "use client";
-import { FormField } from "@/components/FormField";
 import { MembersTable } from "@/components/MembersTable";
-import { getUserInfoFromCookie } from "@/modules/cookies";
-import { deleteDocument, getDocuments, getUsers } from "@/modules/sanity";
 import { useAdminStore } from "@/stores/admin-store-provider";
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 
 const getUserCookie = () => {
   try {
     return JSON.parse(atob(getCookie("user").split(".")[1]));
-  } catch (err) {
+  } catch {
     return {};
   }
 };

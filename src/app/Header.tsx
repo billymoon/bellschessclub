@@ -7,6 +7,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Button asChild variant="ghost" size="sm" className="gap-2">
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/">
               <Home className="size-4" />
               <span className="hidden sm:inline">Home</span>

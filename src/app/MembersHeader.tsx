@@ -12,10 +12,13 @@ export function MembersHeader() {
           <Button asChild variant="ghost" size="sm" className="gap-2">
             <a href="/members/profile">Profile for {member.username}</a>
           </Button>
-          {member.isAdmin ? <Button asChild variant="ghost" size="sm" className="gap-2">
-            <a href="/members/admin">User admin</a>
-          </Button> : null}
+          {member.isAdmin ? (
+            <Button asChild variant="ghost" size="sm" className="gap-2">
+              <a href="/members/admin">User admin</a>
+            </Button>
+          ) : null}
           <Button asChild variant="ghost" size="sm" className="gap-2">
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/api/auth/logout">
               <LogOut className="size-4" />
               <span className="hidden sm:inline">Logout</span>

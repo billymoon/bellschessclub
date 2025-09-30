@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
       const cookie = request.cookies.get("user");
       jwtDecode(cookie?.value);
       return NextResponse.next();
-    } catch (err) {
+    } catch {
       return NextResponse.redirect(new URL("/api/auth/login", request.url));
     }
   }
