@@ -21,6 +21,7 @@ export const EditPage = ({ member }) => {
   const onSubmit = async (values) => {
     await updateDocumentById(member._id, {
       lichessUsername: values.lichessUsername,
+      username: values.lichessUsername,
     });
     window.location = window.location;
   };
