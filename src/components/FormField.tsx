@@ -37,7 +37,7 @@ const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
           <Label
             htmlFor={id || fieldId}
             className={cn(
-              "text-sm font-medium leading-none",
+              "text-sm font-medium leading-none pt-4",
               error && "text-destructive",
               required &&
                 "after:content-['*'] after:ml-0.5 after:text-destructive",

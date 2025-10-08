@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Crown, Home, Users } from "lucide-react";
+import { Crown, Home, Swords, Users } from "lucide-react";
+import Link from "next/link";
 
 export function Header() {
   return (
@@ -21,12 +22,20 @@ export function Header() {
             </h1>
           </div>
 
-          <Button asChild variant="ghost" size="sm" className="gap-2">
-            <a href="/members">
-              <Users className="size-4" />
-              <span className="hidden sm:inline">Members</span>
-            </a>
-          </Button>
+          <div>
+            <Button asChild variant="ghost" size="sm" className="gap-2">
+              <Link href="/members/matches">
+                <Swords className="size-4" />
+                <span className="hidden sm:inline">Matches</span>
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="gap-2">
+              <Link href="/members">
+                <Users className="size-4" />
+                <span className="hidden sm:inline">Members</span>
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </header>

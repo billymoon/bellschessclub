@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SQLiteFS } from "@aphro/absurd-sql";
 import IndexedDBBackend from "@aphro/absurd-sql/dist/indexeddb-backend";
 

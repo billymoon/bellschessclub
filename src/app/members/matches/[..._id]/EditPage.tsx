@@ -2,24 +2,25 @@
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/ui/button";
 import { updateDocumentById } from "@/modules/sanity";
-import { Member, MemberPartial, MemberStringified } from "@/modules/schema";
+import { Match, MatchPartial, MatchStringified } from "@/modules/schema";
 import { useForm } from "react-hook-form";
 import { create } from "superstruct";
 
-export const EditPage = ({ member }: { member: Member }) => {
+export const EditPage = ({ matchDocument }: { matchDocument: Match }) => {
+  console.log(matchDocument)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      ...create(member, MemberStringified),
+      ...create(matchDocument, MatchStringified),
     },
     resolver: (schema, _, args) => {
       console.log(schema, _, args);
       const errors = {};
       try {
-        const values = create(schema, Member);
+        const values = create(schema, Match);
         return {
           errors,
           values,
@@ -34,8 +35,8 @@ export const EditPage = ({ member }: { member: Member }) => {
     },
   });
 
-  const onSubmit = async (formValues: MemberPartial) => {
-    const values = create(formValues, MemberPartial);
+  const onSubmit = async (formValues: MatchPartial) => {
+    const values = create(formValues, MatchPartial);
     await updateDocumentById(formValues._id, {
       ...values,
     });
@@ -47,38 +48,33 @@ export const EditPage = ({ member }: { member: Member }) => {
     error: errors[fieldName]?.toString(),
   });
 
-  // console.log(errors);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormField {...registerWithErrors("name")} label="Name" />
-        <FormField {...registerWithErrors("pnum")} label="Pnum" />
         <FormField
-          {...registerWithErrors("lichessUsername")}
-          label="Lichess username"
+          {...registerWithErrors("date")}
+          label="Date"
         />
         <FormField
-          {...registerWithErrors("chesscomUsername")}
-          label="Chess.com username"
+          {...registerWithErrors("day")}
+          label="Day"
         />
         <FormField
-          {...registerWithErrors("allegroLive")}
-          label="Allegro Live"
+          {...registerWithErrors("isAtHome")}
+          label="Is at home"
         />
         <FormField
-          {...registerWithErrors("allegroPublished")}
-          label="Allegro Published"
+          {...registerWithErrors("opponent")}
+          label="Opponent"
         />
         <FormField
-          {...registerWithErrors("standardLive")}
-          label="Standard Live"
+          {...registerWithErrors("team")}
+          label="Team"
         />
         <FormField
-          {...registerWithErrors("standardPublished")}
-          label="Standard Published"
+          {...registerWithErrors("venue")}
+          label="Venue"
         />
-        <FormField {...registerWithErrors("isAdmin")} label="Is admin" />
-        <FormField {...registerWithErrors("active")} label="Is active" />
         <Button type="submit" className="mt-4">
           Save
         </Button>

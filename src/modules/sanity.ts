@@ -1,6 +1,8 @@
 "use server";
-import { createClient } from "@sanity/client";
+import { AttributeSet, createClient } from "@sanity/client";
 import { getUserInfoFromCookie } from "./cookies";
+import { Match, Member, MemberDocument } from "./schema";
+import { create } from "superstruct";
 
 const client = createClient({
   projectId: "rzzlhpv8",
@@ -11,16 +13,31 @@ const client = createClient({
 });
 
 export const getDocuments = async () => await client.fetch(`*`);
-export const getUsers = async (active = true) =>
-  await client.fetch(
+
+export const getUsers = async (active = true): Promise<Member[]> =>
+  (await client.fetch(
     `*[_type == "member"${
       active ? " && active == true" : ""
-    }] | order(standardPublished desc) | order(length(standardPublished) desc)`,
+    }] | order(standardPublished desc)`,
+  )).map((data: Member) => create(data, Member));
+
+export const getMatches = async (): Promise<Match[]> =>
+  (await client.fetch(
+    `*[_type == "match"] | order(date asc)`,
+  )).map((data: Member) => create(data, Match));
+
+export const deleteDocument = async (_id: MemberDocument["_id"]) =>
+  await client.delete(_id);
+
+export const getMemberByPnum = async (pnum: Member["pnum"]) =>
+  await client.fetch(
+    `*[_type == "member" && (pnum == "${pnum}" || pnum == ${pnum})][0]`,
   );
-export const deleteDocument = async (_id) => await client.delete(_id);
-export const getMemberByPnum = async (pnum) =>
-  await client.fetch(`*[_type == "member" && pnum == "${pnum}"][0]`);
-export const updateDocumentById = async (_id, data) => {
+
+export const updateDocumentById = async (
+  _id: MemberDocument["_id"],
+  data: AttributeSet,
+) => {
   const { isAdmin } = await getUserInfoFromCookie();
   if (isAdmin) {
     console.log({ _id, data });
@@ -30,9 +47,14 @@ export const updateDocumentById = async (_id, data) => {
     throw Error("not allowed - not admin");
   }
 };
-export const getUser = async (username) =>
+
+export const getUser = async (username: Member["username"]) =>
   await client.fetch(`*[_type == "member" && username == "${username}"][0]`);
-export const createUser = async (username, data) => {
+
+export const createUser = async (
+  username: Member["username"],
+  data: AttributeSet,
+) => {
   const user = await getUser(username);
   if (!user) {
     await client.create({
@@ -42,10 +64,6 @@ export const createUser = async (username, data) => {
     });
   }
 };
-// await client.createIfNotExists({
-//   ...data,
-//   // _id: `user.${username}`,
-//   _type: "user",
-//   username,
-// });
-export const getDocument = async (_id) => await client.getDocument(_id);
+
+export const getDocument = async (_id: MemberDocument["_id"]) =>
+  await client.getDocument(_id);

@@ -32,7 +32,7 @@ export default async function MembersLayout({
     <MemberStoreProvider
       initialData={{
         member: await getUser(username),
-        members: await getUsers(),
+        members: await getUsers(false),
       }}
     >
       <MembersHeader />
@@ -40,3 +40,4 @@ export default async function MembersLayout({
     </MemberStoreProvider>
   );
 }
+// ().map((data: Member) => create(data, Member))

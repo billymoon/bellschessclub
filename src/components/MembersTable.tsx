@@ -8,18 +8,34 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MemberState } from "@/stores/member-store";
+import { Member } from "@/modules/schema";
+import { Button } from "./ui/button";
+import { useState } from "react";
 
 export function MembersTable({
   members,
   isAdmin = false,
 }: {
-  members: MemberState["member"][];
+  members: Member[];
+  isAdmin?: Member["isAdmin"];
 }) {
+  const [showAll, setShowAll] = useState(false);
   return (
     <Card className="mt-2">
       <CardHeader>
-        <CardTitle>Club Members</CardTitle>
+        <CardTitle>
+          Club Members{" "}
+          {isAdmin ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-2 cursor-pointer"
+              onClick={() => setShowAll(!showAll)}
+            >
+              Show {showAll ? "active" : "all"}
+            </Button>
+          ) : null}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
@@ -34,7 +50,7 @@ export function MembersTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {members.map((member) => (
+            {members.filter(({ active }) => showAll || active).map((member) => (
               <TableRow key={member.pnum}>
                 <TableCell className="font-medium">
                   {isAdmin ? (
@@ -79,8 +95,8 @@ export function MembersTable({
                   {member.allegroPublished}
                 </TableCell>
                 <TableCell>
-                  <Badge variant={member.isAdmin ? "default" : "secondary"}>
-                    {member.isAdmin ? "Admin" : "Member"}
+                  <Badge variant={member.isAdmin ? "default" : member.active ? "outline" : "destructive"}>
+                    {member.isAdmin ? "Admin" : member.active ? "Member" : "Inactive"}
                   </Badge>
                 </TableCell>
               </TableRow>

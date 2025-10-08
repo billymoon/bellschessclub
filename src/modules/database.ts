@@ -1,10 +1,12 @@
+// eslint-ignore-next-line  @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 const stack = [];
 
 const promisedDatabase: Promise<Worker> = new Promise(async (resolve) => {
   // don't try to run service worker server side
   if (typeof window === "undefined") return;
   // TODO: why don't we need to run initBackend?
-  // const { initBackend } = 
+  // const { initBackend } =
   await import(
     "@aphro/absurd-sql/dist/indexeddb-main-thread"
   );

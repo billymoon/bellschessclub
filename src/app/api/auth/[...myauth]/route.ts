@@ -70,8 +70,9 @@ const callback = async (
     },
   ).then((r) => r.json());
 
+  const expireDateTime = new Date(Date.now() + expires_in * 1000);
   const exp = Math.floor(
-    new Date(Date.now() + expires_in * 1000).getTime() / 1000,
+    expireDateTime.getTime() / 1000,
   );
 
   const account = await fetch("https://lichess.org/api/account", {
@@ -84,6 +85,7 @@ const callback = async (
 
   // await createUser(account.username, { team: "sandybells" });
 
+  console.log({ exp, expires_in, expireDateTime });
   const jwt = jwtEncode(
     {
       username: account.username,
@@ -98,7 +100,7 @@ const callback = async (
     },
   );
 
-  cookieStore.set("user", jwt);
+  cookieStore.set("user", jwt, { expires: expireDateTime });
 
   if (user) {
     redirect("/members");

@@ -1,22 +1,37 @@
 "use server";
 import { cookies } from "next/headers";
 import { jwtDecode } from "@/modules/jwt";
+import { Member } from "./schema";
 
-export const getUsernameFromCookie = async () => {
-  const cookieStore = await cookies();
-  const userCookie = cookieStore.get("user");
-  const username = userCookie
-    ? jwtDecode(userCookie.value).username
-    : undefined;
-  return username;
+type UserCookie = {
+  isAdmin: Member["isAdmin"];
+  isGuest: boolean;
+  isMember: boolean;
+  username: Member["username"];
 };
 
-export const getUserInfoFromCookie = async () => {
+export const getUsernameFromCookie = async (): Promise<
+  Member["username"] | undefined
+> => {
   const cookieStore = await cookies();
   const userCookie = cookieStore.get("user");
-  const { username, isAdmin, isMember, isGuest } = userCookie
-    ? jwtDecode(userCookie.value)
-    : undefined;
+  if (userCookie) {
+    const { username } = jwtDecode(userCookie.value) as UserCookie;
+    return username;
+  } else {
+    return null;
+  }
+};
 
-  return { username, isAdmin, isMember, isGuest };
+export const getUserInfoFromCookie = async (): Promise<UserCookie> => {
+  const cookieStore = await cookies();
+  const userCookie = cookieStore.get("user");
+  if (userCookie) {
+    const { username, isAdmin, isMember, isGuest } = jwtDecode(
+      userCookie.value,
+    ) as UserCookie;
+    return { username, isAdmin, isMember, isGuest };
+  } else {
+    return { username: null, isAdmin: false, isMember: false, isGuest: true };
+  }
 };
