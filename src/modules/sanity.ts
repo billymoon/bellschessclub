@@ -1,7 +1,7 @@
 "use server";
 import { AttributeSet, createClient } from "@sanity/client";
 import { getUserInfoFromCookie } from "./cookies";
-import { Match, Member, MemberDocument } from "./schema";
+import { AllegroEvent, Match, Member, MemberDocument } from "./schema";
 import { create } from "superstruct";
 
 const client = createClient({
@@ -24,7 +24,12 @@ export const getUsers = async (active = true): Promise<Member[]> =>
 export const getMatches = async (): Promise<Match[]> =>
   (await client.fetch(
     `*[_type == "match"] | order(date asc)`,
-  )).map((data: Member) => create(data, Match));
+  )).map((data: Match) => create(data, Match));
+
+export const getAllegroEvents = async (): Promise<AllegroEvent[]> =>
+  (await client.fetch(
+    `*[_type == "allegro"] | order(date asc)`,
+  )).map((data: AllegroEvent) => create(data, AllegroEvent));
 
 export const deleteDocument = async (_id: MemberDocument["_id"]) =>
   await client.delete(_id);

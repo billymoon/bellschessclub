@@ -1,5 +1,6 @@
 import {
   any,
+  array,
   assign,
   boolean,
   coerce,
@@ -203,4 +204,46 @@ export const MatchStringified = ConvertToString(Match);
 //   str,
 //   create(str, Match)
 //   // Match.schema
+// );
+
+export const AllegroEventData = object({
+  _type: defaulted(enums(["allegro"]), "allegro"),
+  date: ISODateString,
+  opponents: array(string()),
+});
+
+export const AllegroEvent = assign(
+  partial(SanityDocProps),
+  AllegroEventData,
+);
+
+export const AllegroEventDocument = assign(
+  SanityDocProps,
+  AllegroEventData,
+);
+
+export type AllegroEvent = Infer<typeof AllegroEvent>;
+
+export const AllegroEventPartial = partial(AllegroEvent);
+export type AllegroEventPartial = Infer<typeof AllegroEventPartial>;
+
+export const AllegroEventDataStringified = ConvertToString(AllegroEventData);
+export const AllegroEventStringified = ConvertToString(AllegroEvent);
+
+// const mem = create(
+//   {
+//     date: "2025-10-28T19:15:00.000Z",
+//     opponents: ["Musselburgh 1", "Musselburgh 2"],
+//   },
+//   AllegroEventPartial,
+//   // AllegroEvent,
+//   // AllegroEventDocument,
+//   // AllegroEventStringified,
+// );
+// // const str = create(mem, AllegroEventStringified);
+// console.log(
+//   mem,
+//   // str,
+//   // create(str, AllegroEvent)
+//   // AllegroEvent.schema
 // );

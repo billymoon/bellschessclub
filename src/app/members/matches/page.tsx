@@ -1,7 +1,8 @@
+// @ts-nocheck
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { getMatches } from "@/modules/sanity";
+import { getAllegroEvents, getMatches } from "@/modules/sanity";
 import { Match } from "@/modules/schema";
 import { useMemberStore } from "@/stores/member-store-provider";
 import { Pencil } from "lucide-react";
@@ -14,6 +15,43 @@ import { useEffect, useState } from "react";
 //     <input type="datetime-local" value={timestamp.slice(0, 16)} />
 //   </div>
 // );
+
+const MatchCard = ({ match, member }) => (
+  <Card className="p-8 my-4 relative" key={match._id}>
+    {/* {match.day} */}
+    {member.isAdmin ? (
+      <div className="absolute right-1 top-1">
+        <Button asChild variant="ghost" size="sm">
+          <a href={`/members/matches/${match._id}`}>
+            <Pencil className="size-3" /> Edit
+          </a>
+        </Button>
+      </div>
+    ) : null}
+    <div>
+      We cordially invite you as a member of <b>Team {match.team}</b> on{" "}
+      <b>
+        <DateTime timestamp={match.date} />
+      </b>{" "}
+      to take part in the annihilation of {match.opponent} at{" "}
+      <b>{match.isAtHome ? "at our home venue" : "away at their venue"}</b> of{" "}
+      {match.venue}
+    </div>
+  </Card>
+);
+
+const AllegroCard = ({ match }) => (
+  <Card className="p-8 my-4 relative" key={match._id}>
+    <div>
+      It&apos;s that time again, Allegro will be hosted at Slateford Bowling Club on{" "}
+      <b>
+        <DateTime timestamp={match.date} />
+      </b>{" "}
+      where we will be up against {match.opponents.join(" and ")}.
+    </div>
+  </Card>
+);
+
 const DateTime = ({ timestamp }) => (
   <>
     {new Intl.DateTimeFormat("en-GB", {
@@ -30,36 +68,26 @@ export default function Page() {
 
   useEffect(() => {
     void (async () => {
-      setMatchData(await getMatches());
+      const matches = await getMatches();
+      const allegroEvents = await getAllegroEvents();
+      setMatchData(
+        [...matches, ...allegroEvents].sort((a, b) =>
+          a.date < b.date ? -1 : 1,
+        ),
+      );
     })();
   }, []);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       {matchData?.map((match) => (
-        <Card className="p-8 my-4 relative" key={match._id}>
-          {/* {match.day} */}
-          {member.isAdmin ? (
-            <div className="absolute right-1 top-1">
-              <Button asChild variant="ghost" size="sm">
-                <a href={`/members/matches/${match._id}`}>
-                  <Pencil className="size-3" /> Edit
-                </a>
-              </Button>
-            </div>
-          ) : null}
-          <div>
-            We cordially invite you as a member of <b>Team {match.team}</b> on{" "}
-            <b>
-              <DateTime timestamp={match.date} />
-            </b>{" "}
-            to take part in the annihilation of {match.opponent} at{" "}
-            <b>
-              {match.isAtHome ? "at our home venue" : "away at their venue"}
-            </b>{" "}
-            of {match.venue}
-          </div>
-        </Card>
+        <div key={match._id}>
+          {match._type === "allegro" ? (
+            <AllegroCard member={member} match={match} />
+          ) : (
+            <MatchCard member={member} match={match} />
+          )}
+        </div>
       ))}
     </div>
   );
