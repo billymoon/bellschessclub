@@ -50,57 +50,60 @@ export function MembersTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {members.filter(({ active }) => showAll || active).map((member) => (
-              <TableRow key={member.pnum}>
-                <TableCell className="font-medium">
-                  {isAdmin ? (
+            {members
+              .filter(({ active }) => showAll || active)
+              .map((member) => (
+                <TableRow key={member.pnum}>
+                  <TableCell className="font-medium">{member.name}</TableCell>
+                  <TableCell className="font-medium p-0">
                     <a
-                      href={`/members/admin/edit/${member.pnum}`}
+                      href={`https://www.chessscotland.com/grading/player/${member.pnum}`}
                       className="hover:underline"
                     >
-                      <div className="p-[10]">{member.name}</div>
+                      <div className="p-[10]">{member.pnum}</div>
                     </a>
-                  ) : (
-                    member.name
-                  )}
-                </TableCell>
-                <TableCell className="font-medium p-0">
-                  <a
-                    href={`https://www.chessscotland.com/grading/player/${member.pnum}`}
-                    className="hover:underline"
+                  </TableCell>
+                  <TableCell className="font-medium p-0">
+                    {member.lichessUsername ? (
+                      <a
+                        href={`https://lichess.org/@/${member.lichessUsername}`}
+                        className="hover:underline"
+                      >
+                        <div className="p-[10]">{member.lichessUsername}</div>
+                      </a>
+                    ) : null}
+                  </TableCell>
+                  <TableCell
+                    className="font-medium"
+                    title={`Published: ${member.standardPublished}\nLive: ${member.standardLive}`}
                   >
-                    <div className="p-[10]">{member.pnum}</div>
-                  </a>
-                </TableCell>
-                <TableCell className="font-medium p-0">
-                  {member.lichessUsername ? (
-                    <a
-                      href={`https://lichess.org/@/${member.lichessUsername}`}
-                      className="hover:underline"
+                    {member.standardPublished}
+                  </TableCell>
+                  <TableCell
+                    className="font-medium"
+                    title={`Published: ${member.allegroPublished}\nLive: ${member.allegroLive}`}
+                  >
+                    {member.allegroPublished}
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      variant={
+                        member.isAdmin
+                          ? "default"
+                          : member.active
+                            ? "outline"
+                            : "destructive"
+                      }
                     >
-                      <div className="p-[10]">{member.lichessUsername}</div>
-                    </a>
-                  ) : null}
-                </TableCell>
-                <TableCell
-                  className="font-medium"
-                  title={`Published: ${member.standardPublished}\nLive: ${member.standardLive}`}
-                >
-                  {member.standardPublished}
-                </TableCell>
-                <TableCell
-                  className="font-medium"
-                  title={`Published: ${member.allegroPublished}\nLive: ${member.allegroLive}`}
-                >
-                  {member.allegroPublished}
-                </TableCell>
-                <TableCell>
-                  <Badge variant={member.isAdmin ? "default" : member.active ? "outline" : "destructive"}>
-                    {member.isAdmin ? "Admin" : member.active ? "Member" : "Inactive"}
-                  </Badge>
-                </TableCell>
-              </TableRow>
-            ))}
+                      {member.isAdmin
+                        ? "Admin"
+                        : member.active
+                          ? "Member"
+                          : "Inactive"}
+                    </Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </CardContent>

@@ -5,6 +5,7 @@ import { getUserInfoFromCookie } from "@/modules/cookies";
 import { MemberStoreProvider } from "@/stores/member-store-provider";
 import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function MembersLayout({
   children,
@@ -18,11 +19,10 @@ export default async function MembersLayout({
       <div>
         Welcome friend... not much to see{" "}
         <Button asChild variant="ghost" size="sm" className="gap-2">
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/api/auth/logout">
+          <Link href="/api/auth/logout">
             <LogOut className="size-4" />
             <span className="hidden sm:inline">Logout</span>
-          </a>
+          </Link>
         </Button>
       </div>
     );
@@ -40,4 +40,3 @@ export default async function MembersLayout({
     </MemberStoreProvider>
   );
 }
-// ().map((data: Member) => create(data, Member))

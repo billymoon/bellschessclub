@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./Header";
+import { getUserInfoFromCookie } from "@/modules/cookies";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,11 +19,12 @@ export const metadata: Metadata = {
   description: "Home of Chess in Edinburgh South",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isAdmin } = await getUserInfoFromCookie()
   return (
     <html lang="en">
       <head>
@@ -49,7 +51,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
+        <Header isAdmin={isAdmin} />
         {children}
       </body>
     </html>

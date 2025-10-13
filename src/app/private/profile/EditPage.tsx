@@ -1,7 +1,7 @@
 "use client";
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/ui/button";
-import { updateDocumentById } from "@/modules/sanity";
+import { updateMyself } from "@/modules/sanity";
 import { Member, MemberPartial, MemberStringified } from "@/modules/schema";
 import { useForm } from "react-hook-form";
 import { create } from "superstruct";
@@ -36,9 +36,10 @@ export const EditPage = ({ member }: { member: Member }) => {
 
   const onSubmit = async (formValues: MemberPartial) => {
     const values = create(formValues, MemberPartial);
-    await updateDocumentById(formValues._id, {
-      ...values,
-    });
+    // if (values.lichessUsername) {
+    //   values.username = values.lichessUsername;
+    // }
+    await updateMyself(values);
     window.location.replace(window.location.href);
   };
 
@@ -47,16 +48,15 @@ export const EditPage = ({ member }: { member: Member }) => {
     error: errors[fieldName]?.toString(),
   });
 
-  // console.log(errors);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormField {...registerWithErrors("name")} label="Name" />
         <FormField {...registerWithErrors("pnum")} label="Pnum" />
-        <FormField
+        {/* <FormField
           {...registerWithErrors("lichessUsername")}
           label="Lichess username"
-        />
+        /> */}
         <FormField
           {...registerWithErrors("chesscomUsername")}
           label="Chess.com username"

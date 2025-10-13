@@ -1,4 +1,4 @@
-import { jwtEncode } from "@/modules/jwt";
+import { jwtDecode, jwtEncode } from "@/modules/jwt";
 import { redirect } from "next/navigation";
 import pkceChallenge from "pkce-challenge";
 import { cookies } from "next/headers";
@@ -10,7 +10,15 @@ const client_id = "lichess-auth";
 const logout = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("user");
-  redirect("/");
+  const impersonator = cookieStore.get("impersonator");
+  if (impersonator) {
+    const { exp } = jwtDecode(impersonator.value);
+    cookieStore.set("user", impersonator.value, { expires: exp * 1000 });
+    cookieStore.delete("impersonator");
+    redirect("/admin");
+  } else {
+    redirect("/");
+  }
 };
 
 const login = async (redirect_uri: string) => {
@@ -83,29 +91,26 @@ const callback = async (
 
   const user = await getUser(account.username);
 
-  // await createUser(account.username, { team: "sandybells" });
-
-  console.log({ exp, expires_in, expireDateTime });
-  const jwt = jwtEncode(
-    {
-      username: account.username,
-      isAdmin: Boolean(user?.isAdmin),
-      isMember: Boolean(user),
-      isGuest: !Boolean(user),
-      exp,
-    },
-    {
-      access_token,
-      expires_in,
-    },
-  );
-
-  cookieStore.set("user", jwt, { expires: expireDateTime });
-
   if (user) {
-    redirect("/members");
+    const jwt = jwtEncode(
+      {
+        _id: user._id,
+        username: account.username,
+        isAdmin: Boolean(user?.isAdmin),
+        isMember: Boolean(user),
+        isGuest: !Boolean(user),
+        exp,
+      },
+      {
+        access_token,
+        expires_in,
+      },
+    );
+
+    cookieStore.set("user", jwt, { expires: expireDateTime });
+    redirect("/private/matches");
   } else {
-    redirect("/");
+    redirect("/forbidden");
   }
 };
 

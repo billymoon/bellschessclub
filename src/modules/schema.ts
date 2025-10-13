@@ -16,6 +16,7 @@ import {
   pattern,
   string,
   Struct,
+  type,
 } from "superstruct";
 
 const InvalidToken = Symbol("InvalidToken");
@@ -54,13 +55,14 @@ const grade = defaulted(
   0,
 );
 
-export const SanityDocProps = object({
+export const SanityDocProps = type({
   _createdAt: ISODateString,
   _id: hashish,
   _rev: hashish,
   _type: string(),
   _updatedAt: ISODateString,
 });
+export type SanityDocProps = Infer<typeof SanityDocProps>;
 
 export const MemberData = object({
   _type: defaulted(enums(["member"]), "member"),
@@ -118,36 +120,18 @@ const ConvertToString = (DataStruct: Struct<any, any>) =>
 export const MemberDataStringified = ConvertToString(MemberData);
 export const MemberStringified = ConvertToString(Member);
 
-// const mem = create(
-//   {
-//     // _createdAt: new Date().toISOString(),
-//     // _id: "03b44a9f-d69b-4a6b-a884-1b376fa673e4",
-//     // _rev: "AS5i4RvL5zgUXbbUgdW2G1",
-//     // _type: "member",
-//     // _updatedAt: "2025-09-29T00:45:02Z",
-//     active: true,
-//     allegroLive: 1103,
-//     allegroPublished: 1103,
-//     chesscomUsername: null,
-//     isAdmin: false,
-//     lichessUsername: null,
-//     name: "Dowle, Chris",
-//     pnum: 29136,
-//     standardLive: 1203,
-//     standardPublished: 1190,
-//     username: null,
-//   },
-//   // MemberPartial,
-//   Member,
-//   // MemberDocument,
-//   // MemberStringified,
-// );
-// const str = create(mem, MemberDataStringified);
-// console.log(
-//   mem,
-//   str,
-//   create(str, Member),
-// );
+export const AvailabilityTypes = enums(["available", "maybe", "not available"]);
+export type AvailabilityTypes = Infer<typeof AvailabilityTypes>;
+
+const MemberReference = object({
+  _key: optional(string()),
+  player: object({
+    _ref: string(),
+    _type: defaulted(enums(["reference"]), "reference"),
+  }),
+  availability: AvailabilityTypes,
+  rating: optional(nullable(number())),
+});
 
 export const MatchData = object({
   _type: defaulted(enums(["match"]), "match"),
@@ -158,19 +142,30 @@ export const MatchData = object({
   team: coerce(enums([1, 2]), string(), withJSON),
   // time: string(),
   venue: string(),
+  players: defaulted(array(MemberReference), []),
 });
 
 export const Match = assign(
   partial(SanityDocProps),
   MatchData,
+  object({
+    availability: nullable(defaulted(
+      array(object({
+        name: string(),
+        availability: AvailabilityTypes,
+        rating: optional(nullable(number())),
+      })),
+      [],
+    )),
+  }),
 );
+export type Match = Infer<typeof Match>;
 
 export const MatchDocument = assign(
   SanityDocProps,
   MatchData,
 );
-
-export type Match = Infer<typeof Match>;
+export type MatchDocument = Infer<typeof MatchDocument>;
 
 export const MatchPartial = partial(Match);
 export type MatchPartial = Infer<typeof MatchPartial>;
@@ -178,38 +173,11 @@ export type MatchPartial = Infer<typeof MatchPartial>;
 export const MatchDataStringified = ConvertToString(MatchData);
 export const MatchStringified = ConvertToString(Match);
 
-// const mem = create(
-//   {
-//     date: "2025-10-28T19:15:00.000Z",
-//     day: "Tuesday",
-//     isAtHome: "true",
-//     opponent: "Musselburgh 2",
-//     team: "2",
-//     // time: "1915",
-//     venue: "Musselburgh Store Club",
-//     _createdAt: "2025-10-08T17:34:23Z",
-//     _id: "5512584f-dcff-4272-81d0-8feb0832ec50",
-//     _rev: "6WtiBizt6GSRcp6LvNV1pe",
-//     _type: "match",
-//     _updatedAt: "2025-10-08T17:34:23Z",
-//   },
-//   // MatchPartial,
-//   Match,
-//   // MatchDocument,
-//   // MatchStringified,
-// );
-// const str = create(mem, MatchStringified);
-// console.log(
-//   mem,
-//   str,
-//   create(str, Match)
-//   // Match.schema
-// );
-
 export const AllegroEventData = object({
   _type: defaulted(enums(["allegro"]), "allegro"),
   date: ISODateString,
   opponents: array(string()),
+  players: defaulted(array(MemberReference), []),
 });
 
 export const AllegroEvent = assign(

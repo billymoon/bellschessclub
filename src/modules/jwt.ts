@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { aesDecrypt, aesEncrypt } from "./aes";
 
-const JWT_SECRET =
-  process.env.JWT_SECRET || "a-string-secret-at-least-256-bits-long";
+const JWT_SECRET = process.env.JWT_SECRET ||
+  "a-string-secret-at-least-256-bits-long";
 
 export const jwtEncode = (data = {}, secret = {}) =>
   jwt.sign(
@@ -13,8 +13,10 @@ export const jwtEncode = (data = {}, secret = {}) =>
     JWT_SECRET,
   );
 
-export const jwtDecode = (token, withSecret = false) => {
-  const { secret, ...data } = jwt.verify(token, JWT_SECRET);
+export const jwtDecode = (token: string, withSecret = false) => {
+  const { secret, ...data } = jwt.verify(token, JWT_SECRET) as {
+    secret: string;
+  };
   if (withSecret) {
     return {
       ...data,
