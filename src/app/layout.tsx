@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./Header";
 import { getUserInfoFromCookie } from "@/modules/cookies";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isAdmin } = await getUserInfoFromCookie()
+  const { isAdmin } = await getUserInfoFromCookie();
   return (
     <html lang="en">
       <head>
@@ -51,6 +52,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
         <Header isAdmin={isAdmin} />
         {children}
       </body>
