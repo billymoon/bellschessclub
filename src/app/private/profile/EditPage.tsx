@@ -77,8 +77,8 @@ export const EditPage = ({ member }: { member: Member }) => {
           {...registerWithErrors("standardPublished")}
           label="Standard Published"
         />
-        <FormField {...registerWithErrors("isAdmin")} label="Is admin" />
-        <FormField {...registerWithErrors("active")} label="Is active" />
+        {/* <FormField {...registerWithErrors("isAdmin")} label="Is admin" />
+        <FormField {...registerWithErrors("active")} label="Is active" /> */}
         <Button type="submit" className="mt-4">
           Save
         </Button>

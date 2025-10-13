@@ -13,8 +13,7 @@ import { create } from "superstruct";
 
 const client = createClient({
   projectId: "rzzlhpv8",
-  dataset: "production",
-  // dataset: "develop",
+  dataset: process.env.SANITY_STUDIO_DATASET || "develop",
   useCdn: false, // set to `true` to fetch from edge cache
   apiVersion: "2022-01-12", // use current date (YYYY-MM-DD) to target the latest API version
   token: process.env.SANITY_SECRET_TOKEN, // Only if you want to update content with the client
@@ -43,11 +42,12 @@ const updateDocument = (
 export const updateDocumentAdmin = throwUnlessAdmin(updateDocument);
 
 export const updateMyself = async (
-  data: AttributeSet,
+  // eslint-disable-next-line  @typescript-eslint/no-unused-vars
+  { isAdmin, active, ...data }: AttributeSet,
 ) => {
   const { _id } = await getUserInfoFromCookie();
   if (_id) {
-    await client.patch(_id).set(data).commit();
+    await client.patch(_id).set({ ...data }).commit();
     return "ok";
   } else {
     throw Error("not allowed - not admin");
