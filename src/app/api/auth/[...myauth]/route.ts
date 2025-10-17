@@ -139,3 +139,5 @@ export const GET = async (
     return Response.json({ origin, action, queryParams }, { status: 400 });
   }
 };
+
+export const POST = GET;

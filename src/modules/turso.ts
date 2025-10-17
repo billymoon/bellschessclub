@@ -10,7 +10,7 @@ import {
     SanityDocProps,
 } from "./schema";
 import { create } from "superstruct";
-import { createClient as tursoClient, Row } from "@libsql/client";
+import { createClient as tursoClient } from "@libsql/client";
 import { evaluate, parse } from "groq-js";
 
 const turso = tursoClient({
