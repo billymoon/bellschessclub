@@ -1,8 +1,10 @@
 import { Member, MemberPartial } from "@/modules/schema";
+import { SanityDocument } from "@sanity/client";
 import { create } from "superstruct";
 import { createStore } from "zustand/vanilla";
 
 export type MemberState = {
+  documents: SanityDocument[];
   member: Member;
   members?: Member[];
 };
@@ -18,6 +20,7 @@ export const initMemberStore = (initialData: MemberState): MemberState => {
 };
 
 export const defaultInitState: MemberState = {
+  documents: [],
   member: create({
     username: "",
     isAdmin: false,

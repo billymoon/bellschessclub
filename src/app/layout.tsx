@@ -28,6 +28,9 @@ export default async function RootLayout({
   const { isAdmin } = await getUserInfoFromCookie();
   return (
     <html lang="en">
+      <meta charSet="UTF-8" />
+      <meta name="google" content="notranslate" />
+      <meta httpEquiv="Content-Language" content="en" />
       <head>
         <title>Sandy Bells Chess Club</title>
         <link
@@ -52,7 +55,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Analytics />
+        {process.env.NODE_ENV === "production" ? <Analytics /> : null}
         <Header isAdmin={isAdmin} />
         {children}
       </body>

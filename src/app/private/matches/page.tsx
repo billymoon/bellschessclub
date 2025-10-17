@@ -5,9 +5,9 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {
   getAllegroEvents,
-  getMatches,
   setAvailabilityForMatch,
-} from "@/modules/sanity";
+  getMatches,
+} from "@/modules/turso";
 import { AllegroEvent, Match, Member } from "@/modules/schema";
 import { useMemberStore } from "@/stores/member-store-provider";
 import { Check, Dices, X } from "lucide-react";
@@ -175,13 +175,15 @@ export default function Page() {
 
   useEffect(() => {
     void (async () => {
-      const matches = await getMatches();
-      const allegroEvents = await getAllegroEvents();
-      setMatchData(
-        [...matches, ...allegroEvents].sort((a, b) =>
-          a.date < b.date ? -1 : 1,
-        ),
-      );
+      if (typeof window !== "undefined") {
+        const matches = await getMatches();
+        const allegroEvents = await getAllegroEvents();
+        setMatchData(
+          [...matches, ...allegroEvents].sort((a, b) =>
+            a.date < b.date ? -1 : 1,
+          ),
+        );
+      }
     })();
   }, []);
 

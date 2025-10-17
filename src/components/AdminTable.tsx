@@ -11,7 +11,8 @@ import { Member, MemberPartial } from "@/modules/schema";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
-import { updateDocumentById } from "@/modules/sanity";
+import { updateDocumentById } from "@/modules/turso";
+import Link from "next/link";
 
 const AdminTableRow = ({ member }: { member: MemberPartial }) => {
   const { register, handleSubmit } = useForm({
@@ -44,12 +45,12 @@ const AdminTableRow = ({ member }: { member: MemberPartial }) => {
   return (
     <TableRow>
       <TableCell className="font-medium">
-        <a
+        <Link
           href={`/api/impersonate/${member.username}`}
           className="hover:underline"
         >
           <div className="p-[10]">{member.name}</div>
-        </a>
+        </Link>
       </TableCell>
       <TableCell className="font-medium p-0">
         <div className="p-[10]">{member.pnum}</div>

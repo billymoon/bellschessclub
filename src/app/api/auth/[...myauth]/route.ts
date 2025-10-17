@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import pkceChallenge from "pkce-challenge";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import { getUser } from "@/modules/sanity";
+import { getUser } from "@/modules/turso";
 
 const client_id = "lichess-auth";
 

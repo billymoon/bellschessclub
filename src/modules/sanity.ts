@@ -29,7 +29,7 @@ const throwUnlessAdmin = (fn: unknown) => async (...args: unknown[]) => {
   }
 };
 
-export const getDocuments = async () => await client.fetch(`*`);
+export const getDocuments = async () => await client.fetch(`*[!(_type match "system.*")]`);
 
 export const deleteDocument = async (_id: SanityDocProps["_id"]) =>
   await client.delete(_id);

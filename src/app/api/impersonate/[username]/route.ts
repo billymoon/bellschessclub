@@ -2,7 +2,7 @@ import { jwtEncode } from "@/modules/jwt";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import { getUser } from "@/modules/sanity";
+import { getUser } from "@/modules/turso";
 import {
   copyUserToImpersonatorCookie,
   getUserInfoFromCookie,

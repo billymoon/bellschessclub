@@ -2,22 +2,24 @@
 import { Button } from "@/components/ui/button";
 import { useMemberStore } from "@/stores/member-store-provider";
 import { LogOut } from "lucide-react";
+import Link from "next/link";
 
 export function MembersHeader() {
-  const { member } = useMemberStore((state) => state);
+  const { member, documents } = useMemberStore((state) => state);
+  // console.log({ member, documents })
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Button asChild variant="ghost" size="sm" className="gap-2">
-            <a href="/private/profile">Profile for {member.username}</a>
+            <Link href="/private/profile">Profile for {member.username}</Link>
           </Button>
           <Button asChild variant="ghost" size="sm" className="gap-2">
             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-            <a href="/api/auth/logout">
+            <Link href="/api/auth/logout">
               <LogOut className="size-4" />
               <span className="hidden sm:inline">Logout</span>
-            </a>
+            </Link>
           </Button>
         </div>
       </div>
