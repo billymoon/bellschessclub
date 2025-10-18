@@ -5,8 +5,7 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 
 export function MembersHeader() {
-  const { member, documents } = useMemberStore((state) => state);
-  // console.log({ member, documents })
+  const { member } = useMemberStore((state) => state);
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,10 +15,10 @@ export function MembersHeader() {
           </Button>
           <Button asChild variant="ghost" size="sm" className="gap-2">
             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-            <Link href="/api/auth/logout">
+            <a href="/api/auth/logout">
               <LogOut className="size-4" />
               <span className="hidden sm:inline">Logout</span>
-            </Link>
+            </a>
           </Button>
         </div>
       </div>

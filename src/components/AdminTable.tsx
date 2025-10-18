@@ -45,12 +45,12 @@ const AdminTableRow = ({ member }: { member: MemberPartial }) => {
   return (
     <TableRow>
       <TableCell className="font-medium">
-        <Link
+        <a
           href={`/api/impersonate/${member.username}`}
           className="hover:underline"
         >
           <div className="p-[10]">{member.name}</div>
-        </Link>
+        </a>
       </TableCell>
       <TableCell className="font-medium p-0">
         <div className="p-[10]">{member.pnum}</div>

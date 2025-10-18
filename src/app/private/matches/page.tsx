@@ -152,7 +152,7 @@ const AllegroCard = ({
       </b>{" "}
       where we will be up against {match.opponents.join(" and ")}.
     </div>
-    {isNextOfType ? <div>asdasd</div> : null}
+    {/* {isNextOfType ? <div>asdasd</div> : null} */}
   </Card>
 );
 
