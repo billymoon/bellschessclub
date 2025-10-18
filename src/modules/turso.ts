@@ -130,6 +130,7 @@ export const setAvailabilityForMatch = async (
     const { _id, username } = await getUserInfoFromCookie();
     const member = await getUser(username);
 
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
         _createdAt,
         _id: _unused,
