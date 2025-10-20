@@ -7,6 +7,7 @@ import {
     Match,
     MatchDocument,
     Member,
+    MemberProps,
     SanityDocProps,
 } from "./schema";
 import { create } from "superstruct";
@@ -21,9 +22,9 @@ const turso = tursoClient({
 let documents: SanityDocument[] = [];
 
 export const queryAllDocuments = async (query: string = "") => {
-    if (documents?.length === 0) {
+    // if (documents?.length === 0) {
         documents = await queryDocuments();
-    }
+    // }
     const tree = parse(query);
 
     const value = await evaluate(tree, { dataset: documents });
@@ -74,10 +75,18 @@ const updateDocument = async (
     _id: SanityDocProps["_id"],
     data: AttributeSet,
 ) => {
-    const doc = await getDocument(_id);
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    const {
+        _createdAt,
+        _id: _unused,
+        _ref,
+        _updatedAt,
+        _type,
+        ...docData
+    } = await getDocument(_id);
     await turso.execute(
         `update documents set data = '${
-            JSON.stringify({ ...JSON.parse(doc.data), ...data })
+            JSON.stringify({ ...docData, ...data })
         }' where _id == '${_id}'`,
     );
 
@@ -92,10 +101,18 @@ export const updateMyself = async (
 ) => {
     const { _id } = await getUserInfoFromCookie();
     if (_id) {
-        const doc = await getDocument(_id);
+        /* eslint-disable @typescript-eslint/no-unused-vars */
+        const {
+            _createdAt,
+            _id: _unused,
+            _ref,
+            _updatedAt,
+            _type,
+            ...docData
+        } = await getDocument(_id);
         await turso.execute(
             `update documents set data = '${
-                JSON.stringify({ ...JSON.parse(doc.data), ...data })
+                JSON.stringify({ ...docData, ...data })
             }' where _id == '${_id}'`,
         );
         documents = [];
@@ -178,10 +195,17 @@ export const updateDocumentById = async (
 ) => {
     const { isAdmin } = await getUserInfoFromCookie();
     if (isAdmin) {
-        const doc = await getDocument(_id);
+        const {
+            _id: _unused,
+            _createdAt,
+            _updatedAt,
+            _rev,
+            _type,
+            ...docData
+        } = await getDocument(_id);
         await turso.execute(
             `update documents set data = '${
-                JSON.stringify({ ...JSON.parse(doc.data), ...data })
+                JSON.stringify({ ...docData, ...data })
             }' where _id == '${_id}'`,
         );
         documents = [];
