@@ -11,7 +11,8 @@ import { Member, MemberPartial } from "@/modules/schema";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
-import { updateDocumentById } from "@/modules/sanity";
+import { updateDocumentById } from "@/modules/turso";
+import Link from "next/link";
 
 const AdminTableRow = ({ member }: { member: MemberPartial }) => {
   const { register, handleSubmit } = useForm({

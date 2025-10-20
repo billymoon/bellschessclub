@@ -1,7 +1,7 @@
 "use client";
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/ui/button";
-import { updateDocumentById } from "@/modules/sanity";
+import { updateDocumentById } from "@/modules/turso";
 import { Member, MemberPartial, MemberStringified } from "@/modules/schema";
 import { useForm } from "react-hook-form";
 import { create } from "superstruct";

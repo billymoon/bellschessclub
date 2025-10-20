@@ -1,5 +1,5 @@
 import { EditPage } from "./EditPage";
-import { getMemberByPnum } from "@/modules/sanity";
+import { getMemberByPnum } from "@/modules/turso";
 
 export default async function Page({ params }) {
   const pnum = (await params).pnum[0];
