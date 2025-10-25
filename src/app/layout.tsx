@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./Header";
-import { getUserInfoFromCookie } from "@/modules/cookies";
+import { getUserInfoFromCookie, getUserInfoFromImpersonatorCookie } from "@/modules/cookies";
 import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
@@ -26,6 +26,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { isAdmin } = await getUserInfoFromCookie();
+  const { _id: imposterId } = await getUserInfoFromImpersonatorCookie();
+
   return (
     <html lang="en">
       <meta charSet="UTF-8" />
@@ -56,7 +58,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {process.env.NODE_ENV === "production" ? <Analytics /> : null}
-        <Header isAdmin={isAdmin} />
+        <Header isAdmin={isAdmin} isImpersonating={Boolean(imposterId)} />
         {children}
       </body>
     </html>

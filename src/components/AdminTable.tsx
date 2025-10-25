@@ -12,7 +12,6 @@ import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { updateDocumentById } from "@/modules/turso";
-import Link from "next/link";
 
 const AdminTableRow = ({ member }: { member: MemberPartial }) => {
   const { register, handleSubmit } = useForm({
@@ -46,7 +45,7 @@ const AdminTableRow = ({ member }: { member: MemberPartial }) => {
     <TableRow>
       <TableCell className="font-medium">
         <a
-          href={`/api/impersonate/${member.username}`}
+          href={`/api/impersonate/${member._id}`}
           className="hover:underline"
         >
           <div className="p-[10]">{member.name}</div>

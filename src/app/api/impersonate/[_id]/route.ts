@@ -2,7 +2,7 @@ import { jwtEncode } from "@/modules/jwt";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import { getUser } from "@/modules/turso";
+import { getUserById } from "@/modules/turso";
 import {
   copyUserToImpersonatorCookie,
   getUserInfoFromCookie,
@@ -11,22 +11,21 @@ import {
 
 export const GET = async (
   _req: NextRequest,
-  { params }: { params: { username: string } },
+  { params }: { params: { _id: string } },
 ) => {
   const cookieStore = await cookies();
   const {
-    username,
+    _id,
   } = await params;
   const user = await getUserInfoFromCookie();
   const impersonator = await getUserInfoFromImpersonatorCookie();
   if (impersonator.isAdmin || user.isAdmin) {
-    const impersonatedUser = await getUser(username);
+    const impersonatedUser = await getUserById(_id);
     if (impersonatedUser) {
       await copyUserToImpersonatorCookie();
       const jwt = jwtEncode(
         {
           _id: impersonatedUser._id,
-          username: impersonatedUser.username,
           isAdmin: Boolean(impersonatedUser?.isAdmin),
           isMember: Boolean(impersonatedUser),
           isGuest: !Boolean(impersonatedUser),
@@ -36,9 +35,9 @@ export const GET = async (
       cookieStore.set("user", jwt);
       redirect("/private/profile");
     } else {
-      return Response.json({ username, user, impersonator }, { status: 401 });
+      return Response.json({ _id, user, impersonator }, { status: 401 });
     }
   } else {
-    return Response.json({ username, user, impersonator }, { status: 401 });
+    return Response.json({ _id, user, impersonator }, { status: 401 });
   }
 };

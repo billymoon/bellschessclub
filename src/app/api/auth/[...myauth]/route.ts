@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import pkceChallenge from "pkce-challenge";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import { getUser } from "@/modules/turso";
+import { getUserByLichessUsername } from "@/modules/turso";
 
 const client_id = "lichess-auth";
 
@@ -89,13 +89,13 @@ const callback = async (
     },
   }).then((r) => r.json());
 
-  const user = await getUser(account.username);
+  const user = await getUserByLichessUsername(account.username);
+  console.log({ user })
 
   if (user) {
     const jwt = jwtEncode(
       {
         _id: user._id,
-        username: account.username,
         isAdmin: Boolean(user?.isAdmin),
         isMember: Boolean(user),
         isGuest: !Boolean(user),

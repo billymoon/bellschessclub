@@ -37,10 +37,10 @@ const MatchCard = ({
       className={cn(
         "p-8 my-4 relative",
         match.date < NOW
-          ? "bg-gray-200"
+          ? "card-historic"
           : match.team === 1
-            ? "bg-blue-100"
-            : "bg-green-100",
+            ? "card-team-1"
+            : "card-team-2",
       )}
       key={match._id}
     >
@@ -104,7 +104,7 @@ const MatchCard = ({
               <Check /> Yes! I am available
             </Button>
             <Button
-              variant="outline"
+              variant="secondary"
               className="cursor-pointer bg-orange-200 hover:bg-orange-300"
               onClick={async () => {
                 await setAvailabilityForMatch(match._id!, "maybe");
@@ -132,15 +132,15 @@ const MatchCard = ({
 
 const AllegroCard = ({
   match,
-  isNextOfType,
+  // isNextOfType,
 }: {
   match: AllegroEvent;
-  isNextOfType: boolean;
+  // isNextOfType: boolean;
 }) => (
   <Card
     className={cn(
       "p-8 my-4 relative",
-      match.date < NOW ? "bg-gray-200" : "bg-orange-100",
+      match.date < NOW ? "card-historic" : "card-allegro",
     )}
     key={match._id}
   >
@@ -152,7 +152,7 @@ const AllegroCard = ({
       </b>{" "}
       where we will be up against {match.opponents.join(" and ")}.
     </div>
-    {/* {isNextOfType ? <div>asdasd</div> : null} */}
+    {/* {isNextOfType ? <div>set availablilty</div> : null} */}
   </Card>
 );
 
