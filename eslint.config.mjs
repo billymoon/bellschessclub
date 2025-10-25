@@ -16,6 +16,7 @@ const eslintConfig = [
       "@typescript-eslint/ban-ts-comment": "off"
     },
     ignores: [
+      "misc/**",
       "node_modules/**",
       ".next/**",
       "out/**",

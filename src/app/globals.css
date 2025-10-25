@@ -46,6 +46,10 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
+  --background-card-historic: var(--color-gray-200);
+  --background-card-team-1: var(--color-blue-100);
+  --background-card-team-2: var(--color-green-100);
+  --background-card-allegro: var(--color-orange-100);
   --foreground: oklch(0.147 0.004 49.25);
   --interactive: oklch(0.4 0.17 255.82);
   --card: oklch(1 0 0);
@@ -79,8 +83,14 @@
   --sidebar-ring: oklch(0.709 0.01 56.259);
 }
 
+/* @media (prefers-color-scheme: dark) { */
+/* :root { */
 .dark {
   --background: oklch(0.147 0.004 49.25);
+  --background-card-historic: var(--color-neutral-900);
+  --background-card-team-1: var(--color-indigo-950);
+  --background-card-team-2: var(--color-emerald-950);
+  --background-card-allegro: var(--color-yellow-950);
   --foreground: oklch(0.985 0.001 106.423);
   --interactive: oklch(56.872% 0.15622 266.365);
   --card: oklch(0.216 0.006 56.043);
@@ -113,6 +123,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.553 0.013 58.071);
 }
+/* } */
 
 @layer base {
   * {
@@ -125,4 +136,20 @@
 
 a {
   color: var(--interactive);
+}
+
+.card-historic {
+  background: var(--background-card-historic);
+}
+
+.card-team-1 {
+  background: var(--background-card-team-1);
+}
+
+.card-team-2 {
+  background: var(--background-card-team-2);
+}
+
+.card-allegro {
+  background: var(--background-card-allegro);
 }

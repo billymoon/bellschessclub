@@ -7,7 +7,6 @@ import {
     Match,
     MatchDocument,
     Member,
-    MemberProps,
     SanityDocProps,
 } from "./schema";
 import { create } from "superstruct";
@@ -23,7 +22,7 @@ let documents: SanityDocument[] = [];
 
 export const queryAllDocuments = async (query: string = "") => {
     // if (documents?.length === 0) {
-        documents = await queryDocuments();
+    documents = await queryDocuments();
     // }
     const tree = parse(query);
 
@@ -96,7 +95,6 @@ const updateDocument = async (
 export const updateDocumentAdmin = throwUnlessAdmin(updateDocument);
 
 export const updateMyself = async (
-    // eslint-disable-next-line  @typescript-eslint/no-unused-vars
     { isAdmin, active, ...data }: AttributeSet,
 ) => {
     const { _id } = await getUserInfoFromCookie();
@@ -144,8 +142,8 @@ export const setAvailabilityForMatch = async (
     match_id: MatchDocument["_id"],
     availability: AvailabilityTypes,
 ) => {
-    const { _id, username } = await getUserInfoFromCookie();
-    const member = await getUser(username);
+    const { _id } = await getUserInfoFromCookie();
+    const member = await getUserById(_id);
 
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
@@ -215,9 +213,15 @@ export const updateDocumentById = async (
     }
 };
 
-export const getUser = async (username: Member["username"]) =>
+export const getUserByLichessUsername = async (
+    lichessUsername: Member["lichessUsername"],
+) => await queryAllDocuments(
+    `*[_type == "member" && lichessUsername == "${lichessUsername}"][0]`,
+);
+
+export const getUserById = async (_id: Member["_id"]) =>
     await queryAllDocuments(
-        `*[_type == "member" && username == "${username}"][0]`,
+        `*[_type == "member" && _id == "${_id}"][0]`,
     );
 
 export const getDocument = async (_id: SanityDocProps["_id"]) =>

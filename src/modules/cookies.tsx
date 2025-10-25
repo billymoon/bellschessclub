@@ -11,19 +11,6 @@ type UserCookie = {
   _id: Member["_id"];
 };
 
-export const getUsernameFromCookie = async (): Promise<
-  Member["username"] | undefined
-> => {
-  const cookieStore = await cookies();
-  const userCookie = cookieStore.get("user");
-  if (userCookie) {
-    const { username } = jwtDecode(userCookie.value) as UserCookie;
-    return username;
-  } else {
-    return null;
-  }
-};
-
 export const getUserInfoFromCookie = async (): Promise<UserCookie> => {
   const cookieStore = await cookies();
   const userCookie = cookieStore.get("user");

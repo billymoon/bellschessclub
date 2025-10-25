@@ -1,9 +1,9 @@
 import { getUserInfoFromCookie } from "@/modules/cookies";
 import { EditPage } from "./EditPage";
-import { getUser } from "@/modules/turso";
+import { getUserById } from "@/modules/turso";
 
 export default async function Page() {
-  const { username } = await getUserInfoFromCookie()
-  const member = await getUser(username);
+  const { _id } = await getUserInfoFromCookie();
+  const member = await getUserById(_id);
   return <EditPage member={member} />;
 }
