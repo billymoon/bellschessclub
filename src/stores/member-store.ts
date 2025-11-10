@@ -21,10 +21,13 @@ export const initMemberStore = (initialData: MemberState): MemberState => {
 
 export const defaultInitState: MemberState = {
   documents: [],
-  member: create({
-    username: "",
-    isAdmin: false,
-  }, Member),
+  member: create(
+    {
+      username: "",
+      isAdmin: false,
+    },
+    Member,
+  ),
 };
 
 export const createMemberStore = (

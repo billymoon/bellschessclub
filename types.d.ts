@@ -1,1 +1,1 @@
-declare module 'aes256';
+declare module "aes256";

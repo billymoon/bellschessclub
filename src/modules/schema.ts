@@ -41,17 +41,13 @@ const nullOrPosInt = defaulted(nullable(toPosInt), null);
 const nullOrString = defaulted(nullable(string()), null);
 const nullOrBoolean = (value: boolean) => defaulted(toBoolean, value);
 const grade = defaulted(
-  coerce(
-    toPosInt,
-    string(),
-    (val) => {
-      if (/^\d+$/.test(val)) {
-        return parseInt(val, 10);
-      } else {
-        return InvalidToken;
-      }
-    },
-  ),
+  coerce(toPosInt, string(), (val) => {
+    if (/^\d+$/.test(val)) {
+      return parseInt(val, 10);
+    } else {
+      return InvalidToken;
+    }
+  }),
   0,
 );
 
@@ -79,15 +75,9 @@ export const MemberData = object({
   username: nullOrString,
 });
 
-export const Member = assign(
-  partial(SanityDocProps),
-  MemberData,
-);
+export const Member = assign(partial(SanityDocProps), MemberData);
 
-export const MemberDocument = assign(
-  SanityDocProps,
-  MemberData,
-);
+export const MemberDocument = assign(SanityDocProps, MemberData);
 
 export type Member = Infer<typeof Member>;
 
@@ -99,17 +89,12 @@ export type MemberDocument = Infer<typeof MemberDocument>;
 const ConvertToString = (DataStruct: Struct<any, any>) =>
   object(
     Object.fromEntries(
-      Object.entries(DataStruct.schema).map((
-        [key],
-      ) => [
+      Object.entries(DataStruct.schema).map(([key]) => [
         key,
-        coerce(
-          optional(string()),
-          any(),
-          (val) =>
-            typeof val === "string"
-              ? val
-              : val == null
+        coerce(optional(string()), any(), (val) =>
+          typeof val === "string"
+            ? val
+            : val == null
               ? ""
               : JSON.stringify(val),
         ),
@@ -149,22 +134,23 @@ export const Match = assign(
   partial(SanityDocProps),
   MatchData,
   object({
-    availability: nullable(defaulted(
-      array(object({
-        name: string(),
-        availability: AvailabilityTypes,
-        rating: optional(nullable(number())),
-      })),
-      [],
-    )),
+    availability: nullable(
+      defaulted(
+        array(
+          object({
+            name: string(),
+            availability: AvailabilityTypes,
+            rating: optional(nullable(number())),
+          }),
+        ),
+        [],
+      ),
+    ),
   }),
 );
 export type Match = Infer<typeof Match>;
 
-export const MatchDocument = assign(
-  SanityDocProps,
-  MatchData,
-);
+export const MatchDocument = assign(SanityDocProps, MatchData);
 export type MatchDocument = Infer<typeof MatchDocument>;
 
 export const MatchPartial = partial(Match);
@@ -184,21 +170,22 @@ export const AllegroEvent = assign(
   partial(SanityDocProps),
   AllegroEventData,
   object({
-    availability: nullable(defaulted(
-      array(object({
-        name: string(),
-        availability: AvailabilityTypes,
-        rating: optional(nullable(number())),
-      })),
-      [],
-    )),
+    availability: nullable(
+      defaulted(
+        array(
+          object({
+            name: string(),
+            availability: AvailabilityTypes,
+            rating: optional(nullable(number())),
+          }),
+        ),
+        [],
+      ),
+    ),
   }),
 );
 
-export const AllegroEventDocument = assign(
-  SanityDocProps,
-  AllegroEventData,
-);
+export const AllegroEventDocument = assign(SanityDocProps, AllegroEventData);
 
 export type AllegroEventDocument = Infer<typeof AllegroEventDocument>;
 export type AllegroEvent = Infer<typeof AllegroEvent>;

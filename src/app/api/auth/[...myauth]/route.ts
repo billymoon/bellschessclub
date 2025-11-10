@@ -24,18 +24,16 @@ const logout = async () => {
 const login = async (redirect_uri: string) => {
   const challenge = await pkceChallenge();
 
-  const authUrl = `https://lichess.org/oauth?${
-    new URLSearchParams({
-      redirect_uri,
-      client_id,
-      response_type: "code",
-      code_challenge_method: "S256",
-      code_challenge: challenge.code_challenge,
-      // TODO: encrypt this or store in server state
-      state: challenge.code_verifier,
-      scope: "preference:read",
-    }).toString()
-  }`;
+  const authUrl = `https://lichess.org/oauth?${new URLSearchParams({
+    redirect_uri,
+    client_id,
+    response_type: "code",
+    code_challenge_method: "S256",
+    code_challenge: challenge.code_challenge,
+    // TODO: encrypt this or store in server state
+    state: challenge.code_verifier,
+    scope: "preference:read",
+  }).toString()}`;
 
   redirect(authUrl);
 };
@@ -79,9 +77,7 @@ const callback = async (
   ).then((r) => r.json());
 
   const expireDateTime = new Date(Date.now() + expires_in * 1000);
-  const exp = Math.floor(
-    expireDateTime.getTime() / 1000,
-  );
+  const exp = Math.floor(expireDateTime.getTime() / 1000);
 
   const account = await fetch("https://lichess.org/api/account", {
     headers: {
@@ -90,7 +86,7 @@ const callback = async (
   }).then((r) => r.json());
 
   const user = await getUserByLichessUsername(account.username);
-  console.log({ user })
+  console.log({ user });
 
   if (user) {
     const jwt = jwtEncode(

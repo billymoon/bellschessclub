@@ -10,8 +10,9 @@ export function AdminHeader() {
         <div className="flex h-16 items-center justify-between">
           <Button asChild variant="ghost" size="sm" className="gap-2">
             <Link href="/admin/whatsapp">
-            <SiWhatsapp />
-            Invite to whatsapp</Link>
+              <SiWhatsapp />
+              Invite to whatsapp
+            </Link>
           </Button>
           <Button asChild variant="ghost" size="sm" className="gap-2">
             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
