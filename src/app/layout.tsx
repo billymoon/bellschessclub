@@ -7,6 +7,26 @@ import {
   getUserInfoFromImpersonatorCookie,
 } from "@/modules/cookies";
 import { Analytics } from "@vercel/analytics/next";
+import { MembersHeader } from "@/components/MembersHeader";
+import { getUserById, getUsers, queryDocuments } from "@/modules/turso";
+import { MemberStoreProvider } from "@/stores/member-store-provider";
+
+async function MembersLayout({ children }: { children: React.ReactNode }) {
+  const { _id } = await getUserInfoFromCookie();
+
+  return (
+    <MemberStoreProvider
+      initialData={{
+        documents: await queryDocuments(),
+        member: await getUserById(_id),
+        members: await getUsers(false),
+      }}
+    >
+      <MembersHeader />
+      {children}
+    </MemberStoreProvider>
+  );
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +48,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isAdmin } = await getUserInfoFromCookie();
+  const { isAdmin, isMember } = await getUserInfoFromCookie();
   const { _id: imposterId } = await getUserInfoFromImpersonatorCookie();
 
   return (
@@ -61,8 +81,12 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {process.env.NODE_ENV === "production" ? <Analytics /> : null}
-        <Header isAdmin={isAdmin} isImpersonating={Boolean(imposterId)} />
-        {children}
+        <Header
+          isAdmin={isAdmin}
+          isMember={isMember}
+          isImpersonating={Boolean(imposterId)}
+        />
+        {isMember ? <MembersLayout>{children}</MembersLayout> : children}
       </body>
     </html>
   );
