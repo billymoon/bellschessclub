@@ -1,19 +1,22 @@
 import { Button } from "@/components/ui/button";
-import { Crown, Home, ShieldUser, Swords, Users } from "lucide-react";
+import { Crown, Home, LogIn, LogOut, ShieldUser } from "lucide-react";
 import Link from "next/link";
+import { SiWhatsapp } from "react-icons/si";
 
 export function Header({
   isAdmin,
+  isMember,
   isImpersonating = false,
 }: {
   isAdmin: boolean;
+  isMember: boolean;
   isImpersonating: boolean;
 }) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div
-        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8${isImpersonating ? " bg-red-300" : process.env.NODE_ENV !== "production" ? " bg-orange-200" : ""}`}
-      >
+    <header
+      className={`sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60${isImpersonating ? " bg-red-300" : process.env.NODE_ENV !== "production" ? " bg-orange-200" : ""}`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div>
             <Button asChild variant="ghost" size="sm" className="gap-2">
@@ -41,18 +44,30 @@ export function Header({
           </div>
 
           <div>
-            <Button asChild variant="ghost" size="sm" className="gap-2">
-              <Link href="/private/matches">
-                <Swords className="size-4" />
-                <span className="hidden sm:inline">Matches</span>
-              </Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm" className="gap-2">
-              <Link href="/private/members">
-                <Users className="size-4" />
-                <span className="hidden sm:inline">Members</span>
-              </Link>
-            </Button>
+            {isAdmin ? (
+              <Button asChild variant="ghost" size="sm" className="gap-2">
+                <Link href="/admin/whatsapp">
+                  <SiWhatsapp />
+                  <span className="hidden sm:inline">WhatsApp</span>
+                </Link>
+              </Button>
+            ) : null}
+            {isMember ? (
+              <Button asChild variant="ghost" size="sm" className="gap-2">
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                <a href="/api/auth/logout">
+                  <LogOut className="size-4" />
+                  <span className="hidden sm:inline">Logout</span>
+                </a>
+              </Button>
+            ) : (
+              <Button asChild variant="ghost" size="sm" className="gap-2">
+                <Link href="/private/matches">
+                  <LogIn className="size-4" />
+                  <span className="hidden sm:inline">Login</span>
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>
