@@ -13,9 +13,13 @@ import {
 import { create } from "superstruct";
 import { createClient as tursoClient } from "@libsql/client";
 import { evaluate, parse } from "groq-js";
+import * as mockdata from "mockdata";
+
+const tursoURL = process.env.TURSO_URL || "file::memory:";
+const useMockDatabase = tursoURL === "file::memory:";
 
 const turso = tursoClient({
-  url: process.env.TURSO_URL || "file::memory:",
+  url: tursoURL,
   authToken: process.env.TURSO_TOKEN,
 });
 
@@ -36,6 +40,9 @@ export const queryAllDocuments = async (query: string = "") => {
 export const queryDocuments = async (
   conditions: string = "",
 ): Promise<SanityDocument[]> => {
+  if (useMockDatabase) {
+    await mockdata.db(turso);
+  }
   const result = await turso.execute(
     `select _id, _rev, _createdAt, _updatedAt, _type, data from documents ${conditions}`,
   );
@@ -53,17 +60,15 @@ export const queryDocuments = async (
   });
 };
 
-const throwUnlessAdmin =
-  (fn: unknown) =>
-  async (...args: unknown[]) => {
-    const { isAdmin } = await getUserInfoFromCookie();
-    if (isAdmin) {
-      // @ts-ignore
-      return fn(...args);
-    } else {
-      throw Error("not allowed - not admin");
-    }
-  };
+const throwUnlessAdmin = (fn: unknown) => async (...args: unknown[]) => {
+  const { isAdmin } = await getUserInfoFromCookie();
+  if (isAdmin) {
+    // @ts-ignore
+    return fn(...args);
+  } else {
+    throw Error("not allowed - not admin");
+  }
+};
 
 export const getDocuments = async () =>
   await queryAllDocuments(`*[!(_type match "system.*")]`);
@@ -87,10 +92,12 @@ const updateDocument = async (
     ...docData
   } = await getDocument(_id);
   await turso.execute(
-    `update documents set data = '${JSON.stringify({
-      ...docData,
-      ...data,
-    })}' where _id == '${_id}'`,
+    `update documents set data = '${
+      JSON.stringify({
+        ...docData,
+        ...data,
+      })
+    }' where _id == '${_id}'`,
   );
 
   documents = [];
@@ -115,10 +122,12 @@ export const updateMyself = async ({
       ...docData
     } = await getDocument(_id);
     await turso.execute(
-      `update documents set data = '${JSON.stringify({
-        ...docData,
-        ...data,
-      })}' where _id == '${_id}'`,
+      `update documents set data = '${
+        JSON.stringify({
+          ...docData,
+          ...data,
+        })
+      }' where _id == '${_id}'`,
     );
     documents = [];
     return "ok";
@@ -182,9 +191,11 @@ export const setAvailabilityForMatch = async (
     },
   ];
   await turso.execute(
-    `update documents set data = '${JSON.stringify(
-      matchdocData,
-    )}' where _id == '${match_id}'`,
+    `update documents set data = '${
+      JSON.stringify(
+        matchdocData,
+      )
+    }' where _id == '${match_id}'`,
   );
 
   documents = [];
@@ -236,9 +247,11 @@ export const setAvailabilityForAllegroEvent = async (
     },
   ];
   await turso.execute(
-    `update documents set data = '${JSON.stringify(
-      matchdocData,
-    )}' where _id == '${match_id}'`,
+    `update documents set data = '${
+      JSON.stringify(
+        matchdocData,
+      )
+    }' where _id == '${match_id}'`,
   );
 
   documents = [];
@@ -271,10 +284,12 @@ export const updateDocumentById = async (
       ...docData
     } = await getDocument(_id);
     await turso.execute(
-      `update documents set data = '${JSON.stringify({
-        ...docData,
-        ...data,
-      })}' where _id == '${_id}'`,
+      `update documents set data = '${
+        JSON.stringify({
+          ...docData,
+          ...data,
+        })
+      }' where _id == '${_id}'`,
     );
     documents = [];
     return "ok";

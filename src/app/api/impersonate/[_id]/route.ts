@@ -29,7 +29,7 @@ export const GET = async (
       });
 
       cookieStore.set("user", jwt);
-      redirect("/private/profile");
+      redirect("/private/matches");
     } else {
       return Response.json({ _id, user, impersonator }, { status: 401 });
     }
