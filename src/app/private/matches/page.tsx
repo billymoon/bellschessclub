@@ -212,6 +212,11 @@ const AllegroCard = ({
         </div>
       )}
       <div className="flex justify-between w-full flex-col md:flex-row gap-5">
+        {!isNextOfType ? (
+          <div className="small italic text-muted-foreground">
+            Set availability after previous Allegro Events complete
+          </div>
+        ) : null}
         {isNextOfType && !shouldGiveAvailability ? (
           <div>
             <Button
