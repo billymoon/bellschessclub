@@ -183,6 +183,16 @@ export const AllegroEventData = object({
 export const AllegroEvent = assign(
   partial(SanityDocProps),
   AllegroEventData,
+  object({
+    availability: nullable(defaulted(
+      array(object({
+        name: string(),
+        availability: AvailabilityTypes,
+        rating: optional(nullable(number())),
+      })),
+      [],
+    )),
+  }),
 );
 
 export const AllegroEventDocument = assign(
@@ -190,6 +200,7 @@ export const AllegroEventDocument = assign(
   AllegroEventData,
 );
 
+export type AllegroEventDocument = Infer<typeof AllegroEventDocument>;
 export type AllegroEvent = Infer<typeof AllegroEvent>;
 
 export const AllegroEventPartial = partial(AllegroEvent);

@@ -3,6 +3,7 @@ import { AttributeSet, SanityDocument } from "@sanity/client";
 import { getUserInfoFromCookie } from "./cookies";
 import {
     AllegroEvent,
+    AllegroEventDocument,
     AvailabilityTypes,
     Match,
     MatchDocument,
@@ -176,10 +177,64 @@ export const setAvailabilityForMatch = async (
 
     documents = [];
 };
+export const getAllAvailabilityForAllegroEvent = async (
+    match_id: AllegroEventDocument["_id"],
+) => await queryAllDocuments(
+    `*[_type == "allegro" && _id == "${match_id}"].players | { "player": player->name, availability }[]`,
+);
+
+export const setAvailabilityForAllegroEvent = async (
+    match_id: AllegroEventDocument["_id"],
+    availability: AvailabilityTypes,
+) => {
+    const { _id } = await getUserInfoFromCookie();
+    const member = await getUserById(_id);
+
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    const {
+        _createdAt,
+        _id: _unused,
+        _ref,
+        _updatedAt,
+        _type,
+        ...matchdocData
+    } = await getDocument(match_id);
+    console.log({
+        _createdAt,
+        _id: _unused,
+        _ref,
+        _updatedAt,
+        _type,
+        ...matchdocData,
+    });
+    matchdocData.players = matchdocData.players || [];
+    matchdocData.players = [
+        ...matchdocData.players.filter((
+            { player }: {
+                player: AllegroEventDocument["players"][0]["player"];
+            },
+        ) => player._ref !== _id),
+        {
+            player: {
+                _type: "reference",
+                _ref: _id,
+            },
+            availability,
+            rating: member.standardPublished,
+        },
+    ];
+    await turso.execute(
+        `update documents set data = '${
+            JSON.stringify(matchdocData)
+        }' where _id == '${match_id}'`,
+    );
+
+    documents = [];
+};
 
 export const getAllegroEvents = async (): Promise<AllegroEvent[]> =>
     (await queryAllDocuments(
-        `*[_type == "allegro"] | order(date asc)`,
+        `*[_type == "allegro"] { ...@, "availability": players[]{ "name": player->name, availability, rating } } | order(date asc)`,
     )).map((data: AllegroEvent) => create(data, AllegroEvent));
 
 export const getMemberByPnum = async (pnum: Member["pnum"]) =>
