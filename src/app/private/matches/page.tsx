@@ -13,6 +13,7 @@ import { AllegroEvent, Match, Member } from "@/modules/schema";
 import { useMemberStore } from "@/stores/member-store-provider";
 import { Check, Dices, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { MapLinkButton } from "@/components/MapLinkButton";
 
 const EPOCH = new Date(0).toISOString();
 const NOW = new Date().toISOString();
@@ -31,8 +32,14 @@ const MatchCard = ({
   const hasGivenAvailability = match?.players?.find(
     (item) => item.player?._ref === member._id,
   );
+
   const [shouldGiveAvailability, setShouldGiveAvailability] =
     useState(!hasGivenAvailability);
+
+  const mapLink =
+    match.mapLink ||
+    (match.isAtHome ? "https://maps.app.goo.gl/oFVCSACCXoMneCid9" : undefined);
+
   return (
     <Card
       className={cn(
@@ -79,54 +86,68 @@ const MatchCard = ({
             ))}
         </div>
       )}
-      {isNextOfType && !shouldGiveAvailability ? (
-        <div>
-          <Button
-            variant="secondary"
-            className="cursor-pointer"
-            onClick={() => setShouldGiveAvailability(true)}
-          >
-            Change availability
-          </Button>
-        </div>
-      ) : null}
-      {isNextOfType && shouldGiveAvailability ? (
-        <div>
-          <div className="font-medium mb-2">Can you make it to this match?</div>
-          <div className="flex gap-3 flex-wrap">
-            <Button
-              variant="default"
-              className="cursor-pointer bg-green-700 hover:bg-green-600"
-              onClick={async () => {
-                await setAvailabilityForMatch(match._id!, "available");
-                window.location.replace(window.location.href);
-              }}
-            >
-              <Check /> Yes! I am available
-            </Button>
+      <div className="flex justify-between w-full flex-col md:flex-row gap-5">
+        {!isNextOfType ? (
+          <div className="small italic text-muted-foreground">
+            Set availability after previous Team {match.team} matches complete
+          </div>
+        ) : null}
+        {isNextOfType && !shouldGiveAvailability ? (
+          <div>
             <Button
               variant="secondary"
-              className="cursor-pointer bg-orange-200 hover:bg-orange-300"
-              onClick={async () => {
-                await setAvailabilityForMatch(match._id!, "maybe");
-                window.location.replace(window.location.href);
-              }}
+              className="cursor-pointer"
+              onClick={() => setShouldGiveAvailability(true)}
             >
-              <Dices /> Maybe
-            </Button>
-            <Button
-              variant="secondary"
-              className="cursor-pointer bg-red-200 hover:bg-red-300"
-              onClick={async () => {
-                await setAvailabilityForMatch(match._id!, "not available");
-                window.location.replace(window.location.href);
-              }}
-            >
-              <X /> Not Available
+              Change availability
             </Button>
           </div>
-        </div>
-      ) : null}
+        ) : null}
+        {isNextOfType && shouldGiveAvailability ? (
+          <div>
+            <div className="font-medium mb-2">
+              Can you make it to this match?
+            </div>
+            <div className="flex gap-3 flex-wrap">
+              <Button
+                variant="default"
+                className="cursor-pointer bg-green-700 hover:bg-green-600"
+                onClick={async () => {
+                  await setAvailabilityForMatch(match._id!, "available");
+                  window.location.replace(window.location.href);
+                }}
+              >
+                <Check /> Yes! I am available
+              </Button>
+              <Button
+                variant="secondary"
+                className="cursor-pointer bg-orange-200 hover:bg-orange-300"
+                onClick={async () => {
+                  await setAvailabilityForMatch(match._id!, "maybe");
+                  window.location.replace(window.location.href);
+                }}
+              >
+                <Dices /> Maybe
+              </Button>
+              <Button
+                variant="secondary"
+                className="cursor-pointer bg-red-200 hover:bg-red-300"
+                onClick={async () => {
+                  await setAvailabilityForMatch(match._id!, "not available");
+                  window.location.replace(window.location.href);
+                }}
+              >
+                <X /> Not Available
+              </Button>
+            </div>
+          </div>
+        ) : null}
+        {mapLink ? (
+          <div className="self-end">
+            <MapLinkButton href={mapLink} />
+          </div>
+        ) : null}
+      </div>
     </Card>
   );
 };
@@ -187,57 +208,64 @@ const AllegroCard = ({
             ))}
         </div>
       )}
-      {isNextOfType && !shouldGiveAvailability ? (
-        <div>
-          <Button
-            variant="secondary"
-            className="cursor-pointer"
-            onClick={() => setShouldGiveAvailability(true)}
-          >
-            Change availability
-          </Button>
-        </div>
-      ) : null}
-      {isNextOfType && shouldGiveAvailability ? (
-        <div>
-          <div className="font-medium mb-2">Can you make it to this match?</div>
-          <div className="flex gap-3 flex-wrap">
-            <Button
-              variant="default"
-              className="cursor-pointer bg-green-700 hover:bg-green-600"
-              onClick={async () => {
-                await setAvailabilityForAllegroEvent(match._id!, "available");
-                window.location.replace(window.location.href);
-              }}
-            >
-              <Check /> Yes! I am available
-            </Button>
+      <div className="flex justify-between w-full flex-col md:flex-row gap-5">
+        {isNextOfType && !shouldGiveAvailability ? (
+          <div>
             <Button
               variant="secondary"
-              className="cursor-pointer bg-orange-200 hover:bg-orange-300"
-              onClick={async () => {
-                await setAvailabilityForAllegroEvent(match._id!, "maybe");
-                window.location.replace(window.location.href);
-              }}
+              className="cursor-pointer"
+              onClick={() => setShouldGiveAvailability(true)}
             >
-              <Dices /> Maybe
-            </Button>
-            <Button
-              variant="secondary"
-              className="cursor-pointer bg-red-200 hover:bg-red-300"
-              onClick={async () => {
-                await setAvailabilityForAllegroEvent(
-                  match._id!,
-                  "not available",
-                );
-                window.location.replace(window.location.href);
-              }}
-            >
-              <X /> Not Available
+              Change availability
             </Button>
           </div>
+        ) : null}
+        {isNextOfType && shouldGiveAvailability ? (
+          <div>
+            <div className="font-medium mb-2">
+              Can you make it to this match?
+            </div>
+            <div className="flex gap-3 flex-wrap">
+              <Button
+                variant="default"
+                className="cursor-pointer bg-green-700 hover:bg-green-600"
+                onClick={async () => {
+                  await setAvailabilityForAllegroEvent(match._id!, "available");
+                  window.location.replace(window.location.href);
+                }}
+              >
+                <Check /> Yes! I am available
+              </Button>
+              <Button
+                variant="secondary"
+                className="cursor-pointer bg-orange-200 hover:bg-orange-300"
+                onClick={async () => {
+                  await setAvailabilityForAllegroEvent(match._id!, "maybe");
+                  window.location.replace(window.location.href);
+                }}
+              >
+                <Dices /> Maybe
+              </Button>
+              <Button
+                variant="secondary"
+                className="cursor-pointer bg-red-200 hover:bg-red-300"
+                onClick={async () => {
+                  await setAvailabilityForAllegroEvent(
+                    match._id!,
+                    "not available",
+                  );
+                  window.location.replace(window.location.href);
+                }}
+              >
+                <X /> Not Available
+              </Button>
+            </div>
+          </div>
+        ) : null}
+        <div className="self-end">
+          <MapLinkButton href="https://maps.app.goo.gl/ZYp7RMbbtJBEVmVp7" />
         </div>
-      ) : null}
+      </div>
     </Card>
   );
 };

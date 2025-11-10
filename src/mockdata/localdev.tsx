@@ -3,7 +3,8 @@ import Fiona from "fiona";
 
 Fiona.register([
   "rating",
-  (seeded) => seeded.bool({ chance: .2}) ? 0 : seeded.number({ min: 500, max: 2500 }),
+  (seeded) =>
+    seeded.bool({ chance: 0.2 }) ? 0 : seeded.number({ min: 500, max: 2500 }),
 ]);
 
 Fiona.register([
@@ -64,7 +65,8 @@ export const db = async (turso) => {
       `INSERT INTO documents VALUES('333db2e0-037a-42f3-85c0-c54f45bf0c6f','vXmjOX73zE719thP5bUaKz','2025-09-29T00:01:24Z','2025-10-13T20:48:24Z','member','{"active":true,"allegroLive":1545,"allegroPublished":1545,"chesscomUsername":"billy_moon","isAdmin":true,"lichessUsername":"billymoon","name":"Billy the IT guy","pnum":29439,"standardLive":1523,"standardPublished":1541,"username":"billymoon"}');`,
       `INSERT INTO documents VALUES('bd640bc6-a7e4-49f1-a5a8-128a25564310','aGpldou8uDCYtULGTNTS1L','2025-09-29T00:01:24Z','2025-10-08T21:16:40Z','member','{"active":true,"allegroLive":0,"allegroPublished":0,"chesscomUsername":"flyingtrain","isAdmin":true,"lichessUsername":"flyingTrain","name":"Alex the IT guy","pnum":32502,"standardLive":0,"standardPublished":0,"username":"flyingTrain"}');`,
       `INSERT INTO documents VALUES('6990a8dc-3089-4d33-89a6-64ed0d86a869','aGpldou8uDCYtULGTNTS1L','2025-09-29T00:01:24Z','2025-10-12T12:12:56Z','member','{"active":true,"allegroLive":1065,"allegroPublished":1065,"chesscomUsername":"","isAdmin":false,"lichessUsername":"Mike_Wallace_18","name":"Mike the IT guy","pnum":9443,"standardLive":1264,"standardPublished":1264,"username":"Mike_Wallace_18"}');`,
-      `INSERT INTO documents VALUES('842d9b1f-fc77-47d2-b43d-7afddcf54eb2','aGpldou8uDCYtULGTLVTTP','2025-10-08T17:34:23Z','2025-10-08T17:57:26Z','match','{"players":[],"date":"2026-01-28T19:00:00.000Z","isAtHome":true,"opponent":"Teamy McTeamface","team":2,"venue":"Some random away venue"}');`,
+      `INSERT INTO documents VALUES('842d9b1f-fc77-47d2-b43d-7afddcf54eb2','aGpldou8uDCYtULGTLVTTP','2025-10-08T17:34:23Z','2025-10-08T17:57:26Z','match','{"players":[],"date":"2026-01-28T19:00:00.000Z","isAtHome":false,"opponent":"Teamy McTeamface","team":2,"venue":"Some random away venue","mapLink":"https://maps.app.goo.gl/xH7hVzgza1VAUv3B6"}');`,
+      `INSERT INTO documents VALUES('842d9b1f-ffff-47d2-b43d-7afddcf54eb2','aGpldouasdCYtULGTLVTTP','2025-10-08T17:34:23Z','2025-10-08T17:57:26Z','match','{"players":[],"date":"2026-01-24T19:00:00.000Z","isAtHome":false,"opponent":"Teamy McTeamface","team":2,"venue":"Some other random away venue"}');`,
       `INSERT INTO documents VALUES('b77a9570-9115-4826-9446-95f02b4b691b','aGpldou8uDCYtULGTLVTTP','2025-10-08T17:34:23Z','2025-10-08T17:57:26Z','match','{"players":[],"date":"2026-01-15T19:15:00.000Z","isAtHome":true,"opponent":"Clubby McClubface","team":1,"venue":"Mayfield Bowling Club"}');`,
       `INSERT INTO documents VALUES('4b3224c0-5375-46fb-9a57-8f79e43b3791','aGpldou8uDCYtULGTM5ONX','2025-10-09T13:42:33Z','2025-10-09T13:42:33Z','allegro','{"players":[],"date":"2025-12-13T19:30:00.000Z","opponents":["Clubby McClubface","Teamy McTeamface"]}');`,
     ]);

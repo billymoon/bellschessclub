@@ -1,6 +1,7 @@
-import { Mail, Map, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
+import { MapLinkButton } from "@/components/MapLinkButton";
 
 export default function Home() {
   return (
@@ -28,20 +29,7 @@ export default function Home() {
         <div className="text-lg md:text-xl leading-relaxed space-y-2">
           <p className="font-semibold">
             Leslies Bar, 17 Ratcliffe Terrace{" "}
-            <Button
-              variant="ghost"
-              size="lg"
-              className="text-lg gap-2 bg-transparent"
-              asChild
-            >
-              <a
-                href="https://maps.app.goo.gl/iJMJtviGjkQN7Piz6"
-                target="_blank"
-              >
-                <Map className="h-5 w-5" />
-                Map
-              </a>
-            </Button>
+            <MapLinkButton href="https://maps.app.goo.gl/iJMJtviGjkQN7Piz6" />
           </p>
           <p>
             Come along for a friendly game or contact us to find out more...

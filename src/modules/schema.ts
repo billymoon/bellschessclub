@@ -125,6 +125,7 @@ export const MatchData = object({
   opponent: string(),
   team: coerce(enums([1, 2]), string(), withJSON),
   venue: string(),
+  mapLink: optional(string()),
   players: defaulted(array(MemberReference), []),
 });
 
