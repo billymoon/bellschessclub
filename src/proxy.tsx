@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getUserInfoFromCookie } from "./modules/cookies";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (pathname.startsWith("/private")) {
     try {
@@ -29,7 +29,3 @@ export async function middleware(request: NextRequest) {
     }
   }
 }
-
-export const config = {
-  runtime: "nodejs",
-};

@@ -121,11 +121,9 @@ const MemberReference = object({
 export const MatchData = object({
   _type: defaulted(enums(["match"]), "match"),
   date: ISODateString,
-  day: string(),
   isAtHome: toBoolean,
   opponent: string(),
   team: coerce(enums([1, 2]), string(), withJSON),
-  // time: string(),
   venue: string(),
   players: defaulted(array(MemberReference), []),
 });
