@@ -11,7 +11,7 @@ import {
 } from "@/modules/turso";
 import { AllegroEvent, Match, Member } from "@/modules/schema";
 import { useMemberStore } from "@/stores/member-store-provider";
-import { Check, Dices, X } from "lucide-react";
+import { Check, Dices, House, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { MapLinkButton } from "@/components/MapLinkButton";
 
@@ -144,7 +144,10 @@ const MatchCard = ({
         ) : null}
         {mapLink ? (
           <div className="self-end">
-            <MapLinkButton href={mapLink} />
+            <MapLinkButton
+              href={mapLink}
+              Icon={match.isAtHome ? House : undefined}
+            />
           </div>
         ) : null}
       </div>

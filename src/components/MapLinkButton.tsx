@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
 import Link from "next/link";
 
-type MapLinkButton = (props: { href: string }) => ReactNode;
+type MapLinkButton = (props: { href: string; Icon?: typeof Map }) => ReactNode;
 
-export const MapLinkButton: MapLinkButton = ({ href }) => (
+export const MapLinkButton: MapLinkButton = ({ href, Icon = Map }) => (
   <Button
     variant="ghost"
     size="lg"
@@ -13,7 +13,7 @@ export const MapLinkButton: MapLinkButton = ({ href }) => (
     asChild
   >
     <Link href={href} target="_blank">
-      <Map className="h-5 w-5" />
+      <Icon className="h-5 w-5" />
       Map
     </Link>
   </Button>
