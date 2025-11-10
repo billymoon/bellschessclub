@@ -19,12 +19,9 @@ export const defaultInitState: AdminState = {
   members: [],
 };
 
-export const createAdminStore = (
-  initState: AdminState = defaultInitState,
-) => {
+export const createAdminStore = (initState: AdminState = defaultInitState) => {
   return createStore<AdminStore>()((set) => ({
     ...initState,
-    setAdminData: (data) =>
-      set((state) => ({ ...state, ...data })),
+    setAdminData: (data) => set((state) => ({ ...state, ...data })),
   }));
 };

@@ -7,6 +7,7 @@ import {
   getAllegroEvents,
   setAvailabilityForMatch,
   getMatches,
+  setAvailabilityForAllegroEvent,
 } from "@/modules/turso";
 import { AllegroEvent, Match, Member } from "@/modules/schema";
 import { useMemberStore } from "@/stores/member-store-provider";
@@ -132,29 +133,114 @@ const MatchCard = ({
 
 const AllegroCard = ({
   match,
-  // isNextOfType,
+  isNextOfType,
+  member,
 }: {
   match: AllegroEvent;
-  // isNextOfType: boolean;
-}) => (
-  <Card
-    className={cn(
-      "p-8 my-4 relative",
-      match.date < NOW ? "card-historic" : "card-allegro",
-    )}
-    key={match._id}
-  >
-    <div>
-      It&apos;s that time again, Allegro will be hosted at Slateford Bowling
-      Club on{" "}
-      <b>
-        <DateTime timestamp={match.date} />
-      </b>{" "}
-      where we will be up against {match.opponents.join(" and ")}.
-    </div>
-    {/* {isNextOfType ? <div>set availablilty</div> : null} */}
-  </Card>
-);
+  isNextOfType: boolean;
+  member: Member;
+}) => {
+  const hasGivenAvailability = match?.players?.find(
+    (item) => item.player?._ref === member._id,
+  );
+  const [shouldGiveAvailability, setShouldGiveAvailability] =
+    useState(!hasGivenAvailability);
+
+  return (
+    <Card
+      className={cn(
+        "p-8 my-4 relative",
+        match.date < NOW ? "card-historic" : "card-allegro",
+      )}
+      key={match._id}
+    >
+      <div>
+        It&apos;s that time again, Allegro will be hosted at Slateford Bowling
+        Club on{" "}
+        <b>
+          <DateTime timestamp={match.date} />
+        </b>{" "}
+        where we will be up against {match.opponents.join(" and ")}.
+      </div>
+      {match?.availability && (
+        <div>
+          {match?.availability
+            ?.sort(
+              (a, b) =>
+                availabilityTypes.findIndex((x) => x === a.availability) -
+                  availabilityTypes.findIndex((x) => x === b.availability) ||
+                (b.rating || 0) - (a.rating || 0),
+            )
+            .map(({ availability, name }, index) => (
+              <div key={index}>
+                <Badge
+                  className={
+                    ["bg-green-700", "bg-orange-200", "bg-red-200"][
+                      availabilityTypes.findIndex((x) => x === availability)
+                    ]
+                  }
+                >
+                  {availability}
+                </Badge>{" "}
+                {name}
+              </div>
+            ))}
+        </div>
+      )}
+      {isNextOfType && !shouldGiveAvailability ? (
+        <div>
+          <Button
+            variant="secondary"
+            className="cursor-pointer"
+            onClick={() => setShouldGiveAvailability(true)}
+          >
+            Change availability
+          </Button>
+        </div>
+      ) : null}
+      {isNextOfType && shouldGiveAvailability ? (
+        <div>
+          <div className="font-medium mb-2">Can you make it to this match?</div>
+          <div className="flex gap-3 flex-wrap">
+            <Button
+              variant="default"
+              className="cursor-pointer bg-green-700 hover:bg-green-600"
+              onClick={async () => {
+                await setAvailabilityForAllegroEvent(match._id!, "available");
+                window.location.replace(window.location.href);
+              }}
+            >
+              <Check /> Yes! I am available
+            </Button>
+            <Button
+              variant="secondary"
+              className="cursor-pointer bg-orange-200 hover:bg-orange-300"
+              onClick={async () => {
+                await setAvailabilityForAllegroEvent(match._id!, "maybe");
+                window.location.replace(window.location.href);
+              }}
+            >
+              <Dices /> Maybe
+            </Button>
+            <Button
+              variant="secondary"
+              className="cursor-pointer bg-red-200 hover:bg-red-300"
+              onClick={async () => {
+                await setAvailabilityForAllegroEvent(
+                  match._id!,
+                  "not available",
+                );
+                window.location.replace(window.location.href);
+              }}
+            >
+              <X /> Not Available
+            </Button>
+          </div>
+        </div>
+      ) : null}
+    </Card>
+  );
+};
 
 const DateTime = ({ timestamp }: { timestamp: string }) => (
   <>
@@ -220,6 +306,7 @@ export default function Page() {
               <AllegroCard
                 match={match}
                 isNextOfType={nextMatchIds.includes(match._id)}
+                member={member}
               />
             ) : (
               <MatchCard

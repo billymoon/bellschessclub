@@ -34,7 +34,10 @@ export default function Home() {
               className="text-lg gap-2 bg-transparent"
               asChild
             >
-              <a href="https://maps.app.goo.gl/iJMJtviGjkQN7Piz6" target="_blank">
+              <a
+                href="https://maps.app.goo.gl/iJMJtviGjkQN7Piz6"
+                target="_blank"
+              >
                 <Map className="h-5 w-5" />
                 Map
               </a>

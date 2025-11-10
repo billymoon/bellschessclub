@@ -2,7 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Crown, Home, ShieldUser, Swords, Users } from "lucide-react";
 import Link from "next/link";
 
-export function Header({ isAdmin, isImpersonating = false }: { isAdmin: boolean, isImpersonating: boolean; }) {
+export function Header({
+  isAdmin,
+  isImpersonating = false,
+}: {
+  isAdmin: boolean;
+  isImpersonating: boolean;
+}) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div

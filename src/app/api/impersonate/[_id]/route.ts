@@ -14,23 +14,19 @@ export const GET = async (
   { params }: { params: { _id: string } },
 ) => {
   const cookieStore = await cookies();
-  const {
-    _id,
-  } = await params;
+  const { _id } = await params;
   const user = await getUserInfoFromCookie();
   const impersonator = await getUserInfoFromImpersonatorCookie();
   if (impersonator.isAdmin || user.isAdmin) {
     const impersonatedUser = await getUserById(_id);
     if (impersonatedUser) {
       await copyUserToImpersonatorCookie();
-      const jwt = jwtEncode(
-        {
-          _id: impersonatedUser._id,
-          isAdmin: Boolean(impersonatedUser?.isAdmin),
-          isMember: Boolean(impersonatedUser),
-          isGuest: !Boolean(impersonatedUser),
-        },
-      );
+      const jwt = jwtEncode({
+        _id: impersonatedUser._id,
+        isAdmin: Boolean(impersonatedUser?.isAdmin),
+        isMember: Boolean(impersonatedUser),
+        isGuest: !Boolean(impersonatedUser),
+      });
 
       cookieStore.set("user", jwt);
       redirect("/private/profile");

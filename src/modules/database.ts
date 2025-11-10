@@ -7,9 +7,7 @@ const promisedDatabase: Promise<Worker> = new Promise(async (resolve) => {
   if (typeof window === "undefined") return;
   // TODO: why don't we need to run initBackend?
   // const { initBackend } =
-  await import(
-    "@aphro/absurd-sql/dist/indexeddb-main-thread"
-  );
+  await import("@aphro/absurd-sql/dist/indexeddb-main-thread");
   const databaseWorker = new Worker(
     new URL("../modules/database.worker.ts", import.meta.url),
   );
