@@ -1,8 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) project using NextJS v16 and [Tailwind](https://tailwindcss.com/) for styles.
 
 ## Getting Started
 
-First, run the development server:
+First time setup is as simple as installing nodejs dependencies
+
+```bash
+npm install
+```
+
+Then to run a dev server locally with an in memory database that is reset when the server restarts, just do...
 
 ```bash
 npm run dev
@@ -10,9 +16,13 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the pages by modifying `page.tsx` files in the `src/app` folder. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Security
+
+We use JWTs to authenticate users, so locally it will use a hard coded dummy key, and a different key in deployed environments. All the auth functionality based on lichess oauth should work locally as well as deployed.
+
+JWTs are checked in a middleware defined in the `src/proxy.tsx` file so that any routes that begin `/private` require a logged in member, and any routes that start `/admin` require a logged in member with admin rights. All other pages are public.
 
 ## Learn More
 
@@ -23,8 +33,8 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deployed on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The repo is setup with git hooks that trigger a production deploy to https://www.sandybells.club on push (or PR merge) to main and trigger a deploy to https://dev.sandybells.club on push to any other branch (probably pushing develop makes sense here).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The dev deployment has it's own database so playing around with the deploy the check it's working correctly will not impact production.
