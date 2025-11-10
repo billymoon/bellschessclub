@@ -1,8 +1,8 @@
-import { jwtDecode, jwtEncode } from "@/modules/jwt";
 import { redirect } from "next/navigation";
 import pkceChallenge from "pkce-challenge";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
+import { jwtDecode, jwtEncode } from "@/modules/jwt";
 import { getUserByLichessUsername } from "@/modules/turso";
 
 const client_id = "lichess-auth";
@@ -13,7 +13,7 @@ const logout = async () => {
   const impersonator = cookieStore.get("impersonator");
   if (impersonator) {
     const { exp } = jwtDecode(impersonator.value);
-    cookieStore.set("user", impersonator.value, { expires: exp * 1000 });
+    cookieStore.set("user", impersonator.value, { expires: exp! * 1000 });
     cookieStore.delete("impersonator");
     redirect("/admin");
   } else {

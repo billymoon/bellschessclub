@@ -1,6 +1,9 @@
 "use server";
+import { create } from "superstruct";
+import { evaluate, parse } from "groq-js";
+import * as mockdata from "mockdata";
 import { AttributeSet, SanityDocument } from "@sanity/client";
-import { getUserInfoFromCookie } from "./cookies";
+import { getUserInfoFromCookie } from "@/modules/cookies";
 import {
   AllegroEvent,
   AllegroEventDocument,
@@ -9,11 +12,8 @@ import {
   MatchDocument,
   Member,
   SanityDocProps,
-} from "./schema";
-import { create } from "superstruct";
+} from "@/modules/schema";
 import { createClient as tursoClient } from "@libsql/client";
-import { evaluate, parse } from "groq-js";
-import * as mockdata from "mockdata";
 
 const tursoURL = process.env.TURSO_URL || "file::memory:";
 const useMockDatabase = tursoURL === "file::memory:";
