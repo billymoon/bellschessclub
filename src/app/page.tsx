@@ -2,20 +2,12 @@ import { Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 import { MapLinkButton } from "@/components/MapLinkButton";
+import Image from "next/image";
+import venue from "../../public/venue.png";
 
 export default function Home() {
   return (
     <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-      <QRCodeSVG
-        value="https://www.sandybells.club/"
-        style={{
-          width: "300px",
-          maxWidth: "100%",
-          height: "300px",
-          maxHeight: "100%",
-        }}
-      />
-      <div className="p-2">https://www.sandybells.club/</div>
       {/* Club Nights Heading */}
       <h2 className="text-4xl md:text-5xl font-bold text-foreground">
         Chess Club Nights
@@ -26,11 +18,18 @@ export default function Home() {
           Tuesday Evenings <br /> 7.00 pm - 10:30 pm
         </p>
 
+        <h3 className="text-3xl md:text-4xl font-bold text-foreground">
+          Edinburgh West End Bowling Club
+        </h3>
+        <p className="font-semibold">
+          13 Hailes St, Edinburgh EH3 9NF
+          <MapLinkButton href="https://maps.app.goo.gl/hEGp6269cyveNRqH8" />
+        </p>
+        <div className="max-w-[800px]">
+          <Image src={venue} alt="" />
+        </div>
+
         <div className="text-lg md:text-xl leading-relaxed space-y-2">
-          <p className="font-semibold">
-            Leslies Bar, 17 Ratcliffe Terrace{" "}
-            <MapLinkButton href="https://maps.app.goo.gl/iJMJtviGjkQN7Piz6" />
-          </p>
           <p>
             Come along for a friendly game or contact us to find out more...
           </p>
@@ -65,6 +64,20 @@ export default function Home() {
           </Button>
         </div>
       </div>
+      <p className="my-5">
+        Feel free to share this website with others who are interested to join
+        us
+      </p>
+      <QRCodeSVG
+        value="https://www.sandybells.club/"
+        style={{
+          width: "200px",
+          maxWidth: "100%",
+          height: "200px",
+          maxHeight: "100%",
+        }}
+      />
+      <div className="p-2">https://www.sandybells.club/</div>
     </div>
   );
 }
