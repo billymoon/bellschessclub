@@ -9,9 +9,6 @@ const nextConfig: NextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-  // experimental: {
-  //   nodeMiddleware: true,
-  // },
   turbopack: {
     resolveAlias: {
       mockdata:
@@ -21,10 +18,10 @@ const nextConfig: NextConfig = {
     },
   },
   webpack: (config, options) => {
-    config.resolve.alias["mock-loader"] =
+    config.resolve.alias["mockdata"] =
       process.env.NODE_ENV === "production"
-        ? path.resolve("./empty.tsx")
-        : path.resolve("./mock-loader.tsx");
+        ? path.resolve("./src/mockdata/empty.tsx")
+        : path.resolve("./src/mockdata/localdev.tsx");
     config.resolve.fallback = {
       ...config.resolve.fallback,
       crypto: false,

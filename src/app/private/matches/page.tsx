@@ -38,7 +38,11 @@ const MatchCard = ({
 
   const mapLink =
     match.mapLink ||
-    (match.isAtHome ? "https://maps.app.goo.gl/oFVCSACCXoMneCid9" : undefined);
+    (match.isAtHome
+      ? new Date(match.date) > new Date("2026")
+        ? "https://maps.app.goo.gl/hEGp6269cyveNRqH8"
+        : "https://maps.app.goo.gl/oFVCSACCXoMneCid9"
+      : undefined);
 
   return (
     <Card

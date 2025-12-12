@@ -1,5 +1,5 @@
-import { Member } from "@/modules/schema";
 import { createStore } from "zustand/vanilla";
+import { Member } from "@/modules/schema";
 
 export type AdminState = {
   members: Member[];
