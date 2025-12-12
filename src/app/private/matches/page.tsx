@@ -87,7 +87,7 @@ const MatchCard = ({
         </div>
       )}
       <div className="flex justify-between w-full flex-col md:flex-row gap-5">
-        {!isNextOfType ? (
+        {!isNextOfType && match.date >= NOW ? (
           <div className="small italic text-muted-foreground">
             Set availability after previous Team {match.team} matches complete
           </div>
@@ -212,7 +212,7 @@ const AllegroCard = ({
         </div>
       )}
       <div className="flex justify-between w-full flex-col md:flex-row gap-5">
-        {!isNextOfType ? (
+        {!isNextOfType && match.date >= NOW ? (
           <div className="small italic text-muted-foreground">
             Set availability after previous Allegro Events complete
           </div>
