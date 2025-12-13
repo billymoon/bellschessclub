@@ -24,6 +24,8 @@ import Link from "next/link";
 const NOW = new Date().toISOString();
 
 const availabilityTypes = ["available", "maybe", "not available"];
+const ALLEGRO_DURATION_HOURS = 2.5;
+const MATCH_DURATION_HOURS = 2 + 50 / 60;
 
 const addToGoogleCalendar = (event: {
   name: string;
@@ -141,7 +143,15 @@ export const MatchCard = ({
                         : "Sandy Bells edinburgh league match",
                     start_datetime: match.date,
                     end_datetime: ((date) => {
-                      date.setTime(date.getTime() + 1000 * 60 * 60 * 2.5);
+                      date.setTime(
+                        date.getTime() +
+                          1000 *
+                            60 *
+                            60 *
+                            (match._type === "allegro"
+                              ? ALLEGRO_DURATION_HOURS
+                              : MATCH_DURATION_HOURS),
+                      );
                       return date.toISOString();
                     })(new Date(match.date)),
                     location: venue,
