@@ -50,6 +50,7 @@
   --background-card-team-1: var(--color-blue-100);
   --background-card-team-2: var(--color-green-100);
   --background-card-allegro: var(--color-orange-100);
+  --background-card-social: var(--color-pink-100);
   --foreground: oklch(0.147 0.004 49.25);
   --interactive: oklch(0.4 0.17 255.82);
   --card: oklch(1 0 0);
@@ -152,4 +153,8 @@ a {
 
 .card-allegro {
   background: var(--background-card-allegro);
+}
+
+.card-social {
+  background: var(--background-card-social);
 }

@@ -176,7 +176,7 @@ export const MatchCard = ({
                   ) : (
                     <Map className="h-5 w-5" />
                   )}
-                  {venue}
+                  <div className="display-block overflow-hidden text-ellipsis">{venue}</div>
                 </Link>
               </Button>
             ) : (
