@@ -143,18 +143,38 @@ a {
   background: var(--background-card-historic);
 }
 
+.fill-historic {
+  fill: var(--background-card-historic);
+}
+
 .card-team-1 {
   background: var(--background-card-team-1);
+}
+
+.fill-team-1 {
+  fill: var(--background-card-team-1);
 }
 
 .card-team-2 {
   background: var(--background-card-team-2);
 }
 
+.fill-team-2 {
+  fill: var(--background-card-team-2);
+}
+
 .card-allegro {
   background: var(--background-card-allegro);
 }
 
+.fill-allegro {
+  fill: var(--background-card-allegro);
+}
+
 .card-social {
   background: var(--background-card-social);
+}
+
+.fill-social {
+  fill: var(--background-card-social);
 }

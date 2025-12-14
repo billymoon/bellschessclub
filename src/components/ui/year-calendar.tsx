@@ -1,11 +1,14 @@
 "use client";
 
+import { Circle, Icon } from "lucide-react";
+
 interface Event {
   date: number;
   month: number;
   year: number;
   type: "allegro" | "team1" | "team2"; // | "social";
   title: string;
+  isAtHome: boolean;
 }
 
 interface YearCalendarProps {
@@ -13,11 +16,26 @@ interface YearCalendarProps {
   events?: Event[];
 }
 
-const eventTypeColors: Record<string, { bg: string; text: string }> = {
-  allegro: { bg: "card-allegro", text: "text-primary-foreground" },
-  team1: { bg: "card-team-1", text: "text-accent-foreground" },
-  team2: { bg: "card-team-2", text: "text-accent-foreground" },
-  //   social: { bg: "card-social", text: "text-social-foreground" },
+const eventTypeColors: Record<
+  string,
+  { bg: string; fill: string; text: string }
+> = {
+  allegro: {
+    bg: "card-allegro",
+    fill: "fill-allegro",
+    text: "text-primary-foreground",
+  },
+  team1: {
+    bg: "card-team-1",
+    fill: "fill-team-1",
+    text: "text-accent-foreground",
+  },
+  team2: {
+    bg: "card-team-2",
+    fill: "fill-team-2",
+    text: "text-accent-foreground",
+  },
+  //   social: { bg: "card-social", fill: "fill-social", text: "text-social-foreground" },
 };
 
 export function YearCalendar({
@@ -104,10 +122,32 @@ export function YearCalendar({
               return (
                 <div
                   key={day}
-                  className={`aspect-square border border-border/20 p-1 flex flex-col items-center justify-start bg-background hover:bg-muted/20 transition-colors ${firstDayEvent ? eventTypeColors[firstDayEvent.type].bg : ""} rounded-full border-2`}
+                  className="aspect-square border border-border/20 p-1 flex flex-col items-center justify-start bg-background hover:bg-muted/20 transition-colors"
                 >
                   <span className="text-xs font-bold text-foreground/70 m-auto">
-                    {day}
+                    <div className="flex relative justify-center">
+                      <div className="absolute -bottom-2">
+                        {!firstDayEvent ? null : firstDayEvent.isAtHome ? (
+                          <Icon
+                            className={`w-8 h-8 ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""}`}
+                            iconNode={[
+                              [
+                                "path",
+                                {
+                                  d: "M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
+                                  key: firstDayEvent.date.toString(),
+                                },
+                              ],
+                            ]}
+                          />
+                        ) : (
+                          <Circle
+                            className={`w-8 h-8 ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""}`}
+                          />
+                        )}
+                      </div>
+                      <div className="w-full h-full m-auto z-1">{day}</div>
+                    </div>
                   </span>
                 </div>
               );
