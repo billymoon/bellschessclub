@@ -5,6 +5,8 @@ import { AllegroEvent, Match } from "@/modules/schema";
 import { useMemberStore } from "@/stores/member-store-provider";
 import { useEffect, useState } from "react";
 import { MatchCard } from "@/components/MatchCard";
+import { Calendar, History } from "lucide-react";
+import Link from "next/link";
 
 const EPOCH = new Date(0).toISOString();
 const NOW = new Date().toISOString();
@@ -48,13 +50,22 @@ export default function Page() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Button
-        variant={showSince === EPOCH ? "default" : "secondary"}
-        className="w-full mt-4 cursor-pointer"
-        onClick={() => setShowSince(showSince === EPOCH ? NOW : EPOCH)}
-      >
-        {showSince === EPOCH ? "Hide historic" : "Show historic"}
-      </Button>
+      <div className="flex gap-4">
+        <Button
+          variant={showSince === EPOCH ? "outline" : "secondary"}
+          className="grow mt-4 cursor-pointer"
+          onClick={() => setShowSince(showSince === EPOCH ? NOW : EPOCH)}
+        >
+          <History />
+          {showSince === EPOCH ? "Hide historic" : "Show historic"}
+        </Button>
+        <Button variant="secondary" className="mt-4 cursor-pointer" asChild>
+          <Link href="/private/matches/calendar">
+            <Calendar />
+            Calendar
+          </Link>
+        </Button>
+      </div>
       {matchData
         ?.filter(({ date }) => date > showSince)
         .map((match) => (
