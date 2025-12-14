@@ -40,10 +40,12 @@ export default function Page() {
                   date,
                   _type,
                   team,
+                  isAtHome,
                 }: {
                   date: string;
                   _type: string;
                   team?: number;
+                  isAtHome?: boolean;
                 }) => ({
                   date: new Date(date).getDate(),
                   month: new Date(date).getMonth(),
@@ -55,6 +57,7 @@ export default function Page() {
                         ? "team1"
                         : "team2",
                   title: "sweet",
+                  isAtHome: Boolean(isAtHome),
                 }),
               )
         }
