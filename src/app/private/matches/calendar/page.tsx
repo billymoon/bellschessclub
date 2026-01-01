@@ -4,7 +4,7 @@ import { AllegroEvent, Match } from "@/modules/schema";
 import { useEffect, useState } from "react";
 import { YearCalendar } from "@/components/ui/year-calendar";
 
-const year = 2025;
+const year = new Date().getFullYear();
 
 export default function Page() {
   const [matchData, setMatchData] = useState<(Match | AllegroEvent)[] | null>(
