@@ -4,7 +4,11 @@ import { AllegroEvent, Match } from "@/modules/schema";
 import { useEffect, useState } from "react";
 import { YearCalendar } from "@/components/ui/year-calendar";
 
-const year = 2025;
+const year = new Date().getFullYear();
+// Chess season runs June to May, so if we're before June, we start from previous year
+const currentMonth = new Date().getMonth();
+const startYear = currentMonth < 5 ? year - 1 : year; // 5 = June (0-indexed, so < 5 means before June)
+const endYear = startYear + 1;
 
 export default function Page() {
   const [matchData, setMatchData] = useState<(Match | AllegroEvent)[] | null>(
@@ -28,10 +32,10 @@ export default function Page() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 className="text-4xl font-bold text-foreground mt-8">
-        {year}-{year + 1} Chess Season
+        {startYear}-{endYear} Chess Season
       </h2>
       <YearCalendar
-        year={year}
+        year={startYear}
         events={
           !matchData
             ? []

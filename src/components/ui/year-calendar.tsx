@@ -57,11 +57,6 @@ export function YearCalendar({
     "December",
   ];
 
-  // Chess season runs June to May, so if we're before June, we start from previous year
-  const currentMonth = new Date().getMonth();
-  const startYear = currentMonth < 5 ? year - 1 : year; // 5 = June (0-indexed, so < 5 means before June)
-  const endYear = startYear + 1;
-
   const getDaysInMonth = (monthIndex: number, yearValue: number) => {
     return new Date(yearValue, monthIndex + 1, 0).getDate();
   };
@@ -175,11 +170,11 @@ export function YearCalendar({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* June to December of start year */}
         {Array.from({ length: 7 }, (_, i) => i + 5).map((monthIndex) =>
-          renderMonth(monthIndex, startYear),
+          renderMonth(monthIndex, year),
         )}
         {/* January to May of end year */}
         {Array.from({ length: 5 }, (_, i) => i).map((monthIndex) =>
-          renderMonth(monthIndex, endYear),
+          renderMonth(monthIndex, year + 1),
         )}
       </div>
     </div>
