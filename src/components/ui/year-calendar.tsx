@@ -121,10 +121,10 @@ export function YearCalendar({
                 >
                   <span className="text-xs font-bold text-foreground/70 m-auto">
                     <div className="flex relative justify-center">
-                      <div className="absolute -bottom-2">
+                      <div className="absolute">
                         {!firstDayEvent ? null : firstDayEvent.isAtHome ? (
                           <Icon
-                            className={`w-8 h-8 ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""}`}
+                            className={`w-8 h-8 ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative bottom-2.5`}
                             iconNode={[
                               [
                                 "path",
@@ -137,7 +137,7 @@ export function YearCalendar({
                           />
                         ) : (
                           <Circle
-                            className={`w-8 h-8 ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""}`}
+                            className={`w-8 h-8 ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative bottom-2`}
                           />
                         )}
                       </div>
