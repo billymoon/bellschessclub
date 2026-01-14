@@ -25,7 +25,7 @@ const turso = tursoClient({
 
 let documents: SanityDocument[] = [];
 
-export const queryAllDocuments = async (query: string = "") => {
+const queryAllDocuments = async (query: string = "") => {
   // if (documents?.length === 0) {
   documents = await queryDocuments();
   // }
@@ -37,14 +37,12 @@ export const queryAllDocuments = async (query: string = "") => {
   return result;
 };
 
-export const queryDocuments = async (
-  conditions: string = "",
-): Promise<SanityDocument[]> => {
+export const queryDocuments = async (): Promise<SanityDocument[]> => {
   if (useMockDatabase) {
     await mockdata.db(turso);
   }
   const result = await turso.execute(
-    `select _id, _rev, _createdAt, _updatedAt, _type, data from documents ${conditions}`,
+    `select _id, _rev, _createdAt, _updatedAt, _type, data from documents;`,
   );
   return result.rows.map((rowData) => {
     const { _id, _rev, _createdAt, _updatedAt, _type, data } =
