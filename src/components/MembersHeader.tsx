@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useMemberStore } from "@/stores/member-store-provider";
-import { Swords, UserCircle, Users } from "lucide-react";
+import { Swords, Table, UserCircle, Users } from "lucide-react";
 import Link from "next/link";
 
 export function MembersHeader() {
@@ -15,6 +15,12 @@ export function MembersHeader() {
               <Link href="/private/matches">
                 <Swords className="size-4" />
                 <span className="hidden sm:inline">Matches</span>
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="gap-2">
+              <Link href="/private/tables">
+                <Table className="size-4" />
+                <span className="hidden sm:inline">Tables</span>
               </Link>
             </Button>
             <Button asChild variant="ghost" size="sm" className="gap-2">
