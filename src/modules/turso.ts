@@ -113,6 +113,7 @@ export const updateMyself = async ({
       ],
     );
 
+    console.log(result)
     await setDataEpoch(result[1].rows[0]._updatedAt);
 
     return "ok";
@@ -165,6 +166,7 @@ export const setAvailabilityForMatch = async (
     `select _updatedAt from documents order by _updatedAt desc limit 1;`,
   ]);
 
+  console.log(result)
   await setDataEpoch(result[1].rows[0]._updatedAt);
 };
 
@@ -210,6 +212,7 @@ export const setAvailabilityForAllegroEvent = async (
     `select _updatedAt from documents order by _updatedAt desc limit 1;`,
   ]);
 
+  console.log(result)
   await setDataEpoch(result[1].rows[0]._updatedAt);
 };
 
@@ -243,6 +246,7 @@ export const updateDocumentById = async (
       `select _updatedAt from documents order by _updatedAt desc limit 1;`,
     ]);
 
+    console.log(result)
     await setDataEpoch(result[1].rows[0]._updatedAt);
     return "ok";
   } else {

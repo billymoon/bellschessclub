@@ -10,13 +10,15 @@ const client = createClient({
     token: process.env.SANITY_SECRET, // Needed for certain operations like updating content, accessing drafts or using draft perspectives
 });
 
+const _id = process.env.NEXT_PUBLIC_SANITY_EPOCH_KEY || "data-epoch";
+
 export const setDataEpoch = async (epoch: string) => {
     unstable_noStore();
     const doc = {
-        _id: "data-epoch",
+        _id,
         _type: "dataEpoch",
         epoch,
     };
 
-    client.createOrReplace(doc);
+    console.log(await client.createOrReplace(doc));
 };

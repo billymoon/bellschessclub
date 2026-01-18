@@ -30,7 +30,7 @@ const UpdateDox = () => {
 
   useEffect(() => {
     const sanityListener = sanityClient
-      .listen("*")
+      .listen(`*[_id == "${process.env.NEXT_PUBLIC_SANITY_EPOCH_KEY || "data-epoch"}"]`)
       .subscribe(async (update) => {
         if (update.result?.epoch) {
           freshenLocalDocumentsFromRemoteDatabase(update.result?.epoch);
