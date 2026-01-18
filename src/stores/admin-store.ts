@@ -1,8 +1,8 @@
 import { createStore } from "zustand/vanilla";
-import { Member } from "@/modules/schema";
+import { MemberDocument } from "@/modules/schema";
 
 export type AdminState = {
-  members: Member[];
+  members: MemberDocument[];
 };
 
 export type AdminActions = {
