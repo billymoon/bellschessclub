@@ -1,11 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useMemberStore } from "@/stores/member-store-provider";
+import { useDexieStore } from "@/modules/dexie/dexie-store-provider";
+import { useDocuments } from "@/modules/dexie/useDocuments";
+import { Member } from "@/modules/schema";
 import { Swords, Table, UserCircle, Users } from "lucide-react";
 import Link from "next/link";
 
 export function MembersHeader() {
-  const { member } = useMemberStore((state) => state);
+  const members = useDocuments(`$[_type = "member"]^(>standardPublished)`) as Member[];
+  const cookieUserInfo = useDexieStore((state) => state.cookieUserInfo);
+  const member = members.find(({ _id }) => _id === cookieUserInfo?._id)
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,7 +38,7 @@ export function MembersHeader() {
           <Button asChild variant="ghost" size="sm" className="gap-2">
             <Link href="/private/profile">
               <UserCircle />
-              Profile: {member.name}
+              <span className="hidden sm:inline">{member.name}</span>
             </Link>
           </Button>
         </div>

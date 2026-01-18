@@ -1,13 +1,13 @@
 "use client";
 import { AdminTable } from "@/components/AdminTable";
-import { useAdminStore } from "@/stores/admin-store-provider";
+import { useDocuments } from "@/modules/dexie/useDocuments";
 
 export default function Page() {
-  const members = useAdminStore((state) => state.members);
+  const documents = useDocuments('$[_type = "member"]^(<$number(pnum))')
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <AdminTable members={members} />
+      <AdminTable members={documents} />
     </div>
   );
 }

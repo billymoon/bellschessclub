@@ -86,7 +86,6 @@ const callback = async (
   }).then((r) => r.json());
 
   const user = await getUserByLichessUsername(account.username);
-  console.log({ user });
 
   if (user) {
     const jwt = jwtEncode(

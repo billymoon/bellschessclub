@@ -1,8 +1,7 @@
 "use client";
-import { getAllegroEvents, getMatches } from "@/modules/turso";
 import { AllegroEvent, Match } from "@/modules/schema";
-import { useEffect, useState } from "react";
 import { YearCalendar } from "@/components/ui/year-calendar";
+import { useDocuments } from "@/modules/dexie/useDocuments";
 
 const year = new Date().getFullYear();
 // Chess season runs June to May, so if we're before June, we start from previous year
@@ -11,23 +10,19 @@ const startYear = currentMonth < 5 ? year - 1 : year; // 5 = June (0-indexed, so
 const endYear = startYear + 1;
 
 export default function Page() {
-  const [matchData, setMatchData] = useState<(Match | AllegroEvent)[] | null>(
-    null,
-  );
-
-  useEffect(() => {
-    void (async () => {
-      if (typeof window !== "undefined") {
-        const matches = await getMatches();
-        const allegroEvents = await getAllegroEvents();
-        setMatchData(
-          [...matches, ...allegroEvents].sort((a, b) =>
-            a.date < b.date ? -1 : 1,
-          ),
-        );
-      }
-    })();
-  }, []);
+  const matchData = useDocuments(`(
+    $members := $[_type = "member"];
+    $getPlayer := function($id) {
+      $members[_id = $id]
+    };
+    $[_type = 'match' or _type = 'allegro'] ~> |$|{
+      "availability": $.players.availability ? $.players[].{
+            "availability": availability,
+            "rating": rating,
+            "name": $getPlayer(player._ref).name
+            }^(>rating) : null
+    }|;
+  )^(>date)[]`) as (Match | AllegroEvent)[];
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

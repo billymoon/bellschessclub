@@ -7,24 +7,19 @@ import {
   getUserInfoFromImpersonatorCookie,
 } from "@/modules/cookies";
 import { Analytics } from "@vercel/analytics/next";
-import { MembersHeader } from "@/components/MembersHeader";
-import { getUserById, getUsers, queryDocuments } from "@/modules/turso";
-import { MemberStoreProvider } from "@/stores/member-store-provider";
+import { ServerStoreProvider } from "@/stores/server-store-provider";
 
-async function MembersLayout({ children }: { children: React.ReactNode }) {
-  const { _id } = await getUserInfoFromCookie();
+async function SSRProviders({ children }: { children: React.ReactNode }) {
+  const cookieUserInfo = await getUserInfoFromCookie();
 
   return (
-    <MemberStoreProvider
+    <ServerStoreProvider
       initialData={{
-        documents: await queryDocuments(),
-        member: await getUserById(_id),
-        members: await getUsers(false),
+        cookieUserInfo,
       }}
     >
-      <MembersHeader />
       {children}
-    </MemberStoreProvider>
+    </ServerStoreProvider>
   );
 }
 
@@ -86,7 +81,9 @@ export default async function RootLayout({
           isMember={isMember}
           isImpersonating={Boolean(imposterId)}
         />
-        {isMember ? <MembersLayout>{children}</MembersLayout> : children}
+        <SSRProviders>
+          {children}
+        </SSRProviders>
       </body>
     </html>
   );

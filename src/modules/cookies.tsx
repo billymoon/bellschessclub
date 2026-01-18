@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { jwtDecode } from "@/modules/jwt";
 import { Member } from "@/modules/schema";
 
-type UserCookie = {
+export type UserCookie = {
   isAdmin: Member["isAdmin"];
   isGuest: boolean;
   isMember: boolean;

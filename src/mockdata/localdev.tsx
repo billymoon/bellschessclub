@@ -69,7 +69,7 @@ export const db = async (turso) => {
       `INSERT INTO documents VALUES('842d9b1f-fc77-47d2-b43d-7afddcf54eb2','aGpldou8uDCYtULGTLVTTP','2025-10-08T17:34:23Z','2025-10-08T17:57:26Z','match','{"players":[],"date":"2026-01-28T19:00:00.000Z","isAtHome":false,"opponent":"Teamy McTeamface","team":2,"venue":"Some random away venue","mapLink":"https://maps.app.goo.gl/xH7hVzgza1VAUv3B6"}');`,
       `INSERT INTO documents VALUES('842d9b1f-ffff-47d2-b43d-7afddcf54eb2','aGpldouasdCYtULGTLVTTP','2025-10-08T17:34:23Z','2025-10-08T17:57:26Z','match','{"players":[],"date":"2026-01-24T19:00:00.000Z","isAtHome":false,"opponent":"Teamy McTeamface","team":2,"venue":"Some other random away venue"}');`,
       `INSERT INTO documents VALUES('b77a9570-9115-4826-9446-95f02b4b691b','aGpldou8uDCYtULGTLVTTP','2025-10-08T17:34:23Z','2025-10-08T17:57:26Z','match','{"players":[],"date":"2026-01-15T19:15:00.000Z","isAtHome":true,"opponent":"Clubby McClubface","team":1,"venue":"Edinburgh West End Bowling Club"}');`,
-      `INSERT INTO documents VALUES('4b3224c0-5375-46fb-9a57-8f79e43b3791','aGpldou8uDCYtULGTM5ONX','2025-10-09T13:42:33Z','2025-10-09T13:42:33Z','allegro','{"players":[],"date":"2025-12-13T19:30:00.000Z","opponents":["Clubby McClubface","Teamy McTeamface"]}');`,
+      `INSERT INTO documents VALUES('4b3224c0-5375-46fb-9a57-8f79e43b3791','aGpldou8uDCYtULGTM5ONX','2025-10-09T13:42:33Z','2025-10-09T13:42:33Z','allegro','{"players":[],"date":"2026-12-13T19:30:00.000Z","opponents":["Clubby McClubface","Teamy McTeamface"]}');`,
     ]);
   }
   firstrun = false;

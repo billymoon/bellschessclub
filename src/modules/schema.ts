@@ -194,21 +194,3 @@ export type AllegroEventPartial = Infer<typeof AllegroEventPartial>;
 
 export const AllegroEventDataStringified = ConvertToString(AllegroEventData);
 export const AllegroEventStringified = ConvertToString(AllegroEvent);
-
-// const mem = create(
-//   {
-//     date: "2025-10-28T19:15:00.000Z",
-//     opponents: ["Musselburgh 1", "Musselburgh 2"],
-//   },
-//   AllegroEventPartial,
-//   // AllegroEvent,
-//   // AllegroEventDocument,
-//   // AllegroEventStringified,
-// );
-// // const str = create(mem, AllegroEventStringified);
-// console.log(
-//   mem,
-//   // str,
-//   // create(str, AllegroEvent)
-//   // AllegroEvent.schema
-// );

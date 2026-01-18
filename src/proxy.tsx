@@ -3,6 +3,7 @@ import { getUserInfoFromCookie } from "./modules/cookies";
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
   if (pathname.startsWith("/private")) {
     try {
       const { isMember, _id } = await getUserInfoFromCookie();

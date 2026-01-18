@@ -20,7 +20,6 @@ import { AllegroEvent, Match, Member } from "@/modules/schema";
 import { useState } from "react";
 import Link from "next/link";
 
-// const EPOCH = new Date(0).toISOString();
 const NOW = new Date().toISOString();
 
 const availabilityTypes = ["available", "maybe", "not available"];
@@ -176,7 +175,9 @@ export const MatchCard = ({
                   ) : (
                     <Map className="h-5 w-5" />
                   )}
-                  <div className="display-block overflow-hidden text-ellipsis">{venue}</div>
+                  <div className="display-block overflow-hidden text-ellipsis">
+                    {venue}
+                  </div>
                 </Link>
               </Button>
             ) : (
@@ -243,7 +244,6 @@ export const MatchCard = ({
                       className="cursor-pointer bg-green-700 hover:bg-green-600"
                       onClick={async () => {
                         await setAvailability(match._id!, "available");
-                        window.location.replace(window.location.href);
                       }}
                     >
                       <Check /> Yes! I am available
@@ -253,7 +253,6 @@ export const MatchCard = ({
                       className="cursor-pointer bg-orange-200 hover:bg-orange-300"
                       onClick={async () => {
                         await setAvailability(match._id!, "maybe");
-                        window.location.replace(window.location.href);
                       }}
                     >
                       <Dices /> Maybe
@@ -263,7 +262,6 @@ export const MatchCard = ({
                       className="cursor-pointer bg-red-200 hover:bg-red-300"
                       onClick={async () => {
                         await setAvailability(match._id!, "not available");
-                        window.location.replace(window.location.href);
                       }}
                     >
                       <X /> Not Available

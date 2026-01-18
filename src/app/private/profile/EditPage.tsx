@@ -15,8 +15,7 @@ export const EditPage = ({ member }: { member: Member }) => {
     defaultValues: {
       ...create(member, MemberStringified),
     },
-    resolver: (schema, _, args) => {
-      console.log(schema, _, args);
+    resolver: (schema, _) => {
       const errors = {};
       try {
         const values = create(schema, Member);
@@ -40,7 +39,6 @@ export const EditPage = ({ member }: { member: Member }) => {
     //   values.username = values.lichessUsername;
     // }
     await updateMyself(values);
-    window.location.replace(window.location.href);
   };
 
   const registerWithErrors = (fieldName) => ({

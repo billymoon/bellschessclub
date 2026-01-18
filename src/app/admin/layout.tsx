@@ -1,13 +1,16 @@
-"use server";
-import { getUsers } from "@/modules/turso";
+"use client";
+import { useDocuments } from "@/modules/dexie/useDocuments";
+import { Member } from "@/modules/schema";
 import { AdminStoreProvider } from "@/stores/admin-store-provider";
 
-export default async function AdminsLayout({
+export default function AdminsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const members = await getUsers(false);
+  const members = useDocuments(
+    `$[_type = "member"]^(>standardPublished)`,
+  ) as Member[];
 
   return (
     <AdminStoreProvider initialData={{ members }}>
