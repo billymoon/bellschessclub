@@ -111,7 +111,7 @@ export const updateMyself = async ({
     );
 
     const result = await turso.execute(
-      `select _updatedAt from documents order by _updatedAt asc limit 1;`,
+      `select _updatedAt from documents order by _updatedAt desc limit 1;`,
     );
 
     await setDataEpoch(result.rows[0]._updatedAt);
@@ -166,7 +166,7 @@ export const setAvailabilityForMatch = async (
   );
 
   const result = await turso.execute(
-    `select _updatedAt from documents order by _updatedAt asc limit 1;`,
+    `select _updatedAt from documents order by _updatedAt desc limit 1;`,
   );
 
   await setDataEpoch(result.rows[0]._updatedAt);
@@ -214,7 +214,7 @@ export const setAvailabilityForAllegroEvent = async (
   `);
 
   const result = await turso.execute(
-    `select _updatedAt from documents order by _updatedAt asc limit 1;`,
+    `select _updatedAt from documents order by _updatedAt desc limit 1;`,
   );
 
   await setDataEpoch(result.rows[0]._updatedAt);
@@ -250,7 +250,7 @@ export const updateDocumentById = async (
     );
 
     const result = await turso.execute(
-      `select _updatedAt from documents order by _updatedAt asc limit 1;`,
+      `select _updatedAt from documents order by _updatedAt desc limit 1;`,
     );
 
     await setDataEpoch(result.rows[0]._updatedAt);
