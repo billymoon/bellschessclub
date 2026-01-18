@@ -50,7 +50,7 @@ export const queryDocuments = async (
   if (useMockDatabase) {
     await mockdata.db(turso);
   }
-  console.log({ querySuffix})
+
   const result = await turso.execute(
     `select _id, _type, _createdAt, _updatedAt, _rev, data from documents ${querySuffix};`,
   );

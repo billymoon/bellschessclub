@@ -93,27 +93,32 @@ const useInitialDocuments = () => {
 };
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  const cookieUserInfo = useServerStore((state) => state.cookieUserInfo);
-  const loadingMessage = useLoadingMessage();
-  const documents = useInitialDocuments();
+  try {
+    const cookieUserInfo = useServerStore((state) => state.cookieUserInfo);
+    const loadingMessage = useLoadingMessage();
+    const documents = useInitialDocuments();
 
-  if (!cookieUserInfo!.isMember) {
-    db.delete()
+    if (!cookieUserInfo!.isMember) {
+      db.delete();
+      return children;
+    }
+
+    return documents ? (
+      <DexieStoreProvider
+        initialData={{
+          documents,
+          cookieUserInfo,
+        }}
+      >
+        <MembersHeader />
+        <UpdateDox />
+        {children}
+      </DexieStoreProvider>
+    ) : (
+      <>{loadingMessage}</>
+    );
+  } catch (err) {
+    console.log({ err })
     return children
   }
-
-  return documents ? (
-    <DexieStoreProvider
-      initialData={{
-        documents,
-        cookieUserInfo,
-      }}
-    >
-      <MembersHeader />
-      <UpdateDox />
-      {children}
-    </DexieStoreProvider>
-  ) : (
-    <>{loadingMessage}</>
-  );
 }
