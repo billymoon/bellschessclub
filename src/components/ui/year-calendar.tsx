@@ -87,6 +87,7 @@ export function YearCalendar({
 
     return (
       <div key={`${monthIndex}-${yearValue}`} className="space-y-3">
+        <div className="relative -top-14" id={`${monthIndex}-${yearValue}`}></div>
         <h3 className="text-lg font-semibold text-foreground text-center">
           {months[monthIndex]} {yearValue}
         </h3>

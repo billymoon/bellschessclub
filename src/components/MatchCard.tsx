@@ -16,9 +16,17 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "./ui/card";
-import { AllegroEvent, Match, Member } from "@/modules/schema";
+import {
+  AllegroEvent,
+  AllegroEventDocument,
+  AvailabilityTypes,
+  Match,
+  MatchDocument,
+  Member,
+} from "@/modules/schema";
 import { useState } from "react";
 import Link from "next/link";
+import { Spinner } from "./ui/spinner";
 
 const NOW = new Date().toISOString();
 
@@ -73,10 +81,16 @@ export const MatchCard = ({
   isNextOfType: boolean;
   member: Member;
 }) => {
-  const setAvailability =
+  const [isSettingAvailability, setIsSettingAvailability] = useState(false);
+  const setAvailability = (
+    matchId: MatchDocument["_id"] | AllegroEventDocument["_id"],
+    availability: AvailabilityTypes,
+  ) => {
+    setIsSettingAvailability(true);
     match._type === "allegro"
-      ? setAvailabilityForAllegroEvent
-      : setAvailabilityForMatch;
+      ? setAvailabilityForAllegroEvent(matchId, availability)
+      : setAvailabilityForMatch(matchId, availability);
+  };
   const hasGivenAvailability = match?.players?.find(
     (item) => item.player?._ref === member._id,
   );
@@ -222,22 +236,32 @@ export const MatchCard = ({
                   Set availability after previous Allegro Events complete
                 </div>
               ) : null}
-              {isNextOfType && !shouldGiveAvailability ? (
+              {(isNextOfType && !shouldGiveAvailability) ||
+              isSettingAvailability ? (
                 <div>
                   <Button
                     variant="secondary"
                     className="cursor-pointer"
                     onClick={() => setShouldGiveAvailability(true)}
+                    disabled={isSettingAvailability}
                   >
-                    Change availability
+                    {isSettingAvailability ? (
+                      <>
+                        <Spinner /> saving...
+                      </>
+                    ) : (
+                      <>Change availability</>
+                    )}
                   </Button>
                 </div>
               ) : null}
-              {isNextOfType && shouldGiveAvailability ? (
+              {isNextOfType &&
+              shouldGiveAvailability &&
+              !isSettingAvailability ? (
                 <div>
-                  <div className="font-medium mb-2">
+                  {/* <div className="font-medium mb-2">
                     Can you make it to this match?
-                  </div>
+                  </div> */}
                   <div className="flex gap-3 flex-wrap">
                     <Button
                       variant="default"

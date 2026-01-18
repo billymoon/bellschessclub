@@ -31,7 +31,6 @@ export default function Page() {
     }|;
   )^(<date)[]`) as (Match | AllegroEvent)[];
 
-
   const [showSince, setShowSince] = useState<string>(NOW);
 
   const nextTeam1Match = matchData?.find(
@@ -50,6 +49,8 @@ export default function Page() {
     nextAllegroMatch?._id,
   ];
 
+  const now = new Date();
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex gap-4">
@@ -62,7 +63,9 @@ export default function Page() {
           {showSince === EPOCH ? "Hide historic" : "Show historic"}
         </Button>
         <Button variant="secondary" className="mt-4 cursor-pointer" asChild>
-          <Link href="/private/matches/calendar">
+          <Link
+            href={`/private/matches/calendar#${now.getMonth()}-${now.getFullYear()}`}
+          >
             <Calendar />
             Calendar
           </Link>

@@ -20,5 +20,5 @@ export const setDataEpoch = async (epoch: string) => {
         epoch,
     };
 
-    console.log(await client.createOrReplace(doc));
+    await client.createOrReplace(doc);
 };
