@@ -17,26 +17,26 @@ export function MembersHeader() {
         <div className="flex h-16 items-center justify-between">
           <div>
             <Button asChild variant="ghost" size="sm" className="gap-2">
-              <Link href="/private/matches">
+              <Link prefetch href="/private/matches">
                 <Swords className="size-4" />
                 <span className="hidden sm:inline">Matches</span>
               </Link>
             </Button>
             <Button asChild variant="ghost" size="sm" className="gap-2">
-              <Link href="/private/tables">
+              <Link prefetch href="/private/tables">
                 <Table className="size-4" />
                 <span className="hidden sm:inline">Tables</span>
               </Link>
             </Button>
             <Button asChild variant="ghost" size="sm" className="gap-2">
-              <Link href="/private/members">
+              <Link prefetch href="/private/members">
                 <Users className="size-4" />
                 <span className="hidden sm:inline">Members</span>
               </Link>
             </Button>
           </div>
           <Button asChild variant="ghost" size="sm" className="gap-2">
-            <Link href="/private/profile">
+            <Link prefetch href="/private/profile">
               <UserCircle />
               <span className="hidden sm:inline">{member.name}</span>
             </Link>

@@ -70,7 +70,6 @@ export default async function RootLayout({
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -81,9 +80,7 @@ export default async function RootLayout({
           isMember={isMember}
           isImpersonating={Boolean(imposterId)}
         />
-        <SSRProviders>
-          {children}
-        </SSRProviders>
+        <SSRProviders>{children}</SSRProviders>
       </body>
     </html>
   );

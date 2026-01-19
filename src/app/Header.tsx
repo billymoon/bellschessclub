@@ -20,14 +20,14 @@ export function Header({
         <div className="flex h-16 items-center justify-between">
           <div>
             <Button asChild variant="ghost" size="sm" className="gap-2">
-              <Link href="/">
+              <Link prefetch href="/">
                 <Home className="size-4" />
                 <span className="hidden sm:inline">Home</span>
               </Link>
             </Button>
             {isAdmin ? (
               <Button asChild variant="ghost" size="sm" className="gap-2">
-                <Link href="/admin">
+                <Link prefetch href="/admin">
                   <ShieldUser className="size-4" />
                   <span className="hidden sm:inline">Admin</span>
                 </Link>
@@ -46,7 +46,7 @@ export function Header({
           <div>
             {isAdmin ? (
               <Button asChild variant="ghost" size="sm" className="gap-2">
-                <Link href="/admin/whatsapp">
+                <Link prefetch href="/admin/whatsapp">
                   <SiWhatsapp />
                   <span className="hidden sm:inline">WhatsApp</span>
                 </Link>
@@ -62,7 +62,7 @@ export function Header({
               </Button>
             ) : (
               <Button asChild variant="ghost" size="sm" className="gap-2">
-                <Link href="/private/matches">
+                <Link prefetch href="/private/matches">
                   <LogIn className="size-4" />
                   <span className="hidden sm:inline">Login</span>
                 </Link>

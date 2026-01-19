@@ -2,11 +2,11 @@
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/ui/button";
 import { updateMyself } from "@/modules/turso";
-import { Member, MemberPartial, MemberStringified } from "@/modules/schema";
+import { Member, MemberDocument, MemberPartial, MemberStringified } from "@/modules/schema";
 import { useForm } from "react-hook-form";
 import { create } from "superstruct";
 
-export const EditPage = ({ member }: { member: Member }) => {
+export const EditPage = ({ member }: { member: MemberDocument }) => {
   const {
     register,
     handleSubmit,
@@ -18,7 +18,7 @@ export const EditPage = ({ member }: { member: Member }) => {
     resolver: (schema, _) => {
       const errors = {};
       try {
-        const values = create(schema, Member);
+        const values = create(schema, MemberDocument);
         return {
           errors,
           values,
