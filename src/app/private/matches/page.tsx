@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { AllegroEvent, Match, Member } from "@/modules/schema";
+import { AllegroEventDocument, MatchDocument, MemberDocument } from "@/modules/schema";
 import { useState } from "react";
 import { MatchCard } from "@/components/MatchCard";
 import { Calendar, History } from "lucide-react";
@@ -14,7 +14,7 @@ const NOW = new Date().toISOString();
 export default function Page() {
   const members = useDocuments(
     `$[_type = "member"]^(>standardPublished)`,
-  ) as Member[];
+  ) as MemberDocument[];
   const cookieUserInfo = useDexieStore((state) => state.cookieUserInfo);
   const member = members.find(({ _id }) => _id === cookieUserInfo?._id);
   const matchData = useDocuments(`(
@@ -29,7 +29,7 @@ export default function Page() {
             "name": $getPlayer(player._ref).name
             }^(>rating) : null
     }|;
-  )^(<date)[]`) as (Match | AllegroEvent)[];
+  )^(<date)[]`) as (MatchDocument | AllegroEventDocument)[];
 
   const [showSince, setShowSince] = useState<string>(NOW);
 
@@ -64,6 +64,7 @@ export default function Page() {
         </Button>
         <Button variant="secondary" className="mt-4 cursor-pointer" asChild>
           <Link
+            prefetch
             href={`/private/matches/calendar#${now.getMonth()}-${now.getFullYear()}`}
           >
             <Calendar />

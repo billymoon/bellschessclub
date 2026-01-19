@@ -17,12 +17,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "./ui/card";
 import {
-  AllegroEvent,
   AllegroEventDocument,
   AvailabilityTypes,
-  Match,
   MatchDocument,
-  Member,
+  MemberDocument,
 } from "@/modules/schema";
 import { useState } from "react";
 import Link from "next/link";
@@ -77,9 +75,9 @@ export const MatchCard = ({
   isNextOfType,
   member,
 }: {
-  match: Match | AllegroEvent;
+  match: MatchDocument | AllegroEventDocument;
   isNextOfType: boolean;
-  member: Member;
+  member: MemberDocument;
 }) => {
   const [isSettingAvailability, setIsSettingAvailability] = useState(false);
   const setAvailability = (
