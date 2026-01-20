@@ -12,7 +12,7 @@ import {
 import { createClient as tursoClient } from "@libsql/client";
 import { DexieDocument } from "./dexie/dexie-schema";
 import { setDataEpoch } from "./dexie/sanity-update";
-import { unstable_noStore } from "next/cache";
+// import { unstable_noStore } from "next/cache";
 
 const tursoURL = process.env.TURSO_URL || "file::memory:";
 const useMockDatabase = tursoURL === "file::memory:";
@@ -47,7 +47,7 @@ const updateDocument = async (
 export const getDocumentsSince = async (
   date: string,
 ): Promise<DexieDocument[]> => {
-  unstable_noStore();
+  // unstable_noStore();
   if (useMockDatabase) {
     await mockdata.db(turso);
   }

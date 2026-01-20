@@ -1,6 +1,6 @@
 "use server";
 import { createClient } from "@sanity/client";
-import { unstable_noStore } from "next/cache";
+// import { unstable_noStore } from "next/cache";
 
 const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -13,7 +13,7 @@ const client = createClient({
 const _id = process.env.NEXT_PUBLIC_SANITY_EPOCH_KEY || "data-epoch";
 
 export const setDataEpoch = async (epoch: string) => {
-    unstable_noStore();
+    // unstable_noStore();
     const doc = {
         _id,
         _type: "dataEpoch",
