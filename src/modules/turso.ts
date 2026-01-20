@@ -22,6 +22,28 @@ const turso = tursoClient({
   authToken: process.env.TURSO_TOKEN,
 });
 
+const updateDocument = async (
+  _id: DexieDocument["_id"],
+  data: DexieDocument,
+) => {
+  const _rev = Math.random().toString().slice(2);
+
+  const [_update, { rows: [{ _updatedAt }] }] = await turso.batch(
+    [
+      `update documents set
+        data = '${JSON.stringify(data)}',
+        _updatedAt = strftime('%FT%R:%fZ'),
+        _rev = '${_rev}'
+        where _id == '${_id}';`,
+      `select _updatedAt from documents order by _updatedAt desc limit 1;`,
+    ],
+  );
+
+  await setDataEpoch(_updatedAt as string);
+
+  return { _updatedAt, _rev };
+};
+
 export const getDocumentsSince = async (
   date: string,
 ): Promise<DexieDocument[]> => {
@@ -96,26 +118,10 @@ export const updateMyself = async ({
       ...docData
     } = await getDocument(_id);
 
-    const newUpdatedAt = new Date().toISOString().replace(/\.\d+Z/, "Z");
-
-    const result = await turso.batch(
-      [
-        `update documents set data = '${
-          JSON.stringify({
-            ...docData,
-            ...data,
-          })
-        }',
-          _updatedAt = '${newUpdatedAt}',
-          _rev = '${Math.random().toString().slice(2)}'
-          where _id == '${_id}';`,
-        `select _updatedAt from documents order by _updatedAt desc limit 1;`,
-      ],
-    );
-
-    await setDataEpoch(result[1].rows[0]._updatedAt);
-
-    return "ok";
+    return updateDocument(_id, {
+      ...docData,
+      ...data,
+    });
   } else {
     throw Error("not allowed - not admin");
   }
@@ -155,17 +161,7 @@ export const setAvailabilityForMatch = async (
   // TODO: consolidate with this call, and bypass require admin in this case
   // await updateDocumentById(match_id, matchdocData);
 
-  const newUpdatedAt = new Date().toISOString().replace(/\.\d+Z/, "Z");
-
-  const result = await turso.batch([
-    `update documents set data = '${JSON.stringify(matchdocData)}',
-      _updatedAt = '${newUpdatedAt}',
-      _rev = '${Math.random().toString().slice(2)}'
-      where _id == '${match_id}';`,
-    `select _updatedAt from documents order by _updatedAt desc limit 1;`,
-  ]);
-
-  await setDataEpoch(result[1].rows[0]._updatedAt);
+  return updateDocument(match_id, matchdocData);
 };
 
 export const setAvailabilityForAllegroEvent = async (
@@ -200,17 +196,7 @@ export const setAvailabilityForAllegroEvent = async (
     },
   ];
 
-  const newUpdatedAt = new Date().toISOString().replace(/\.\d+Z/, "Z");
-
-  const result = await turso.batch([
-    `update documents set data = '${JSON.stringify(matchdocData)}',
-      _updatedAt = '${newUpdatedAt}',
-      _rev = '${Math.random().toString().slice(2)}'
-      where _id == '${match_id}';`,
-    `select _updatedAt from documents order by _updatedAt desc limit 1;`,
-  ]);
-
-  await setDataEpoch(result[1].rows[0]._updatedAt);
+  return updateDocument(match_id, matchdocData);
 };
 
 export const updateDocumentById = async (
@@ -228,23 +214,10 @@ export const updateDocumentById = async (
       ...docData
     } = await getDocument(_id);
 
-    const newUpdatedAt = new Date().toISOString().replace(/\.\d+Z/, "Z");
-
-    const result = await turso.batch([
-      `update documents set data = '${
-        JSON.stringify({
-          ...docData,
-          ...data,
-        })
-      }',
-        _updatedAt = '${newUpdatedAt}',
-        _rev = '${Math.random().toString().slice(2)}'
-        where _id == '${_id}';`,
-      `select _updatedAt from documents order by _updatedAt desc limit 1;`,
-    ]);
-
-    await setDataEpoch(result[1].rows[0]._updatedAt);
-    return "ok";
+    return updateDocument(_id, {
+      ...docData,
+      ...data,
+    });
   } else {
     throw Error("not allowed - not admin");
   }

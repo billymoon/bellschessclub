@@ -20,5 +20,15 @@ export const setDataEpoch = async (epoch: string) => {
         epoch,
     };
 
+    // client.createIfNotExists(doc).then((res) => {
+    //   console.log('Bike was created (or was already present)')
+    // })
+
+    //     client
+    //   .patch('bike-123')
+    //   .ifRevisionId('previously-known-revision')
+    //   .set({title: 'Little Red Tricycle'})
+    //   .commit()
+    // 'select(*[_id == "data-epoch-develop"][0].epoch < "2026-01-19T18:59:05Z" => now(), *[_id == "data-epoch-develop"][0].epoch)
     await client.createOrReplace(doc);
 };
