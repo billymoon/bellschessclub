@@ -11,8 +11,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@aphro/absurd-sql": "^0.0.53",
-    "@aphro/sql.js": "^1.7.0",
     "@hookform/resolvers": "^5.2.2",
     "@libsql/client": "^0.15.15",
     "@mmkal/jsonata": "^2.2.0",
@@ -23,11 +21,9 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@vercel/analytics": "^1.6.1",
     "aes256": "^1.1.0",
-    "ajv": "^8.17.1",
     "cheerio": "^1.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cookies-next": "^6.1.1",
     "dexie": "^4.2.1",
     "dexie-react-hooks": "^4.2.0",
     "jsonwebtoken": "^9.0.3",
