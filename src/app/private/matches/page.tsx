@@ -1,6 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { AllegroEventDocument, MatchDocument, MemberDocument } from "@/modules/schema";
+import {
+  AllegroEventDocument,
+  MatchDocument,
+  MemberDocument,
+} from "@/modules/schema";
 import { useState } from "react";
 import { MatchCard } from "@/components/MatchCard";
 import { Calendar, History } from "lucide-react";
