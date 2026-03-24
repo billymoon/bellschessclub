@@ -14,6 +14,9 @@ import { DexieDocument } from "./dexie/dexie-schema";
 import { setDataEpoch } from "./dexie/sanity-update";
 // import { unstable_noStore } from "next/cache";
 
+const sqlStringify = (data: unknown) =>
+  JSON.stringify(data).replace(/'/g, "''");
+
 const tursoURL = process.env.TURSO_URL || "file::memory:";
 const useMockDatabase = tursoURL === "file::memory:";
 
@@ -31,7 +34,7 @@ const updateDocument = async (
   const [_update, { rows: [{ _updatedAt }] }] = await turso.batch(
     [
       `update documents set
-        data = '${JSON.stringify(data)}',
+        data = '${sqlStringify(data)}',
         _updatedAt = strftime('%FT%R:%fZ'),
         _rev = '${_rev}'
         where _id == '${_id}';`,
