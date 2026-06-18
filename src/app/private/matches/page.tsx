@@ -47,6 +47,8 @@ export default function Page() {
     (match) => match.date >= NOW && match._type === "allegro",
   );
 
+  console.log({ nextTeam1Match, NOW })
+
   const nextMatchIds = [
     nextTeam1Match?._id,
     nextTeam2Match?._id,

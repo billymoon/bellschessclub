@@ -12,12 +12,11 @@ import { FormFieldWrapper } from "@/components/FormFieldWrapper";
 
 const HOME_VENUE_NAME = "Edinburgh West End Bowling Club";
 
-const adjustDate = (dateIn: string | number, toLocal: boolean) => {
-  const theDate = new Date(dateIn);
-  theDate.setMinutes(
-    theDate.getMinutes() + ((toLocal ? 1 : -1) * theDate.getTimezoneOffset()),
-  );
-  return theDate;
+const localDate = (dateIn: number | string | Date) => {
+  const [dd, MM, yyyy, hh, mm] = new Date(dateIn)
+    .toLocaleString("en-GB")
+    .split(/\D+/g);
+  return `${yyyy}-${MM}-${dd}T${hh}:${mm}`;
 };
 
 export const EditPage = ({
@@ -25,6 +24,7 @@ export const EditPage = ({
   opponentNames,
   currentDocument = null,
 }) => {
+  console.log({ currentDocument });
   const {
     setValue,
     register,
@@ -34,24 +34,23 @@ export const EditPage = ({
     defaultValues: currentDocument
       ? {
           ...currentDocument,
-          date: adjustDate(currentDocument.date, false)
-            .toISOString()
-            .slice(0, 16),
+          date: localDate(currentDocument.date),
         }
       : {
           team: 1,
           isAtHome: true,
           venue: HOME_VENUE_NAME,
-          date: `${adjustDate(new Date(), false).toISOString().slice(0, 10)}T19:00`,
+          date: localDate(new Date().setHours(19, 0, 0, 0)),
         },
     resolver: async (schema: Match) => {
       const errors = {};
+      console.log({ schema });
       try {
         const values = create(
           {
             ...schema,
             isAtHome: schema.venue === HOME_VENUE_NAME,
-            date: adjustDate(schema.date, true).toISOString(),
+            date: new Date(schema.date).toISOString(),
           },
           Match,
         );
@@ -71,7 +70,6 @@ export const EditPage = ({
 
   const onSubmit = async (values: MatchPartial) => {
     if (currentDocument) {
-      console.log({ currentDocument, values });
       await updateMatchDocument(values);
     } else {
       await createMatchDocument(values);

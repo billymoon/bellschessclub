@@ -13,7 +13,7 @@ import { useState } from "react";
 export function ComboboxBasic({ items, setValue, name, ...props }) {
   const [freshItem, setFreshItem] = useState(null);
   const [allItems, setAllItems] = useState(items);
-  console.log({ freshItem });
+
   return (
     <Combobox
       items={freshItem ? [...allItems, freshItem] : allItems}

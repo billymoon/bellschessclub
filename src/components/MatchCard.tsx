@@ -237,7 +237,7 @@ export const MatchCard = ({
             <div className="flex justify-between w-full flex-col md:flex-row gap-5">
               {!isNextOfType && match.date >= NOW ? (
                 <div className="small italic text-muted-foreground">
-                  Set availability after previous Allegro Events complete
+                  Set availability after previous <b>{match._type === "allegro" ? "Allegro Events" : `Team #${match.team.toString()} Matches`}</b> complete
                 </div>
               ) : null}
               {(isNextOfType && !shouldGiveAvailability) ||
