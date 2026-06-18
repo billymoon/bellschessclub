@@ -64,14 +64,12 @@ export type SanityDocProps = Infer<typeof SanityDocProps>;
 export const MemberData = object({
   _type: defaulted(enums(["member"]), "member"),
   active: nullOrBoolean(true),
-  allegroLive: grade,
   allegroPublished: grade,
   chesscomUsername: nullOrString,
   isAdmin: nullOrBoolean(false),
   lichessUsername: nullOrString,
   name: nullOrString,
   pnum: nullOrPosInt,
-  standardLive: grade,
   standardPublished: grade,
   username: nullOrString,
 });

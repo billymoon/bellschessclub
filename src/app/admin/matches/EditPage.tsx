@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import { createMatchDocument, updateMatchDocument } from "@/modules/turso";
 import { ComboboxBasic } from "@/components/ComboboxBasic";
 import { FormFieldWrapper } from "@/components/FormFieldWrapper";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const HOME_VENUE_NAME = "Edinburgh West End Bowling Club";
 
@@ -24,7 +26,9 @@ export const EditPage = ({
   opponentNames,
   currentDocument = null,
 }) => {
-  console.log({ currentDocument });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+
   const {
     setValue,
     register,
@@ -69,11 +73,13 @@ export const EditPage = ({
   });
 
   const onSubmit = async (values: MatchPartial) => {
+    setIsSubmitting(true)
     if (currentDocument) {
       await updateMatchDocument(values);
     } else {
       await createMatchDocument(values);
     }
+    router.push("/private/matches");
   };
 
   const registerWithErrors = (fieldName) => ({
@@ -122,7 +128,7 @@ export const EditPage = ({
           {...registerWithErrors("venue")}
         />
         <FormField {...registerWithErrors("mapLink")} label="Map" />
-        <Button type="submit" className="mt-4 cursor-pointer">
+        <Button type="submit" className="mt-4 cursor-pointer" disabled={isSubmitting}>
           Save
         </Button>
       </form>

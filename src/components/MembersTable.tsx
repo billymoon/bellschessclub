@@ -67,13 +67,13 @@ export function MembersTable({
                   <TableCell className="font-medium">{member.name}</TableCell>
                   <TableCell
                     className="font-medium"
-                    title={`Published: ${member.standardPublished}\nLive: ${member.standardLive}`}
+                    title={`Standard Rating: ${member.standardPublished}`}
                   >
                     {member.standardPublished}
                   </TableCell>
                   <TableCell
                     className="font-medium"
-                    title={`Published: ${member.allegroPublished}\nLive: ${member.allegroLive}`}
+                    title={`Allegro Rating: ${member.allegroPublished}}`}
                   >
                     {member.allegroPublished}
                   </TableCell>
