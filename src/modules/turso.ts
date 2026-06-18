@@ -12,6 +12,7 @@ import {
 import { createClient as tursoClient } from "@libsql/client";
 import { DexieDocument } from "./dexie/dexie-schema";
 import { setDataEpoch } from "./dexie/sanity-update";
+import { randomUUID } from "crypto";
 // import { unstable_noStore } from "next/cache";
 
 const sqlStringify = (data: unknown) =>
@@ -24,6 +25,75 @@ const turso = tursoClient({
   url: tursoURL,
   authToken: process.env.TURSO_TOKEN,
 });
+
+export const updateMatchDocument = async (
+  dataIn: DexieDocument,
+) => {
+  const { isAdmin } = await getUserInfoFromCookie();
+  if (isAdmin) {
+    const {
+      _id,
+      _rev: xrev,
+      _createdAt,
+      _updatedAt: xupdatedAt,
+      _type,
+      ...data
+    } = dataIn;
+    const _rev = Math.random().toString().slice(2);
+
+    const [_update, { rows: [{ _updatedAt }] }] = await turso.batch(
+      [
+        `UPDATE documents SET (
+          _rev, _updatedAt, data
+        ) = (
+          '${_rev}',
+          strftime('%FT%R:%fZ'),
+          '${sqlStringify(data)}'
+        ) WHERE _id = '${_id}';`,
+        `select _updatedAt from documents order by _updatedAt desc limit 1;`,
+      ],
+    );
+
+    await setDataEpoch(_updatedAt as string);
+
+    return { _updatedAt, _rev };
+  } else {
+    throw Error("not allowed - not admin");
+  }
+};
+
+export const createMatchDocument = async (
+  data: DexieDocument,
+) => {
+  // if (useMockDatabase) {
+  //   await mockdata.db(turso);
+  // }
+  const { isAdmin } = await getUserInfoFromCookie();
+  if (isAdmin) {
+    const uuid = randomUUID();
+    const _rev = Math.random().toString().slice(2);
+
+    const [_update, { rows: [{ _updatedAt }] }] = await turso.batch(
+      [
+        `INSERT INTO documents VALUES(
+          '${uuid}',
+          '${_rev}',
+          strftime('%FT%R:%fZ'),
+          strftime('%FT%R:%fZ'),
+          'match',
+          '${sqlStringify(data)}'
+        );`,
+        `select _updatedAt from documents order by _updatedAt desc limit 1;`,
+      ],
+    );
+
+    await setDataEpoch(_updatedAt as string);
+
+    return { _updatedAt, _rev };
+  } else {
+    throw Error("not allowed - not admin");
+  }
+};
 
 const updateDocument = async (
   _id: DexieDocument["_id"],
@@ -136,6 +206,9 @@ export const setAvailabilityForMatch = async (
 ) => {
   const { _id } = await getUserInfoFromCookie();
   const member = await getUserById(_id);
+
+  console.log(match_id);
+  console.log(await getDocument(match_id));
 
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const {

@@ -2,7 +2,7 @@
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/ui/button";
 import { updateMyself } from "@/modules/turso";
-import { Member, MemberDocument, MemberPartial, MemberStringified } from "@/modules/schema";
+import { MemberDocument, MemberPartial, MemberStringified } from "@/modules/schema";
 import { useForm } from "react-hook-form";
 import { create } from "superstruct";
 
