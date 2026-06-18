@@ -124,7 +124,13 @@ export const MatchCard = ({
           </div>
           <div className="relative">
             <div className="absolute right-0 bottom-0 md:bottom-auto md:right-auto">
-              <Swords className="text-muted-foreground" />
+              {member.isAdmin ? (
+                <Link href={`/admin/matches/${match._id}`}>
+                  <Swords className="" />
+                </Link>
+              ) : (
+                <Swords className="text-muted-foreground" />
+              )}
             </div>
           </div>
           <div className="md:text-right">{opponent}</div>
@@ -231,7 +237,7 @@ export const MatchCard = ({
             <div className="flex justify-between w-full flex-col md:flex-row gap-5">
               {!isNextOfType && match.date >= NOW ? (
                 <div className="small italic text-muted-foreground">
-                  Set availability after previous Allegro Events complete
+                  Set availability after previous <b>{match._type === "allegro" ? "Allegro Events" : `Team #${match.team.toString()} Matches`}</b> complete
                 </div>
               ) : null}
               {(isNextOfType && !shouldGiveAvailability) ||

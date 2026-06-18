@@ -2,7 +2,7 @@
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/ui/button";
 import { updateMyself } from "@/modules/turso";
-import { Member, MemberDocument, MemberPartial, MemberStringified } from "@/modules/schema";
+import { MemberDocument, MemberPartial, MemberStringified } from "@/modules/schema";
 import { useForm } from "react-hook-form";
 import { create } from "superstruct";
 
@@ -59,21 +59,17 @@ export const EditPage = ({ member }: { member: MemberDocument }) => {
           {...registerWithErrors("chesscomUsername")}
           label="Chess.com username"
         />
-        <FormField
+        {/* <FormField
           {...registerWithErrors("allegroLive")}
           label="Allegro Live"
-        />
+        /> */}
         <FormField
           {...registerWithErrors("allegroPublished")}
-          label="Allegro Published"
-        />
-        <FormField
-          {...registerWithErrors("standardLive")}
-          label="Standard Live"
+          label="Allegro Rating"
         />
         <FormField
           {...registerWithErrors("standardPublished")}
-          label="Standard Published"
+          label="Standard Rating"
         />
         {/* <FormField {...registerWithErrors("isAdmin")} label="Is admin" />
         <FormField {...registerWithErrors("active")} label="Is active" /> */}

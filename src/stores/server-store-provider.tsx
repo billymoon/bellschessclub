@@ -3,7 +3,6 @@ import { type ReactNode, createContext, useRef, useContext } from "react";
 import { useStore } from "zustand";
 import {
   ServerState,
-  type ServerStore,
   createServerStore,
   initServerStore,
 } from "@/stores/server-store";
@@ -35,7 +34,7 @@ export const ServerStoreProvider = ({
   );
 };
 
-export const useServerStore = <T,>(selector: (store: ServerStore) => T): T => {
+export const useServerStore = <T,>(selector: (store: ServerState) => T): T => {
   const memberStoreContext = useContext(ServerStoreContext);
 
   if (!memberStoreContext) {

@@ -8,11 +8,9 @@ import venue from "../../public/venue.png";
 export default function Home() {
   return (
     <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-      {/* Club Nights Heading */}
       <h2 className="text-4xl md:text-5xl font-bold text-foreground">
         Chess Club Nights
       </h2>
-      {/* Details */}
       <div className="text-center space-y-6 text-foreground pt-4">
         <p className="text-2xl md:text-3xl font-semibold">
           Tuesday Evenings <br /> 7.00 pm - 10:30 pm
@@ -38,7 +36,6 @@ export default function Home() {
           <p className="p-0 m-0 font-semibold">Mike Wallace</p>
           <p className="p-0 m-0">(club secretary)</p>
         </div>
-        {/* Contact Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             variant="outline"

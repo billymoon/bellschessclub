@@ -9,20 +9,6 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import { ServerStoreProvider } from "@/stores/server-store-provider";
 
-async function SSRProviders({ children }: { children: React.ReactNode }) {
-  const cookieUserInfo = await getUserInfoFromCookie();
-
-  return (
-    <ServerStoreProvider
-      initialData={{
-        cookieUserInfo,
-      }}
-    >
-      {children}
-    </ServerStoreProvider>
-  );
-}
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -43,7 +29,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isAdmin, isMember } = await getUserInfoFromCookie();
+  const cookieUserInfo = await getUserInfoFromCookie();
   const { _id: imposterId } = await getUserInfoFromImpersonatorCookie();
 
   return (
@@ -76,11 +62,17 @@ export default async function RootLayout({
       >
         {process.env.NODE_ENV === "production" ? <Analytics /> : null}
         <Header
-          isAdmin={isAdmin}
-          isMember={isMember}
+          isAdmin={cookieUserInfo.isAdmin}
+          isMember={cookieUserInfo.isMember}
           isImpersonating={Boolean(imposterId)}
         />
-        <SSRProviders>{children}</SSRProviders>
+        <ServerStoreProvider
+          initialData={{
+            cookieUserInfo,
+          }}
+        >
+          {children}
+        </ServerStoreProvider>
       </body>
     </html>
   );

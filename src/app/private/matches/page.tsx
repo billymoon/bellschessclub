@@ -1,9 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { AllegroEventDocument, MatchDocument, MemberDocument } from "@/modules/schema";
+import {
+  AllegroEventDocument,
+  MatchDocument,
+  MemberDocument,
+} from "@/modules/schema";
 import { useState } from "react";
 import { MatchCard } from "@/components/MatchCard";
-import { Calendar, History } from "lucide-react";
+import { Calendar, History, PlusSquare } from "lucide-react";
 import Link from "next/link";
 import { useDocuments } from "@/modules/dexie/useDocuments";
 import { useDexieStore } from "@/modules/dexie/dexie-store-provider";
@@ -16,7 +20,7 @@ export default function Page() {
     `$[_type = "member"]^(>standardPublished)`,
   ) as MemberDocument[];
   const cookieUserInfo = useDexieStore((state) => state.cookieUserInfo);
-  const member = members.find(({ _id }) => _id === cookieUserInfo?._id);
+  const member = members.find(({ _id }) => _id === cookieUserInfo?._id)!;
   const matchData = useDocuments(`(
     $members := $[_type = "member"];
     $getPlayer := function($id) {
@@ -83,6 +87,34 @@ export default function Page() {
             />
           </div>
         ))}
+      {member.isAdmin ? (
+        <div className="flex gap-4 flex-col sm:flex-row">
+          <Button variant="secondary" className="cursor-pointer" asChild>
+            <Link prefetch href={`/admin/matches/add`}>
+              <PlusSquare />
+              Add match
+            </Link>
+          </Button>
+          {/* <Button variant="secondary" className="cursor-pointer" asChild>
+            <Link
+              prefetch
+              href={`/admin/matches/add`}
+            >
+              <PlusSquare />
+              Add allegro event
+            </Link>
+          </Button>
+          <Button variant="secondary" className="cursor-pointer" asChild>
+            <Link
+              prefetch
+              href={`/admin/matches/add`}
+            >
+              <PlusSquare />
+              Add social event
+            </Link>
+          </Button> */}
+        </div>
+      ) : null}
     </div>
   );
 }
