@@ -28,10 +28,11 @@ export default function Page() {
     };
     $[_type = 'match' or _type = 'allegro'] ~> |$|{
       "availability": $.players.availability ? $.players[].{
-            "availability": availability,
-            "rating": rating,
-            "name": $getPlayer(player._ref).name
-            }^(>rating) : null
+        "availability": availability,
+        "rating": %._type = 'allegro' ? $getPlayer(player._ref).allegroPublished :  $getPlayer(player._ref).standardPublished,
+        "name": $getPlayer(player._ref).name,
+        "pnum": $getPlayer(player._ref).pnum
+        }^(>rating) : null
     }|;
   )^(<date)[]`) as (MatchDocument | AllegroEventDocument)[];
 

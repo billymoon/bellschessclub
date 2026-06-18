@@ -79,6 +79,7 @@ export const MatchCard = ({
   isNextOfType: boolean;
   member: MemberDocument;
 }) => {
+  const [showDetails, setShowDetails] = useState(false);
   const [isSettingAvailability, setIsSettingAvailability] = useState(false);
   const setAvailability = (
     matchId: MatchDocument["_id"] | AllegroEventDocument["_id"],
@@ -207,7 +208,7 @@ export const MatchCard = ({
           </div>
           <div className="flex flex-col gap-2 mt-6">
             {match?.availability && (
-              <div>
+              <div onClick={() => setShowDetails(!showDetails)}>
                 {match?.availability
                   ?.sort(
                     (a, b) =>
@@ -216,7 +217,7 @@ export const MatchCard = ({
                           (x) => x === b.availability,
                         ) || (b.rating || 0) - (a.rating || 0),
                   )
-                  .map(({ availability, name }, index) => (
+                  .map(({ availability, rating, name, pnum }, index) => (
                     <div key={index}>
                       <Badge
                         className={
@@ -228,8 +229,8 @@ export const MatchCard = ({
                         }
                       >
                         {availability}
-                      </Badge>{" "}
-                      {name}
+                      </Badge>{' '}
+                      {name} {showDetails ? <span className="text-muted-foreground">[{pnum ?? ""}/{rating ?? "?"}]</span> : null}
                     </div>
                   ))}
               </div>
