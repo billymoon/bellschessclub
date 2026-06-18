@@ -59,10 +59,6 @@ export const EditPage = ({ member }: { member: MemberDocument }) => {
           {...registerWithErrors("chesscomUsername")}
           label="Chess.com username"
         />
-        {/* <FormField
-          {...registerWithErrors("allegroLive")}
-          label="Allegro Live"
-        /> */}
         <FormField
           {...registerWithErrors("allegroPublished")}
           label="Allegro Rating"

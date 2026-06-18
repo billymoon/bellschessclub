@@ -12,6 +12,7 @@ import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { updateDocumentById } from "@/modules/turso";
+import { HatGlasses, Wand } from "lucide-react";
 
 const AdminTableRow = ({ member }: { member: MemberPartial }) => {
   const { register, handleSubmit } = useForm({
@@ -44,9 +45,25 @@ const AdminTableRow = ({ member }: { member: MemberPartial }) => {
   return (
     <TableRow>
       <TableCell className="font-medium">
-        <a href={`/api/impersonate/${member._id}`} className="hover:underline">
-          <div className="p-[10]">{member.name}</div>
-        </a>
+        <Button variant="outline" asChild>
+          <a
+            href={`/api/impersonate/${member._id}`}
+            className="hover:underline"
+          >
+            <HatGlasses />
+          </a>
+        </Button>{" "}
+        <Button variant="outline" asChild>
+          <a
+            href={`/api/impersonate/${member._id}?redirect=/private/profile/magic-link`}
+            className="hover:underline"
+          >
+            <Wand />
+          </a>
+        </Button>
+      </TableCell>
+      <TableCell className="font-medium p-0">
+        <div className="p-[10]">{member.name}</div>
       </TableCell>
       <TableCell className="font-medium p-0">
         <div className="p-[10]">{member.pnum}</div>
@@ -89,6 +106,7 @@ export function AdminTable({ members }: { members: Member[] }) {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead></TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Pnum</TableHead>
               <TableHead>Username / Status</TableHead>
