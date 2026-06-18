@@ -10,9 +10,11 @@ import {
 } from "@/modules/cookies";
 
 export const GET = async (
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: { _id: string } },
 ) => {
+  const searchParams = req.nextUrl.searchParams;
+  const redirectLocation = searchParams.get("redirect");
   const cookieStore = await cookies();
   const { _id } = await params;
   const user = await getUserInfoFromCookie();
@@ -29,7 +31,8 @@ export const GET = async (
       });
 
       cookieStore.set("user", jwt);
-      redirect("/private/matches");
+
+      redirect(redirectLocation ?? "/private/matches");
     } else {
       return Response.json({ _id, user, impersonator }, { status: 401 });
     }

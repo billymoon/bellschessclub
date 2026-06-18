@@ -149,7 +149,7 @@ export const queryDocuments = async (
   const result = await turso.execute(
     `select _id, _type, _createdAt, _updatedAt, _rev, data from documents ${querySuffix};`,
   );
-  console.log({ result })
+
   return result.rows.map((rowData) => {
     const { _id, _rev, _createdAt, _updatedAt, _type, data } =
       rowData as unknown as SanityDocument;
@@ -205,11 +205,8 @@ export const setAvailabilityForMatch = async (
   match_id: MatchDocument["_id"],
   availability: AvailabilityTypes,
 ) => {
-  console.log({match_id});
   const { _id } = await getUserInfoFromCookie();
   const member = await getUserById(_id);
-
-  console.log(await getDocument(match_id));
 
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
@@ -232,7 +229,6 @@ export const setAvailabilityForMatch = async (
         _ref: _id,
       },
       availability,
-      rating: member.standardPublished,
     },
   ];
   // TODO: consolidate with this call, and bypass require admin in this case
@@ -268,8 +264,7 @@ export const setAvailabilityForAllegroEvent = async (
         _type: "reference",
         _ref: _id,
       },
-      availability,
-      rating: member.standardPublished,
+      availability
     },
   ];
 

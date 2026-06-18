@@ -139,6 +139,7 @@ export const Match = assign(
             name: string(),
             availability: AvailabilityTypes,
             rating: optional(nullable(number())),
+            pnum: optional(nullable(number())),
           }),
         ),
         [],
