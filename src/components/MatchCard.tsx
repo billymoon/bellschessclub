@@ -252,10 +252,12 @@ export const MatchCard = ({
                   Set availability after previous{" "}
                   <b>
                     {match._type === "allegro"
-                      ? "Allegro Events"
-                      : `Team #${match.team.toString()} Matches`}
+                      ? "Allegro Event"
+                      : match.team === 0
+                        ? `Summer Cup Match`
+                        : `Team #${match.team.toString()} Match`}
                   </b>{" "}
-                  complete
+                  completes
                 </div>
               ) : null}
               {(isNextOfType && !shouldGiveAvailability) ||
