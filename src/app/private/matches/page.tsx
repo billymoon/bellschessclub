@@ -38,6 +38,9 @@ export default function Page() {
 
   const [showSince, setShowSince] = useState<string>(NOW);
 
+  const nextSummercupMatch = matchData?.find(
+    (match) => match.date >= NOW && match._type === "match" && match.team === 0,
+  );
   const nextTeam1Match = matchData?.find(
     (match) => match.date >= NOW && match._type === "match" && match.team === 1,
   );
@@ -49,6 +52,7 @@ export default function Page() {
   );
 
   const nextMatchIds = [
+    nextSummercupMatch?._id,
     nextTeam1Match?._id,
     nextTeam2Match?._id,
     nextAllegroMatch?._id,

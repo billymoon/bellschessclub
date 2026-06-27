@@ -25,6 +25,11 @@ const eventTypeColors: Record<
     fill: "fill-allegro",
     text: "text-primary-foreground",
   },
+  summercup: {
+    bg: "card-summercup",
+    fill: "fill-summercup",
+    text: "text-accent-foreground",
+  },
   team1: {
     bg: "card-team-1",
     fill: "fill-team-1",
