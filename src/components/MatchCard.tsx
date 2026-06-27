@@ -115,13 +115,15 @@ export const MatchCard = ({
   return (
     <Card className={cn("p-0 my-4 relative overflow-clip")} key={match._id}>
       <CardHeader
-        className={`${match.date < NOW ? "card-historic" : match._type === "allegro" ? "card-allegro" : match._type === "match" && match.team === 1 ? "card-team-1" : "card-team-2"} gap-0 py-3`}
+        className={`${match.date < NOW ? "card-historic" : match._type === "allegro" ? "card-allegro" : match._type === "match" && match.team === 0 ? "card-summercup" : match.team === 1 ? "card-team-1" : "card-team-2"} gap-0 py-3`}
       >
         <div className="flex flex-col md:flex-row md:gap-8 justify-between w-full text-lg">
           <div className="font-bold">
             {match._type === "allegro"
               ? "Sandy Bells Allegro Team"
-              : `Sandy Bells Team #${match.team.toString()}`}
+              : match.team === 0
+                ? `Sandy Bells Summer Cup Team`
+                : `Sandy Bells Team #${match.team.toString()}`}
           </div>
           <div className="relative">
             <div className="absolute right-0 bottom-0 md:bottom-auto md:right-auto">
@@ -154,11 +156,15 @@ export const MatchCard = ({
                     name:
                       match._type == "allegro"
                         ? "Sandy Bells Allegro Team Match"
-                        : `Sandy Bells Team #${match.team.toString()}`,
+                        : match.team === 0
+                          ? `Sandy Bells Summer Cup Match`
+                          : `Sandy Bells Team #${match.team.toString()} Match`,
                     description:
                       match._type === "allegro"
                         ? `Sandy Bells Allegro Team of four players to play against ${opponent} at Slateford Bowling Club`
-                        : "Sandy Bells edinburgh league match",
+                        : match.team === 0
+                          ? `Sandy Bells Summer Cup Match`
+                          : "Sandy Bells Edinburgh league match",
                     start_datetime: match.date,
                     end_datetime: ((date) => {
                       date.setTime(
@@ -229,8 +235,13 @@ export const MatchCard = ({
                         }
                       >
                         {availability}
-                      </Badge>{' '}
-                      {name} {showDetails ? <span className="text-muted-foreground">[{pnum ?? ""}/{rating ?? "?"}]</span> : null}
+                      </Badge>{" "}
+                      {name}{" "}
+                      {showDetails ? (
+                        <span className="text-muted-foreground">
+                          [{pnum ?? ""}/{rating ?? "?"}]
+                        </span>
+                      ) : null}
                     </div>
                   ))}
               </div>
@@ -238,7 +249,15 @@ export const MatchCard = ({
             <div className="flex justify-between w-full flex-col md:flex-row gap-5">
               {!isNextOfType && match.date >= NOW ? (
                 <div className="small italic text-muted-foreground">
-                  Set availability after previous <b>{match._type === "allegro" ? "Allegro Events" : `Team #${match.team.toString()} Matches`}</b> complete
+                  Set availability after previous{" "}
+                  <b>
+                    {match._type === "allegro"
+                      ? "Allegro Event"
+                      : match.team === 0
+                        ? `Summer Cup Match`
+                        : `Team #${match.team.toString()} Match`}
+                  </b>{" "}
+                  completes
                 </div>
               ) : null}
               {(isNextOfType && !shouldGiveAvailability) ||

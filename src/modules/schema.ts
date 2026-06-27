@@ -122,7 +122,7 @@ export const MatchData = object({
   date: ISODateString,
   isAtHome: toBoolean,
   opponent: size(string(), 1, Infinity),
-  team: coerce(enums([1, 2]), string(), withJSON),
+  team: coerce(enums([0, 1, 2]), string(), withJSON),
   venue: string(),
   mapLink: optional(string()),
   players: defaulted(array(MemberReference), []),

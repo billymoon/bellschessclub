@@ -101,6 +101,7 @@ export const EditPage = ({
               "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
             )}
           >
+            <option value="0">Summercup</option>
             <option value="1">Team 1</option>
             <option value="2">Team 2</option>
           </select>

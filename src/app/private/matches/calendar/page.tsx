@@ -52,9 +52,11 @@ export default function Page() {
                   type:
                     _type === "allegro"
                       ? "allegro"
-                      : team === 1
-                        ? "team1"
-                        : "team2",
+                      : team === 0
+                        ? "summercup"
+                        : team === 1
+                          ? "team1"
+                          : "team2",
                   title: "sweet",
                   isAtHome: Boolean(isAtHome),
                 }),
