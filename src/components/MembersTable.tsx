@@ -13,6 +13,7 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { SiChessdotcom, SiLichess } from "react-icons/si";
 import Link from "next/link";
+import { ArrowUpDown, PlusSquare } from "lucide-react";
 
 export function MembersTable({
   members,
@@ -28,14 +29,28 @@ export function MembersTable({
         <CardTitle>
           Club Members{" "}
           {isAdmin ? (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-2 cursor-pointer"
-              onClick={() => setShowAll(!showAll)}
-            >
-              Show {showAll ? "active" : "all"}
-            </Button>
+            <span>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="cursor-pointer"
+                onClick={() => setShowAll(!showAll)}
+              >
+                <ArrowUpDown />
+                Show {showAll ? "active" : "all"}
+              </Button>
+              <Button
+                size="sm"
+                variant="secondary"
+                className="cursor-pointer"
+                asChild
+              >
+                <Link prefetch href={`/admin/members/add`}>
+                  <PlusSquare />
+                  Add member
+                </Link>
+              </Button>
+            </span>
           ) : null}
         </CardTitle>
       </CardHeader>

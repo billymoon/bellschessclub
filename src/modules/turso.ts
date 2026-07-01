@@ -64,6 +64,7 @@ export const updateMatchDocument = async (
 
 export const createMatchDocument = async (
   data: DexieDocument,
+  type = "match",
 ) => {
   // if (useMockDatabase) {
   //   await mockdata.db(turso);
@@ -80,7 +81,7 @@ export const createMatchDocument = async (
           '${_rev}',
           strftime('%FT%R:%fZ'),
           strftime('%FT%R:%fZ'),
-          'match',
+          '${type}',
           '${sqlStringify(data)}'
         );`,
         `select _updatedAt from documents order by _updatedAt desc limit 1;`,
@@ -89,6 +90,7 @@ export const createMatchDocument = async (
 
     await setDataEpoch(_updatedAt as string);
 
+    console.log({ _updatedAt, _rev });
     return { _updatedAt, _rev };
   } else {
     throw Error("not allowed - not admin");

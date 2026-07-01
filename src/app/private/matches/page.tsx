@@ -71,6 +71,14 @@ export default function Page() {
           <History />
           {showSince === EPOCH ? "Hide historic" : "Show historic"}
         </Button>
+        {member.isAdmin && (
+          <Button variant="secondary" className="mt-4 cursor-pointer" asChild>
+            <Link prefetch href={`/admin/matches/add`}>
+              <PlusSquare />
+              Add match
+            </Link>
+          </Button>
+        )}
         <Button variant="secondary" className="mt-4 cursor-pointer" asChild>
           <Link
             prefetch
@@ -92,34 +100,6 @@ export default function Page() {
             />
           </div>
         ))}
-      {member.isAdmin ? (
-        <div className="flex gap-4 flex-col sm:flex-row">
-          <Button variant="secondary" className="cursor-pointer" asChild>
-            <Link prefetch href={`/admin/matches/add`}>
-              <PlusSquare />
-              Add match
-            </Link>
-          </Button>
-          {/* <Button variant="secondary" className="cursor-pointer" asChild>
-            <Link
-              prefetch
-              href={`/admin/matches/add`}
-            >
-              <PlusSquare />
-              Add allegro event
-            </Link>
-          </Button>
-          <Button variant="secondary" className="cursor-pointer" asChild>
-            <Link
-              prefetch
-              href={`/admin/matches/add`}
-            >
-              <PlusSquare />
-              Add social event
-            </Link>
-          </Button> */}
-        </div>
-      ) : null}
     </div>
   );
 }
