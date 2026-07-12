@@ -11,9 +11,10 @@ export default function Home() {
       <h2 className="text-4xl md:text-5xl font-bold text-foreground">
         Chess Club Nights
       </h2>
-      <div className="text-center space-y-6 text-foreground pt-4">
+      <div className="text-center space-y-6 text-foreground pt-4 max-w-[800px]">
+
         <p className="text-2xl md:text-3xl font-semibold">
-          Tuesday Evenings <br /> 7.00 pm - 10:30 pm
+          Tuesday evenings <br /> October to April <br />7.00 pm - 10:30 pm <br /> (with special events over the summer)
         </p>
 
         <h3 className="text-3xl md:text-4xl font-bold text-foreground">
@@ -29,7 +30,10 @@ export default function Home() {
 
         <div className="text-lg md:text-xl leading-relaxed space-y-2">
           <p>
-            Come along for a friendly game or contact us to find out more...
+            Come along for a friendly game or contact us to find out more.
+          </p>
+          <p>
+            You may also find us just around the corner from the club in Bennets Bar<MapLinkButton href="https://maps.app.goo.gl/yTHbsmWTdC7i9vBT7" /><br />where there is casual chess and vibes on Thursday evenings all year round.
           </p>
         </div>
         <div className="text-center text-lg md:text-xl leading-relaxed space-y-2">
