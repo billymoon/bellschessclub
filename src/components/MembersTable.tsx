@@ -13,7 +13,7 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { SiChessdotcom, SiLichess } from "react-icons/si";
 import Link from "next/link";
-import { ArrowUpDown, PlusSquare } from "lucide-react";
+import { ArrowUpDown, ExternalLink, PlusSquare } from "lucide-react";
 
 export function MembersTable({
   members,
@@ -60,9 +60,9 @@ export function MembersTable({
             <TableRow>
               <TableHead>Pnum</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>Standard Rating</TableHead>
-              <TableHead>Allegro Rating</TableHead>
-              <TableHead>Sites</TableHead>
+              <TableHead className="text-right">Standard Rating</TableHead>
+              <TableHead className="text-right">Allegro Rating</TableHead>
+              {/* <TableHead>Sites</TableHead> */}
               <TableHead>Is Admin</TableHead>
             </TableRow>
           </TableHeader>
@@ -76,23 +76,22 @@ export function MembersTable({
                       href={`https://www.chessscotland.com/grading/player/${member.pnum}`}
                       className="hover:underline"
                     >
-                      <div className="p-[10]">{member.pnum}</div>
+                      <div className="p-[10]"><span>{member.pnum}</span></div>
+                      {/* <div className="p-[10] flex"><span>{member.pnum}</span> <ExternalLink className="size-4"/></div> */}
                     </Link>
                   </TableCell>
                   <TableCell className="font-medium">{member.name}</TableCell>
                   <TableCell
-                    className="font-medium"
-                    title={`Standard Rating: ${member.standardPublished}`}
+                    className="font-medium text-right"
                   >
-                    {member.standardPublished}
+                    {member.standardIsEstimated ? 'est.' : ''}{member.standardPublished}
                   </TableCell>
                   <TableCell
-                    className="font-medium"
-                    title={`Allegro Rating: ${member.allegroPublished}}`}
+                    className="font-medium text-right"
                   >
-                    {member.allegroPublished}
+                    {member.allegroIsEstimated ? 'est.' : ''}{member.allegroPublished}
                   </TableCell>
-                  <TableCell className="font-medium p-0">
+                  {/* <TableCell className="font-medium p-0">
                     {member.lichessUsername ? (
                       <Button asChild variant="ghost" className="text-3xl">
                         <Link
@@ -113,7 +112,7 @@ export function MembersTable({
                         </Link>
                       </Button>
                     ) : null}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Badge
                       variant={

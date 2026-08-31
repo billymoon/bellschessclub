@@ -65,12 +65,14 @@ export const MemberData = object({
   _type: defaulted(enums(["member"]), "member"),
   active: nullOrBoolean(true),
   allegroPublished: grade,
+  allegroIsEstimated: nullOrBoolean(false),
   chesscomUsername: nullOrString,
   isAdmin: nullOrBoolean(false),
   lichessUsername: nullOrString,
   name: nullOrString,
   pnum: nullOrPosInt,
   standardPublished: grade,
+  standardIsEstimated: nullOrBoolean(false),
   username: nullOrString,
 });
 
