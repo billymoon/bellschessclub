@@ -60,9 +60,9 @@ export function MembersTable({
             <TableRow>
               <TableHead>Pnum</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>Standard Rating</TableHead>
-              <TableHead>Allegro Rating</TableHead>
-              <TableHead>Sites</TableHead>
+              <TableHead className="text-right">Standard Rating</TableHead>
+              <TableHead className="text-right">Allegro Rating</TableHead>
+              {/* <TableHead>Sites</TableHead> */}
               <TableHead>Is Admin</TableHead>
             </TableRow>
           </TableHeader>
@@ -81,18 +81,18 @@ export function MembersTable({
                   </TableCell>
                   <TableCell className="font-medium">{member.name}</TableCell>
                   <TableCell
-                    className="font-medium"
+                    className="font-medium text-right"
                     title={`Standard Rating: ${member.standardPublished}`}
                   >
-                    {member.standardPublished}
+                    {member.standardIsEstimated ? 'est.' : ''}{member.standardPublished}
                   </TableCell>
                   <TableCell
-                    className="font-medium"
+                    className="font-medium text-right"
                     title={`Allegro Rating: ${member.allegroPublished}}`}
                   >
                     {member.allegroPublished}
                   </TableCell>
-                  <TableCell className="font-medium p-0">
+                  {/* <TableCell className="font-medium p-0">
                     {member.lichessUsername ? (
                       <Button asChild variant="ghost" className="text-3xl">
                         <Link
@@ -113,7 +113,7 @@ export function MembersTable({
                         </Link>
                       </Button>
                     ) : null}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Badge
                       variant={
