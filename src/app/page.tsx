@@ -70,7 +70,7 @@ export default function Home() {
         us
       </p>
       <QRCodeSVG
-        value="https://www.sandybells.club/"
+        value="https://bellschess.club/"
         style={{
           width: "200px",
           maxWidth: "100%",
@@ -78,7 +78,7 @@ export default function Home() {
           maxHeight: "100%",
         }}
       />
-      <div className="p-2">https://www.sandybells.club/</div>
+      <div className="p-2">https://bellschess.club/</div>
     </div>
   );
 }

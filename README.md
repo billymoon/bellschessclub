@@ -35,6 +35,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deployed on Vercel
 
-The repo is setup with git hooks that trigger a production deploy to https://www.sandybells.club on push (or PR merge) to main and trigger a deploy to https://dev.sandybells.club on push to any other branch (probably pushing develop makes sense here).
+The repo is setup with git hooks that trigger a production deploy to https://bellschess.club on push (or PR merge) to main and trigger a deploy to https://dev.bellschess.club on push to any other branch (probably pushing develop makes sense here).
 
 The dev deployment has it's own database so playing around with the deploy the check it's working correctly will not impact production.

@@ -1,6 +1,6 @@
 {
-  "name": "sandybells",
-  "version": "0.1.0",
+  "name": "bellschessclub",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
