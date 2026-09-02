@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
 
 const manifest = {
-  "name": "Sandy Bells",
-  "short_name": "Sandy Bells",
+  "name": "Bells Chess Club",
+  "short_name": "Bells Chess Club",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

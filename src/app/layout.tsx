@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sandy Bells Chess Club",
+  title: "Bells Chess Club",
   description: "Home of Chess in Edinburgh South",
 };
 
@@ -38,7 +38,7 @@ export default async function RootLayout({
       <meta name="google" content="notranslate" />
       <meta httpEquiv="Content-Language" content="en" />
       <head>
-        <title>Sandy Bells Chess Club</title>
+        <title>Bells Chess Club</title>
         <link
           rel="apple-touch-icon"
           sizes="180x180"

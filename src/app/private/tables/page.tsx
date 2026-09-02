@@ -64,7 +64,7 @@ function LeagueTable({
               {data.map((row, index) => (
                 <TableRow
                   key={index}
-                  className={row.Team.startsWith("Sandy") ? "bg-amber-100" : ""}
+                  className={row.Team.startsWith("Bells") ? "bg-amber-100" : ""}
                 >
                   {[(index + 1).toString(), ...Object.values(row)]
                     .slice(0, -3)

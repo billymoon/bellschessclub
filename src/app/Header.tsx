@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Crown, Home, LogIn, LogOut, ShieldUser } from "lucide-react";
+import { Bell, Home, LogIn, LogOut, ShieldUser } from "lucide-react";
 import Link from "next/link";
 import { SiWhatsapp } from "react-icons/si";
 
@@ -36,10 +36,11 @@ export function Header({
           </div>
 
           <div className="flex items-center gap-2">
-            <Crown className="size-4" />
+            <Bell className="size-4 rotate-10 left-2 relative" />
+            <Bell className="size-4 -rotate-10" />
             <h1 className="text-lg font-semibold text-foreground">
-              <span className="hidden md:inline">Sandy Bells Chess Club</span>
-              <span className="md:hidden">SBCC</span>
+              <span className="hidden md:inline">Bells Chess Club</span>
+              <span className="md:hidden">Bells</span>
             </h1>
           </div>
 

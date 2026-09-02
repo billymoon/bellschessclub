@@ -120,10 +120,10 @@ export const MatchCard = ({
         <div className="flex flex-col md:flex-row md:gap-8 justify-between w-full text-lg">
           <div className="font-bold">
             {match._type === "allegro"
-              ? "Sandy Bells Allegro Team"
+              ? "Bells Allegro Team"
               : match.team === 0
-                ? `Sandy Bells Summer Cup Team`
-                : `Sandy Bells Team #${match.team.toString()}`}
+                ? `Bells Summer Cup Team`
+                : `Bells Team #${match.team.toString()}`}
           </div>
           <div className="relative">
             <div className="absolute right-0 bottom-0 md:bottom-auto md:right-auto">
@@ -155,16 +155,16 @@ export const MatchCard = ({
                   addToGoogleCalendar({
                     name:
                       match._type == "allegro"
-                        ? "Sandy Bells Allegro Team Match"
+                        ? "Bells Allegro Team Match"
                         : match.team === 0
-                          ? `Sandy Bells Summer Cup Match`
-                          : `Sandy Bells Team #${match.team.toString()} Match`,
+                          ? `Bells Summer Cup Match`
+                          : `Bells Team #${match.team.toString()} Match`,
                     description:
                       match._type === "allegro"
-                        ? `Sandy Bells Allegro Team of four players to play against ${opponent} at Slateford Bowling Club`
+                        ? `Bells Allegro Team of four players to play against ${opponent} at Slateford Bowling Club`
                         : match.team === 0
-                          ? `Sandy Bells Summer Cup Match`
-                          : "Sandy Bells Edinburgh league match",
+                          ? `Bells Summer Cup Match`
+                          : "Bells Edinburgh league match",
                     start_datetime: match.date,
                     end_datetime: ((date) => {
                       date.setTime(
