@@ -35,14 +35,14 @@ export function Header({
             ) : null}
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <Bell className="size-4 rotate-10 left-2 relative" />
             <Bell className="size-4 -rotate-10" />
             <h1 className="text-lg font-semibold text-foreground">
               <span className="hidden md:inline">Bells Chess Club</span>
               <span className="md:hidden">Bells</span>
             </h1>
-          </div>
+          </div> */}
 
           <div>
             {isAdmin ? (
