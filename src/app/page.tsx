@@ -58,12 +58,17 @@ export default function Home() {
             </p>
             <p>
               You may also find us just around the corner from the club in
-              Bennets Bar
-              <MapLinkButton href="https://maps.app.goo.gl/yTHbsmWTdC7i9vBT7" />
-              <br />
-              where there is casual chess and vibes on Thursday evenings all
-              year round.
+              Bennets Bar where there is casual chess and vibes on Thursday
+              evenings all year round.
             </p>
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-lg gap-2 bg-transparent"
+              asChild
+            >
+              <a href="/bennets">Banter blitz @ Bennets info</a>
+            </Button>
           </div>
           <div className="text-center text-lg md:text-xl leading-relaxed space-y-2">
             <p className="p-0 m-0 font-semibold">Mike Wallace</p>
