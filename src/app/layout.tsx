@@ -44,27 +44,9 @@ export default async function RootLayout({
       <meta httpEquiv="Content-Language" content="en" />
       <head>
         <title>Bells Chess Club</title>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
+        <meta name="apple-mobile-web-app-title" content="Bells" />
       </head>
-      <body
-        className={`${googleSansFlex.variable} antialiased`}
-      >
+      <body className={`${googleSansFlex.variable} antialiased`}>
         {process.env.NODE_ENV === "production" ? <Analytics /> : null}
         <Header
           isAdmin={cookieUserInfo.isAdmin}
