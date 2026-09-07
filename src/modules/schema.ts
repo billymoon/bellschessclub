@@ -74,6 +74,7 @@ export const MemberData = object({
   standardPublished: grade,
   standardIsEstimated: nullOrBoolean(false),
   username: nullOrString,
+  generalAvailability: defaulted(enums(["all", "most", "some", "none"]), "some"),
 });
 
 export const Member = assign(partial(SanityDocProps), MemberData);

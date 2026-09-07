@@ -37,6 +37,7 @@ Fiona.register([
       standardPublished: Fiona.Rating,
       standardIsEstimated: false,
       username: (seeded) => seeded.data.lichessUsername,
+      generalAvailability: Fiona.OneOf(["all", "most", "some", "none"]),
       ...overrides,
     }),
 ]);

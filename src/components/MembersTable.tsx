@@ -11,9 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Member } from "@/modules/schema";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { SiChessdotcom, SiLichess } from "react-icons/si";
 import Link from "next/link";
-import { ArrowUpDown, ExternalLink, PlusSquare } from "lucide-react";
+import { ArrowUpDown, PlusSquare } from "lucide-react";
 
 export function MembersTable({
   members,
@@ -60,8 +59,9 @@ export function MembersTable({
             <TableRow>
               <TableHead>Pnum</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead className="text-right">Standard Rating</TableHead>
-              <TableHead className="text-right">Allegro Rating</TableHead>
+              <TableHead className="text-right">Standard</TableHead>
+              <TableHead className="text-right">Allegro</TableHead>
+              <TableHead>Availability</TableHead>
               {/* <TableHead>Sites</TableHead> */}
               <TableHead>Is Admin</TableHead>
             </TableRow>
@@ -90,6 +90,11 @@ export function MembersTable({
                     className="font-medium text-right"
                   >
                     {member.allegroIsEstimated ? 'est.' : ''}{member.allegroPublished}
+                  </TableCell>
+                  <TableCell
+                    className="font-medium capitalize"
+                  >
+                    {member.generalAvailability}
                   </TableCell>
                   {/* <TableCell className="font-medium p-0">
                     {member.lichessUsername ? (
