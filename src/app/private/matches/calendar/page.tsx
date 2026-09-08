@@ -56,7 +56,9 @@ export default function Page() {
                         ? "summercup"
                         : team === 1
                           ? "team1"
-                          : "team2",
+                          : team === 2
+                            ? "team2"
+                            : "team3",
                   title: "sweet",
                   isAtHome: Boolean(isAtHome),
                 }),

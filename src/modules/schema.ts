@@ -74,7 +74,10 @@ export const MemberData = object({
   standardPublished: grade,
   standardIsEstimated: nullOrBoolean(false),
   username: nullOrString,
-  generalAvailability: defaulted(enums(["all", "most", "some", "none"]), "some"),
+  generalAvailability: defaulted(
+    enums(["all", "most", "some", "none"]),
+    "some",
+  ),
 });
 
 export const Member = assign(partial(SanityDocProps), MemberData);
@@ -97,9 +100,8 @@ const ConvertToString = (DataStruct: Struct<any, any>) =>
           typeof val === "string"
             ? val
             : val == null
-              ? ""
-              : JSON.stringify(val),
-        ),
+            ? ""
+            : JSON.stringify(val)),
       ]),
     ),
   );
@@ -125,7 +127,7 @@ export const MatchData = object({
   date: ISODateString,
   isAtHome: toBoolean,
   opponent: size(string(), 1, Infinity),
-  team: coerce(enums([0, 1, 2]), string(), withJSON),
+  team: coerce(enums([0, 1, 2, 3]), string(), withJSON),
   venue: string(),
   mapLink: optional(string()),
   players: defaulted(array(MemberReference), []),

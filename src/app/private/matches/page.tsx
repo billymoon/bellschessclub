@@ -47,6 +47,9 @@ export default function Page() {
   const nextTeam2Match = matchData?.find(
     (match) => match.date >= NOW && match._type === "match" && match.team === 2,
   );
+  const nextTeam3Match = matchData?.find(
+    (match) => match.date >= NOW && match._type === "match" && match.team === 3,
+  );
   const nextAllegroMatch = matchData?.find(
     (match) => match.date >= NOW && match._type === "allegro",
   );
@@ -55,6 +58,7 @@ export default function Page() {
     nextSummercupMatch?._id,
     nextTeam1Match?._id,
     nextTeam2Match?._id,
+    nextTeam3Match?._id,
     nextAllegroMatch?._id,
   ];
 

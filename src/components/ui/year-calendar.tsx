@@ -6,7 +6,7 @@ interface Event {
   date: number;
   month: number;
   year: number;
-  type: "allegro" | "team1" | "team2"; // | "social";
+  type: "allegro" | "team1" | "team2" | "team3"; // | "social";
   title: string;
   isAtHome: boolean;
 }
@@ -38,6 +38,11 @@ const eventTypeColors: Record<
   team2: {
     bg: "card-team-2",
     fill: "fill-team-2",
+    text: "text-accent-foreground",
+  },
+  team3: {
+    bg: "card-team-3",
+    fill: "fill-team-3",
     text: "text-accent-foreground",
   },
   //   social: { bg: "card-social", fill: "fill-social", text: "text-social-foreground" },

@@ -115,7 +115,7 @@ export const MatchCard = ({
   return (
     <Card className={cn("p-0 my-4 relative overflow-clip")} key={match._id}>
       <CardHeader
-        className={`${match.date < NOW ? "card-historic" : match._type === "allegro" ? "card-allegro" : match._type === "match" && match.team === 0 ? "card-summercup" : match.team === 1 ? "card-team-1" : "card-team-2"} gap-0 py-3`}
+        className={`${match.date < NOW ? "card-historic" : match._type === "allegro" ? "card-allegro" : match._type === "match" && match.team === 0 ? "card-summercup" : match.team === 1 ? "card-team-1" : match.team === 2 ? "card-team-2" : "card-team-3"} gap-0 py-3`}
       >
         <div className="flex flex-col md:flex-row md:gap-8 justify-between w-full text-lg">
           <div className="font-bold">
