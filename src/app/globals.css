@@ -43,7 +43,10 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(98.7% 0.022 95.277);
+  --background-interactive: var(--color-white);
+  --background-highlight: var(--color-orange-100);
+  /* --background: oklch(1 0 0); */
   --background-card-historic: var(--color-gray-200);
   --background-card-summercup: var(--color-purple-100);
   --background-card-team-1: var(--color-blue-100);
@@ -130,6 +133,7 @@
 
 html {
   font-family: "Google Sans Flex";
+  font-variation-settings: "ROND" 50;
 }
 
 @layer base {
@@ -143,6 +147,14 @@ html {
 
 a {
   color: var(--interactive);
+}
+
+.bg-background-interactive {
+  background: var(--background-interactive);
+}
+
+.bg-background-highlight {
+  background: var(--background-highlight);
 }
 
 .card-historic {

@@ -9,7 +9,7 @@ export const MapLinkButton: MapLinkButton = ({ href, Icon = Map }) => (
   <Button
     variant="ghost"
     size="lg"
-    className="text-lg gap-2 bg-transparent"
+    className="text-lg gap-2 bg-background-interactive"
     asChild
   >
     <Link href={href} target="_blank">

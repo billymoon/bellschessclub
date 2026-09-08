@@ -22,6 +22,7 @@ const geistMono = Geist_Mono({
 const googleSansFlex = Google_Sans_Flex({
   variable: "--font-google-sans-flex",
   subsets: ["latin"],
+  axes: ["ROND", "opsz", "wdth"]
 });
 
 export const metadata: Metadata = {

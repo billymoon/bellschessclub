@@ -13,7 +13,7 @@ export default function Page() {
   return (
     <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center gap-4 mt-4">
       <h2>Join WhatsApp Group</h2>
-      <Image src="/join-whatsapp.png" alt="" height={133} width={133} />
+      <Image src="/join-whatsapp.png" alt="" height={266} width={266} />
       <Button
         variant="outline"
         disabled={copyError === false}

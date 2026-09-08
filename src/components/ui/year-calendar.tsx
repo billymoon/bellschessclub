@@ -128,7 +128,7 @@ export function YearCalendar({
               return (
                 <div
                   key={day}
-                  className="aspect-square border border-border/20 p-1 flex flex-col items-center justify-start bg-background hover:bg-muted/20 transition-colors"
+                  className="aspect-square border border-border/20 p-1 flex flex-col items-center justify-start bg-background-interactive hover:bg-muted/20 transition-colors"
                 >
                   <span className="text-xs font-bold text-foreground/70 m-auto">
                     <div className="flex relative justify-center">
@@ -167,8 +167,8 @@ export function YearCalendar({
   return (
     <div className="w-full my-8">
       {/* Header */}
-      <div className="mb-4">
-        <div className="flex flex-wrap gap-3">
+      <div className="mb-4 bg-background-interactive">
+        <div className="flex flex-wrap gap-3 p-3">
           {Object.entries(eventTypeColors).map(([type, colors]) => (
             <div key={type} className="flex items-center gap-2">
               <div className={`w-3 h-3 rounded ${colors.bg}`} />

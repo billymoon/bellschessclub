@@ -4,7 +4,7 @@ import jamesOutsideBennetsBubble from "../../../public/james-outside-bennets-bub
 
 export default function Home() {
   return (
-    <>
+    <div className="bg-emerald-100 pb-5">
       <Image
         src={jamesOutsideBennetsBubble}
         alt="Pre Season Scramble Poster 2026"
@@ -15,8 +15,7 @@ export default function Home() {
           Back Stage at Bennets Bar
         </h3>
         <p className="font-semibold">
-          8 Leven St, Edinburgh EH3 9LG
-          <MapLinkButton href="https://maps.app.goo.gl/yTHbsmWTdC7i9vBT7" />
+          8 Leven St, Edinburgh EH3 9LG <MapLinkButton href="https://maps.app.goo.gl/yTHbsmWTdC7i9vBT7" />
         </p>
       </div>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
@@ -37,7 +36,6 @@ export default function Home() {
           it's the most fun chess night in Edinburgh.
         </p>
       </div>
-      <div className="mt-10" />
-    </>
+    </div>
   );
 }

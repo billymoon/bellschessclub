@@ -1,4 +1,4 @@
-import { Mail, Phone } from "lucide-react";
+import { Icon, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 import { MapLinkButton } from "@/components/MapLinkButton";
@@ -7,11 +7,12 @@ import venue from "../../public/venue.png";
 import logoTall from "../../public/logo-tall.png";
 import logoWide from "../../public/logo-wide.png";
 import preSeasonScramblePoster2026 from "../../public/pre-season-scramble-poster-2026.png";
+import { ResponsiveBellsBanner } from "@/components/ResponsiveBellsBanner";
 
 export default function Home() {
   return (
     <>
-      <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 bg-gray-200">
+      <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 bg-background-highlight">
         <div className="w-full p-4 drop-shadow-2xl">
           <Image
             src={preSeasonScramblePoster2026}
@@ -20,19 +21,14 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 relative">
         <hr />
-        <Image
-          src={logoWide}
-          alt="Bells Chess Club"
-          className="hidden md:block max-w-xl"
+        <ResponsiveBellsBanner
+          className="text-yellow-600"
+          textClassName="text-yellow-700"
         />
-        <Image
-          src={logoTall}
-          alt="Bells Chess Club"
-          className="md:hidden max-w-2xs"
-        />
-        <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+        {/* <ResponsiveBellsBanner className="rounded-xl overflow-clip text-yellow-600" iconClassName="bg-yellow-600 text-black" textClassName="bg-black color-white" /> */}
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground mt-5">
           Club Nights
         </h2>
         <div className="text-center space-y-6 text-foreground pt-4 max-w-[800px]">
@@ -45,10 +41,10 @@ export default function Home() {
             Edinburgh West End Bowling Club
           </h3>
           <p className="font-semibold">
-            13 Hailes St, Edinburgh EH3 9NF
+            13 Hailes St, Edinburgh EH3 9NF{" "}
             <MapLinkButton href="https://maps.app.goo.gl/hEGp6269cyveNRqH8" />
           </p>
-          <div className="max-w-[800px] shadow-xl/20">
+          <div className="max-w-[800px] shadow-xl/20 rounded-md overflow-clip">
             <Image src={venue} alt="" />
           </div>
 
@@ -56,6 +52,12 @@ export default function Home() {
             <p>
               Come along for a friendly game or contact us to find out more.
             </p>
+          </div>
+        </div>
+      </div>
+      <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 relative bg-emerald-100 border-y-emerald-300 border-y-1">
+        <div className="text-center space-y-6 text-foreground pt-4 max-w-[800px]">
+          <div className="text-lg md:text-xl leading-relaxed space-y-2">
             <p>
               You may also find us just around the corner from the club in
               Bennets Bar where there is casual chess and vibes on Thursday
@@ -64,13 +66,18 @@ export default function Home() {
             <Button
               variant="outline"
               size="lg"
-              className="text-lg gap-2 bg-transparent"
+              className="text-lg gap-2 bg-background-interactive"
               asChild
             >
               <a href="/bennets">Banter blitz @ Bennets info</a>
             </Button>
           </div>
+        </div>
+      </div>
+      <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 relative">
+        <div className="text-center space-y-6 text-foreground pt-4 max-w-[800px]">
           <div className="text-center text-lg md:text-xl leading-relaxed space-y-2">
+            <h2 className="text-4xl font-semibold">Contact</h2>
             <p className="p-0 m-0 font-semibold">Mike Wallace</p>
             <p className="p-0 m-0">(club secretary)</p>
           </div>
@@ -78,7 +85,7 @@ export default function Home() {
             <Button
               variant="outline"
               size="lg"
-              className="text-lg gap-2 bg-transparent"
+              className="text-lg gap-2 bg-background-interactive"
               asChild
             >
               <a href="tel:07503448568">
@@ -89,7 +96,7 @@ export default function Home() {
             <Button
               variant="outline"
               size="lg"
-              className="text-lg gap-2 bg-transparent"
+              className="text-lg gap-2 bg-background-interactive"
               asChild
             >
               <a href="mailto:mike.j.wallace17@outlook.com">

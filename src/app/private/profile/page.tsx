@@ -22,7 +22,7 @@ export default function Page() {
         <Button
           variant="outline"
           size="default"
-          className="gap-2 bg-transparent"
+          className="gap-2 bg-background-interactive"
           asChild
         >
           <Link href="/private/profile/magic-link">

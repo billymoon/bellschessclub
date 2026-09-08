@@ -51,7 +51,7 @@ const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
           ref={ref}
           id={id || fieldId}
           className={cn(
-            error && "border-destructive focus-visible:border-destructive",
+            error && "border-destructive focus-visible:border-destructive bg-background-interactive",
             className,
           )}
           aria-describedby={cn(description && descriptionId, error && errorId)}
