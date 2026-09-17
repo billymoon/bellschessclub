@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["localhost:3000"],
+    },
+  },
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
@@ -10,11 +15,11 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   turbopack: {
-    resolveAlias: {
-      mockdata:
-        process.env.NODE_ENV === "production"
-          ? "./src/mockdata/empty.tsx"
-          : "./src/mockdata/localdev.tsx",
+    resolveAlias: process.env.NODE_ENV === "production" ? {
+      mockdata: "./src/mockdata/empty.tsx"
+    } : {
+      "@sanity/client": "./src/mockdata/sanity-client.ts",
+      mockdata: "./src/mockdata/localdev.tsx",
     },
   },
   webpack: (config, options) => {
