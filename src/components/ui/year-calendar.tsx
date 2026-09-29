@@ -97,7 +97,10 @@ export function YearCalendar({
 
     return (
       <div key={`${monthIndex}-${yearValue}`} className="space-y-3">
-        <div className="relative -top-14" id={`${monthIndex}-${yearValue}`}></div>
+        <div
+          className="relative -top-14"
+          id={`${monthIndex}-${yearValue}`}
+        ></div>
         <h3 className="text-lg font-semibold text-foreground text-center">
           {months[monthIndex]} {yearValue}
         </h3>
@@ -124,7 +127,7 @@ export function YearCalendar({
             ))}
             {days.map((day) => {
               const dayEvents = getEventsForDate(day, monthIndex, yearValue);
-              const firstDayEvent = dayEvents[0];
+              // const firstDayEvent = dayEvents[0];
               return (
                 <div
                   key={day}
@@ -132,26 +135,28 @@ export function YearCalendar({
                 >
                   <span className="text-xs font-bold text-foreground/70 m-auto">
                     <div className="flex relative justify-center">
-                      <div className="absolute">
-                        {!firstDayEvent ? null : firstDayEvent.isAtHome ? (
-                          <Icon
-                            className={`w-8 h-8 ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative bottom-2.5`}
-                            iconNode={[
-                              [
-                                "path",
-                                {
-                                  d: "M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
-                                  key: firstDayEvent.date.toString(),
-                                },
-                              ],
-                            ]}
-                          />
-                        ) : (
-                          <Circle
-                            className={`w-8 h-8 ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative bottom-2`}
-                          />
-                        )}
-                      </div>
+                      {dayEvents.map((firstDayEvent, index) => (
+                        <div className="absolute">
+                          {!firstDayEvent ? null : firstDayEvent.isAtHome ? (
+                            <Icon
+                              className={`${index === 1 ? "bottom-0 left-2": "bottom-2.5"} ${dayEvents.length === 1 ? "w-8 h-8": "w-6 h-8"} ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative`}
+                              iconNode={[
+                                [
+                                  "path",
+                                  {
+                                    d: "M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
+                                    key: firstDayEvent.date.toString(),
+                                  },
+                                ],
+                              ]}
+                            />
+                          ) : (
+                            <Circle
+                              className={`${index === 1 ? "bottom-0 left-2": "bottom-2.5"} ${dayEvents.length === 1 ? "w-8 h-8": "w-6 h-8"} ${dayEvents.length === 1 ? "w-8 h-8": "w-6 h-6"} ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative`}
+                            />
+                          )}
+                        </div>
+                      ))}
                       <div className="w-full h-full m-auto z-1">{day}</div>
                     </div>
                   </span>
