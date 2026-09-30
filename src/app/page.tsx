@@ -4,28 +4,17 @@ import { QRCodeSVG } from "qrcode.react";
 import { MapLinkButton } from "@/components/MapLinkButton";
 import Image from "next/image";
 import venue from "../../public/venue.png";
-import preSeasonScramblePoster2026 from "../../public/pre-season-scramble-poster-2026.png";
-import septemberSimulPoster2026 from "../../public/2026-09-simul-poster-postponed.jpeg";
+import postponedSeptemberSimulPoster2026 from "../../public/2026-09-simul-poster-postponed.jpeg";
 import { ResponsiveBellsBanner } from "@/components/ResponsiveBellsBanner";
 
 export default function Home() {
   return (
     <>
-      <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 bg-background-highlight">
-        <div className="w-full p-4 drop-shadow-2xl">
-          <Image
-            width={640}
-            src={preSeasonScramblePoster2026}
-            alt="Pre Season Scramble Poster 2026"
-            className="w-full max-w-xl m-auto"
-          />
-        </div>
-      </div>
       <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 bg-red">
         <div className="p-4 drop-shadow-2xl">
           <Image
             width={480}
-            src={septemberSimulPoster2026}
+            src={postponedSeptemberSimulPoster2026}
             alt="Septermber Simul Poster 2026"
             className="w-full max-w-xl m-auto"
           />

@@ -12,8 +12,8 @@ import * as XLSX from "xlsx";
 
 type Division = "Division2" | "Division3";
 const tableSources = {
-  Division2: "https://lms.playchess.org.uk/event/34/table/xl",
-  Division3: "https://lms.playchess.org.uk/event/35/table/xl",
+  Division2: "https://lms.playchess.org.uk/event/43/table/xl",
+  Division3: "https://lms.playchess.org.uk/event/44/table/xl",
 };
 
 type Data = { [key: string]: string };
