@@ -8,6 +8,7 @@ import {
   Swords,
   CalendarPlus,
   Check,
+  ClipboardList,
   Dices,
   Map,
   X,
@@ -16,6 +17,22 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "./ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
 import {
   AllegroEventDocument,
   AvailabilityTypes,
@@ -30,7 +47,24 @@ const NOW = new Date().toISOString();
 
 const availabilityTypes = ["available", "maybe", "not available"];
 const ALLEGRO_DURATION_HOURS = 2.5;
+
 const MATCH_DURATION_HOURS = 2 + 50 / 60;
+
+// One player's row as resolved by the jsonata projection in the matches page:
+// their member details (name/pnum/rating, read off the member document) plus the
+// answer they gave for availability.
+type PlayerRow = {
+  name: string | null;
+  availability: AvailabilityTypes;
+  rating?: number | null;
+  pnum?: number | null;
+};
+
+// The projection adds `availability` at read time, so it isn't on
+// MatchDocument/AllegroEventDocument. This type includes that.
+type MatchWithAvailability = (MatchDocument | AllegroEventDocument) & {
+  availability?: PlayerRow[] | null;
+};
 
 const addToGoogleCalendar = (event: {
   name: string;
@@ -75,7 +109,7 @@ export const MatchCard = ({
   isNextOfType,
   member,
 }: {
-  match: MatchDocument | AllegroEventDocument;
+  match: MatchWithAvailability;
   isNextOfType: boolean;
   member: MemberDocument;
 }) => {
@@ -92,6 +126,10 @@ export const MatchCard = ({
   };
   const hasGivenAvailability = match?.players?.find(
     (item) => item.player?._ref === member._id,
+  );
+
+  const availablePlayers = (match.availability ?? []).filter(
+    ({ availability }) => availability === "available",
   );
   const [shouldGiveAvailability, setShouldGiveAvailability] =
     useState(!hasGivenAvailability);
@@ -313,6 +351,62 @@ export const MatchCard = ({
                   </div>
                 </div>
               ) : null}
+              <div className="md:ml-auto md:self-end">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="secondary"
+                      className="cursor-pointer w-full md:w-auto"
+                    >
+                      <ClipboardList />
+                      View Player Details
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-lg">
+                    <DialogHeader>
+                      <DialogTitle>
+                        {teamName} vs {opponent}
+                      </DialogTitle>
+                      <DialogDescription>
+                        Available players &middot;{" "}
+                        <DateTime timestamp={match.date} />
+                      </DialogDescription>
+                    </DialogHeader>
+                    {availablePlayers.length ? (
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Name</TableHead>
+                            <TableHead className="text-right">PNUM</TableHead>
+                            <TableHead className="text-right">Rating</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {availablePlayers.map(
+                            ({ name, pnum, rating }, index) => (
+                              <TableRow key={index}>
+                                <TableCell className="font-medium">
+                                  {name}
+                                </TableCell>
+                                <TableCell className="text-right">
+                                  {pnum ?? ""}
+                                </TableCell>
+                                <TableCell className="text-right">
+                                  {rating ?? "?"}
+                                </TableCell>
+                              </TableRow>
+                            ),
+                          )}
+                        </TableBody>
+                      </Table>
+                    ) : (
+                      <div className="text-muted-foreground text-sm">
+                        No players have marked themselves available yet.
+                      </div>
+                    )}
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
           </div>
         </div>
