@@ -112,19 +112,20 @@ export const MatchCard = ({
   // @ts-ignore-line
   const opponent = (match.opponent || match.opponents.join(" and ")) as string;
 
+  const teamName =
+    match._type === "allegro"
+      ? "Bells Allegro Team"
+      : match.team === 0
+        ? `Bells Summer Cup Team`
+        : `Bells Team #${match.team.toString()}`;
+
   return (
     <Card className={cn("p-0 my-4 relative overflow-clip")} key={match._id}>
       <CardHeader
         className={`${match.date < NOW ? "card-historic" : match._type === "allegro" ? "card-allegro" : match._type === "match" && match.team === 0 ? "card-summercup" : match.team === 1 ? "card-team-1" : match.team === 2 ? "card-team-2" : "card-team-3"} gap-0 py-3`}
       >
         <div className="flex flex-col md:flex-row md:gap-8 justify-between w-full text-lg">
-          <div className="font-bold">
-            {match._type === "allegro"
-              ? "Bells Allegro Team"
-              : match.team === 0
-                ? `Bells Summer Cup Team`
-                : `Bells Team #${match.team.toString()}`}
-          </div>
+          <div className="font-bold">{teamName}</div>
           <div className="relative">
             <div className="absolute right-0 bottom-0 md:bottom-auto md:right-auto">
               {member.isAdmin ? (
@@ -153,12 +154,7 @@ export const MatchCard = ({
                 target="_blank"
                 onClick={() => {
                   addToGoogleCalendar({
-                    name:
-                      match._type == "allegro"
-                        ? "Bells Allegro Team Match"
-                        : match.team === 0
-                          ? `Bells Summer Cup Match`
-                          : `Bells Team #${match.team.toString()} Match`,
+                    name: `${teamName} vs ${opponent}`,
                     description:
                       match._type === "allegro"
                         ? `Bells Allegro Team of four players to play against ${opponent} at Slateford Bowling Club`
