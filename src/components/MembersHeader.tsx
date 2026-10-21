@@ -22,12 +22,12 @@ export function MembersHeader() {
                 <span className="hidden sm:inline">Matches</span>
               </Link>
             </Button>
-            <Button asChild variant="ghost" size="sm" className="gap-2">
+            {/* <Button asChild variant="ghost" size="sm" className="gap-2">
               <Link prefetch href="/private/tables">
                 <Table className="size-4" />
                 <span className="hidden sm:inline">Tables</span>
               </Link>
-            </Button>
+            </Button> */}
             <Button asChild variant="ghost" size="sm" className="gap-2">
               <Link prefetch href="/private/members">
                 <Users className="size-4" />
