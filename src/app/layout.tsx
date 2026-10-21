@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Google_Sans_Flex } from "next/font/google";
+import localFont from "next/font/local";
+// @ts-ignore
 import "./globals.css";
 import { Header } from "./Header";
 import {
@@ -9,21 +10,18 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import { ServerStoreProvider } from "@/stores/server-store-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const googleSansFlexLocal = localFont({
+  src: "../../public/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const googleSansFlex = Google_Sans_Flex({
-  variable: "--font-google-sans-flex",
-  subsets: ["latin"],
-  axes: ["ROND", "opsz", "wdth"]
-});
+// TODO: it would be nice to be able to import google sans felx from the package without errors :-\
+// import { Google_Sans_Flex } from "next/font/google";
+// const googleSansFlex = Google_Sans_Flex({
+//   variable: "--font-google-sans-flex",
+//   subsets: ["latin"],
+//   axes: ["ROND", "opsz", "wdth"],
+//   // adjustFontFallback: false,
+// });
 
 export const metadata: Metadata = {
   title: "Bells Chess Club",
@@ -47,7 +45,7 @@ export default async function RootLayout({
         <title>Bells Chess Club</title>
         <meta name="apple-mobile-web-app-title" content="Bells" />
       </head>
-      <body className={`${googleSansFlex.variable} antialiased`}>
+      <body className={`${googleSansFlexLocal.className} antialiased`}>
         {process.env.NODE_ENV === "production" ? <Analytics /> : null}
         <Header
           isAdmin={cookieUserInfo.isAdmin}
