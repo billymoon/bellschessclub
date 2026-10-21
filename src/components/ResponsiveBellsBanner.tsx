@@ -9,7 +9,7 @@ export const ResponsiveBellsBanner = ({
   <div className={cn("flex flex-col md:flex-row items-center", className)}>
     <Icon
       className={cn("", iconClassName)}
-      size="100%"
+      size="100px"
       iconNode={[
         [
           "path",
@@ -23,10 +23,10 @@ export const ResponsiveBellsBanner = ({
       ]}
     />
     <div className={cn("relative text-center flex flex-col justify-center p-5", textClassName)}>
-      <div className="text-[90px] md:text-[112px] tracking-[0.25rem] font-bold uppercase leading-[1] md:leading-[1]">
+      <div className="text-[45px] md:text-[56px] tracking-[0.25rem] font-bold uppercase leading-[1] md:leading-[1]">
         Bells
       </div>
-      <div className="text-[30px] md:text-[40px] tracking-[0.3rem] font-light uppercase md:leading-[1] leading-[1]">
+      <div className="text-[15px] md:text-[20px] tracking-[0.3rem] font-light uppercase md:leading-[1] leading-[1]">
         Chess Club
       </div>
     </div>

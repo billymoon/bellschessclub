@@ -4,13 +4,13 @@ import { QRCodeSVG } from "qrcode.react";
 import { MapLinkButton } from "@/components/MapLinkButton";
 import Image from "next/image";
 import venue from "../../public/venue.png";
-import postponedSeptemberSimulPoster2026 from "../../public/2026-09-simul-poster-postponed.jpeg";
+// import postponedSeptemberSimulPoster2026 from "../../public/2026-09-simul-poster-postponed.jpeg";
 import { ResponsiveBellsBanner } from "@/components/ResponsiveBellsBanner";
 
 export default function Home() {
   return (
     <>
-      <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 bg-red">
+      {/* <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 bg-red">
         <div className="p-4 drop-shadow-2xl">
           <Image
             width={480}
@@ -19,7 +19,7 @@ export default function Home() {
             className="w-full max-w-xl m-auto"
           />
         </div>
-      </div>
+      </div> */}
       <div className="pt-6 flex flex-col items-center max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 relative">
         <hr />
         <ResponsiveBellsBanner
@@ -44,7 +44,7 @@ export default function Home() {
             <MapLinkButton href="https://maps.app.goo.gl/hEGp6269cyveNRqH8" />
           </p>
           <div className="max-w-[800px] shadow-xl/20 rounded-md overflow-clip">
-            <Image src={venue} alt="" />
+            <Image src={venue} alt="" loading="eager" />
           </div>
 
           <div className="text-lg md:text-xl leading-relaxed space-y-2">
