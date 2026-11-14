@@ -95,6 +95,8 @@ export function YearCalendar({
     const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
     const emptyDays = Array.from({ length: firstDay }, (_, i) => i);
 
+    const today = new Date()
+
     return (
       <div key={`${monthIndex}-${yearValue}`} className="space-y-3">
         <div
@@ -128,18 +130,22 @@ export function YearCalendar({
             {days.map((day) => {
               const dayEvents = getEventsForDate(day, monthIndex, yearValue);
               // const firstDayEvent = dayEvents[0];
+              const isToday = today.getDate() === day && today.getMonth() === monthIndex;
               return (
                 <div
                   key={day}
-                  className="aspect-square border border-border/20 p-1 flex flex-col items-center justify-start bg-background-interactive hover:bg-muted/20 transition-colors"
+                  className={`aspect-square border ${isToday ? "border-red-600" : "border-border/20"} p-1 flex flex-col items-center justify-start bg-background-interactive hover:bg-muted/20 transition-colors`}
                 >
                   <span className="text-xs font-bold text-foreground/70 m-auto">
                     <div className="flex relative justify-center">
                       {dayEvents.map((firstDayEvent, index) => (
-                        <div className="absolute">
+                        <div
+                          key={JSON.stringify(firstDayEvent)}
+                          className="absolute"
+                        >
                           {!firstDayEvent ? null : firstDayEvent.isAtHome ? (
                             <Icon
-                              className={`${index === 1 ? "bottom-0 left-2": "bottom-2.5"} ${dayEvents.length === 1 ? "w-8 h-8": "w-6 h-8"} ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative`}
+                              className={`${index === 1 ? "bottom-0 left-2" : "bottom-2.5"} ${dayEvents.length === 1 ? "w-8 h-8" : "w-6 h-8"} ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative`}
                               iconNode={[
                                 [
                                   "path",
@@ -152,7 +158,7 @@ export function YearCalendar({
                             />
                           ) : (
                             <Circle
-                              className={`${index === 1 ? "bottom-0 left-2": "bottom-2.5"} ${dayEvents.length === 1 ? "w-8 h-8": "w-6 h-8"} ${dayEvents.length === 1 ? "w-8 h-8": "w-6 h-6"} ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative`}
+                              className={`${index === 1 ? "bottom-0 left-2" : "bottom-2.5"} ${dayEvents.length === 1 ? "w-8 h-8" : "w-6 h-8"} ${dayEvents.length === 1 ? "w-8 h-8" : "w-6 h-6"} ${firstDayEvent ? eventTypeColors[firstDayEvent.type].fill : ""} relative`}
                             />
                           )}
                         </div>
