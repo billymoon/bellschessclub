@@ -1,5 +1,5 @@
 "use client";
-import { useDocuments } from "@/modules/dexie/useDocuments";
+import { useDocuments } from "@/modules/data/dexie/useDocuments";
 import { EditPage } from "../EditPage";
 
 export default function Page() {

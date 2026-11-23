@@ -3,7 +3,7 @@ import pkceChallenge from "pkce-challenge";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 import { jwtDecode, jwtEncode } from "@/modules/jwt";
-import { getUserByLichessUsername } from "@/modules/turso";
+import { getUserByLichessUsername } from "@/modules/data/turso/turso";
 
 const client_id = "lichess-auth";
 

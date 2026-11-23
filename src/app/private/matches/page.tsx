@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import {
   AllegroEventDocument,
   MatchDocument,
-  MemberDocument,
-} from "@/modules/schema";
+} from "@/modules/data/document-schema";
 import { useState } from "react";
 import { MatchCard } from "@/components/MatchCard";
 import { Calendar, History, PlusSquare } from "lucide-react";
 import Link from "next/link";
-import { useDocuments } from "@/modules/dexie/useDocuments";
-import { useDexieStore } from "@/modules/dexie/dexie-store-provider";
+import { useDocuments } from "@/modules/data/dexie/useDocuments";
+import { useDexieStore } from "@/modules/data/dexie/dexie-store-provider";
+import { MemberDocument } from "@/modules/data/member-schema";
 
 const EPOCH = new Date(0).toISOString();
 const NOW = new Date().toISOString();

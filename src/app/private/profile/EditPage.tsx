@@ -1,16 +1,12 @@
 "use client";
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/ui/button";
-import { updateMyself } from "@/modules/turso";
-import {
-  MemberDocument,
-  MemberPartial,
-  MemberStringified,
-} from "@/modules/schema";
+import { updateMyself } from "@/modules/data/turso/turso";
 import { useForm } from "react-hook-form";
 import { create } from "superstruct";
 import { FormFieldSelect } from "@/components/FormFieldSelect";
 import { cn } from "@/lib/utils";
+import { MemberDocument, MemberStringified, MemberPartial } from "@/modules/data/member-schema";
 
 export const EditPage = ({ member }: { member: MemberDocument }) => {
   const {

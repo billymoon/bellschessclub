@@ -1,8 +1,8 @@
 "use client";
 import { MembersTable } from "@/components/MembersTable";
-import { useDexieStore } from "@/modules/dexie/dexie-store-provider";
-import { useDocuments } from "@/modules/dexie/useDocuments";
-import { Member } from "@/modules/schema";
+import { useDexieStore } from "@/modules/data/dexie/dexie-store-provider";
+import { useDocuments } from "@/modules/data/dexie/useDocuments";
+import { Member } from "@/modules/data/document-schema";
 
 export default function Page() {
   const members = useDocuments(`$[_type = "member"]^(>standardPublished)`) as Member[];

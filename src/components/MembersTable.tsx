@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Member } from "@/modules/schema";
+import { Member } from "@/modules/data/document-schema";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import Link from "next/link";

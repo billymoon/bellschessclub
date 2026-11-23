@@ -1,23 +1,22 @@
 "use client";
 import { FormField } from "@/components/FormField";
 import { Button } from "@/components/ui/button";
-import { Match, MatchPartial, Member } from "@/modules/schema";
+import { MatchPartial } from "@/modules/data/document-schema";
 import { useForm } from "react-hook-form";
 import { create } from "superstruct";
-import { FormFieldSelect } from "@/components/FormFieldSelect";
-import { cn } from "@/lib/utils";
-import { createMatchDocument, updateMatchDocument } from "@/modules/turso";
-import { ComboboxBasic } from "@/components/ComboboxBasic";
-import { FormFieldWrapper } from "@/components/FormFieldWrapper";
+import {
+  createMatchDocument,
+  updateMatchDocument,
+} from "@/modules/data/turso/turso";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Member } from "@/modules/data/member-schema";
 
 export const EditPage = ({ currentDocument = null }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
   const {
-    setValue,
     register,
     handleSubmit,
     formState: { errors, defaultValues },

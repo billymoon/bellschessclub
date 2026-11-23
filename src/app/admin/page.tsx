@@ -1,6 +1,6 @@
 "use client";
 import { AdminTable } from "@/components/AdminTable";
-import { useDocuments } from "@/modules/dexie/useDocuments";
+import { useDocuments } from "@/modules/data/dexie/useDocuments";
 
 export default function Page() {
   const documents = useDocuments('$[_type = "member"]^(>standardPublished)')

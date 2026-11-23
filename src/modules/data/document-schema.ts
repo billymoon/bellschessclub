@@ -1,56 +1,20 @@
 import {
-  any,
   array,
   assign,
-  boolean,
   coerce,
   defaulted,
   enums,
   Infer,
-  min,
   nullable,
   number,
   object,
   optional,
   partial,
-  pattern,
   size,
   string,
-  Struct,
   type,
 } from "superstruct";
-
-const InvalidToken = Symbol("InvalidToken");
-
-const withJSON = (value: string) => {
-  try {
-    return JSON.parse(value);
-  } catch {
-    return InvalidToken;
-  }
-};
-
-const ISODateString = pattern(
-  string(),
-  /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,4})?Z/,
-);
-const hashish = pattern(string(), /[a-z0-9-]{4,64}/i);
-const toPosInt = coerce(min(number(), 0), string(), withJSON);
-const toBoolean = coerce(boolean(), string(), withJSON);
-
-const nullOrPosInt = defaulted(nullable(toPosInt), null);
-const nullOrString = defaulted(nullable(string()), null);
-const nullOrBoolean = (value: boolean) => defaulted(toBoolean, value);
-const grade = defaulted(
-  coerce(toPosInt, string(), (val) => {
-    if (/^\d+$/.test(val)) {
-      return parseInt(val, 10);
-    } else {
-      return InvalidToken;
-    }
-  }),
-  0,
-);
+import { ConvertToString, ISODateString, hashish, toBoolean, withJSON } from "./schema-utils";
 
 export const SanityDocProps = type({
   _createdAt: ISODateString,
@@ -60,54 +24,6 @@ export const SanityDocProps = type({
   _updatedAt: ISODateString,
 });
 export type SanityDocProps = Infer<typeof SanityDocProps>;
-
-export const MemberData = object({
-  _type: defaulted(enums(["member"]), "member"),
-  active: nullOrBoolean(true),
-  allegroPublished: grade,
-  allegroIsEstimated: nullOrBoolean(false),
-  chesscomUsername: nullOrString,
-  isAdmin: nullOrBoolean(false),
-  lichessUsername: nullOrString,
-  name: nullOrString,
-  pnum: nullOrPosInt,
-  standardPublished: grade,
-  standardIsEstimated: nullOrBoolean(false),
-  username: nullOrString,
-  generalAvailability: defaulted(
-    enums(["all", "most", "some", "none"]),
-    "some",
-  ),
-});
-
-export const Member = assign(partial(SanityDocProps), MemberData);
-
-export const MemberDocument = assign(SanityDocProps, MemberData);
-
-export type Member = Infer<typeof Member>;
-
-export const MemberPartial = partial(Member);
-export type MemberPartial = Infer<typeof MemberPartial>;
-export type MemberDocument = Infer<typeof MemberDocument>;
-
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-const ConvertToString = (DataStruct: Struct<any, any>) =>
-  object(
-    Object.fromEntries(
-      Object.entries(DataStruct.schema).map(([key]) => [
-        key,
-        coerce(optional(string()), any(), (val) =>
-          typeof val === "string"
-            ? val
-            : val == null
-            ? ""
-            : JSON.stringify(val)),
-      ]),
-    ),
-  );
-
-export const MemberDataStringified = ConvertToString(MemberData);
-export const MemberStringified = ConvertToString(Member);
 
 export const AvailabilityTypes = enums(["available", "maybe", "not available"]);
 export type AvailabilityTypes = Infer<typeof AvailabilityTypes>;

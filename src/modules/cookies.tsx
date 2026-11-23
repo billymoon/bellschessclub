@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 import { jwtDecode } from "@/modules/jwt";
-import { Member } from "@/modules/schema";
+import { Member } from "@/modules/data/document-schema";
 
 export type UserCookie = {
   isAdmin: Member["isAdmin"];

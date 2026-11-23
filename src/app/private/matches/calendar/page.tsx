@@ -1,7 +1,7 @@
 "use client";
-import { AllegroEvent, Match } from "@/modules/schema";
+import { AllegroEvent, Match } from "@/modules/data/document-schema";
 import { YearCalendar } from "@/components/ui/year-calendar";
-import { useDocuments } from "@/modules/dexie/useDocuments";
+import { useDocuments } from "@/modules/data/dexie/useDocuments";
 
 const year = new Date().getFullYear();
 // Chess season runs June to May, so if we're before June, we start from previous year

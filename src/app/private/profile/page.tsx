@@ -1,11 +1,11 @@
 "use client";
 import { EditPage } from "./EditPage";
-import { useDocuments } from "@/modules/dexie/useDocuments";
-import { useDexieStore } from "@/modules/dexie/dexie-store-provider";
-import { Member } from "@/modules/schema";
+import { useDocuments } from "@/modules/data/dexie/useDocuments";
+import { useDexieStore } from "@/modules/data/dexie/dexie-store-provider";
 import { Wand } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Member } from "@/modules/data/member-schema";
 
 export default function Page() {
   const members = useDocuments(

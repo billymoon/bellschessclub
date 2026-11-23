@@ -1,18 +1,18 @@
 "use server";
-import * as mockdata from "mockdata";
+import * as mockdata from "@/modules/mockdata/localdev";
 import { AttributeSet, SanityDocument } from "@sanity/client";
 import { getUserInfoFromCookie } from "@/modules/cookies";
 import {
   AllegroEventDocument,
   AvailabilityTypes,
   MatchDocument,
-  Member,
   SanityDocProps,
-} from "@/modules/schema";
+} from "@/modules/data/document-schema";
 import { createClient as tursoClient } from "@libsql/client";
-import { DexieDocument } from "./dexie/dexie-schema";
-import { setDataEpoch } from "./dexie/sanity-update";
+import { DexieDocument } from "../dexie/dexie-schema";
+import { setDataEpoch } from "../dexie/sanity-update";
 import { randomUUID } from "crypto";
+import { Member } from "../member-schema";
 // import { unstable_noStore } from "next/cache";
 
 const sqlStringify = (data: unknown) =>

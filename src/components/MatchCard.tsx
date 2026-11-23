@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import {
   setAvailabilityForAllegroEvent,
   setAvailabilityForMatch,
-} from "@/modules/turso";
+} from "@/modules/data/turso/turso";
 import {
   Swords,
   CalendarPlus,
@@ -20,11 +20,11 @@ import {
   AllegroEventDocument,
   AvailabilityTypes,
   MatchDocument,
-  MemberDocument,
-} from "@/modules/schema";
+} from "@/modules/data/document-schema";
 import { useState } from "react";
 import Link from "next/link";
 import { Spinner } from "./ui/spinner";
+import { MemberDocument } from "@/modules/data/member-schema";
 
 const NOW = new Date().toISOString();
 

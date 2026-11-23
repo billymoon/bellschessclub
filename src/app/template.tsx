@@ -1,13 +1,13 @@
 "use client";
-import { db } from "@/modules/dexie/db";
-import { getDocumentsSince } from "@/modules/turso";
 import { useEffect, useState } from "react";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "@/modules/data/dexie/db";
 import {
   DexieStoreProvider,
   useDexieStore,
-} from "@/modules/dexie/dexie-store-provider";
-import { DexieDocument } from "@/modules/dexie/dexie-schema";
-import { useLiveQuery } from "dexie-react-hooks";
+} from "@/modules/data/dexie/dexie-store-provider";
+import { DexieDocument } from "@/modules/data/dexie/dexie-schema";
+import { getDocumentsSince } from "@/modules/data/turso/turso";
 import { createClient } from "@sanity/client";
 import { useServerStore } from "@/stores/server-store-provider";
 import { MembersHeader } from "@/components/MembersHeader";

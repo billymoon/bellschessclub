@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "mockdata": ["./src/mockdata/localdev"],
+      "mockdata": ["./src/modules/mockdata/localdev"],
       "@/*": ["./src/*"]
     }
   },

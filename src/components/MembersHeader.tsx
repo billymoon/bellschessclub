@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useDexieStore } from "@/modules/dexie/dexie-store-provider";
-import { useDocuments } from "@/modules/dexie/useDocuments";
-import { Member } from "@/modules/schema";
-import { Swords, Table, UserCircle, Users } from "lucide-react";
+import { useDexieStore } from "@/modules/data/dexie/dexie-store-provider";
+import { useDocuments } from "@/modules/data/dexie/useDocuments";
+import { Member } from "@/modules/data/document-schema";
+import { Swords, UserCircle, Users } from "lucide-react";
 import Link from "next/link";
 
 export function MembersHeader() {
@@ -22,12 +22,6 @@ export function MembersHeader() {
                 <span className="hidden sm:inline">Matches</span>
               </Link>
             </Button>
-            {/* <Button asChild variant="ghost" size="sm" className="gap-2">
-              <Link prefetch href="/private/tables">
-                <Table className="size-4" />
-                <span className="hidden sm:inline">Tables</span>
-              </Link>
-            </Button> */}
             <Button asChild variant="ghost" size="sm" className="gap-2">
               <Link prefetch href="/private/members">
                 <Users className="size-4" />
