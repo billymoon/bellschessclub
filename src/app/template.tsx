@@ -11,6 +11,7 @@ import { getDocumentsSince } from "@/modules/data/turso/turso";
 import { createClient } from "@sanity/client";
 import { useServerStore } from "@/stores/server-store-provider";
 import { MembersHeader } from "@/components/MembersHeader";
+import { usePathname, useRouter } from "next/navigation";
 
 const sanityClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -92,11 +93,15 @@ const useInitialDocuments = () => {
   return loadedDocuments;
 };
 
-export default function Template({ children }: { children: React.ReactNode }) {
+export default function Template({ children, ...props }: { children: React.ReactNode }) {
   try {
     const cookieUserInfo = useServerStore((state) => state.cookieUserInfo);
     const loadingMessage = useLoadingMessage();
     const documents = useInitialDocuments();
+
+    if (cookieUserInfo?.isGuest) {
+      return children
+    }
 
     if (!cookieUserInfo!.isMember) {
       db.delete();

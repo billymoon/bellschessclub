@@ -4,7 +4,7 @@ import {
   AllegroEventDocument,
   MatchDocument,
 } from "@/modules/data/document-schema";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MatchCard } from "@/components/MatchCard";
 import { Calendar, History, PlusSquare } from "lucide-react";
 import Link from "next/link";
@@ -37,6 +37,14 @@ export default function Page() {
   )^(<date)[]`) as (MatchDocument | AllegroEventDocument)[];
 
   const [showSince, setShowSince] = useState<string>(NOW);
+  const [showHeight, setShowHeight] = useState<number>(0);
+
+  useEffect(() => {
+    if (showSince === EPOCH) {
+      const afterHeight = window.document.body.getBoundingClientRect().height;
+      window.scrollTo(0, afterHeight - showHeight);
+    }
+  }, [showSince]);
 
   const nextSummercupMatch = matchData?.find(
     (match) => match.date >= NOW && match._type === "match" && match.team === 0,
@@ -70,7 +78,10 @@ export default function Page() {
         <Button
           variant={showSince === EPOCH ? "outline" : "secondary"}
           className="grow mt-4 cursor-pointer"
-          onClick={() => setShowSince(showSince === EPOCH ? NOW : EPOCH)}
+          onClick={() => {
+            setShowHeight(window.document.body.getBoundingClientRect().height);
+            setShowSince(showSince === EPOCH ? NOW : EPOCH);
+          }}
         >
           <History />
           {showSince === EPOCH ? "Hide historic" : "Show historic"}

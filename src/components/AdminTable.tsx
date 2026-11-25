@@ -7,12 +7,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Member, MemberPartial } from "@/modules/data/document-schema";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { updateDocumentById } from "@/modules/data/turso/turso";
 import { HatGlasses, Wand } from "lucide-react";
+import { MemberPartial, Member } from "@/modules/data/member-schema";
 
 const AdminTableRow = ({ member }: { member: MemberPartial }) => {
   const { register, handleSubmit } = useForm({
